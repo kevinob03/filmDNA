@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#0d0e11;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error-container": "#ffdad6", "surface-container-lowest": "#0d0e11", "secondary-fixed-dim": "#e0b6ff", "surface-container": "#1f1f23", "text-muted": "#8A90A2", "inverse-primary": "#006d36", "charcoal-elevated": "#101217", "secondary-fixed": "#f2daff", "on-primary-fixed-variant": "#005227", "outline-variant": "#3b4b3d", "neon-violet": "#7B2CBF", "on-tertiary": "#003919", "secondary": "#e0b6ff", "primary-fixed": "#60ff98", "tertiary-container": "#42fd8f", "tertiary-fixed-dim": "#09e479", "border-glow-purple": "rgba(157, 78, 221, 0.4)", "on-background": "#e3e2e6", "border-glow-green": "rgba(0, 255, 135, 0.35)", "on-secondary": "#4c007d", "on-surface-variant": "#b9cbb9", "surface-tint": "#00e478", "primary": "#f1ffef", "surface-container-highest": "#343538", "on-tertiary-fixed-variant": "#005227", "on-secondary-container": "#d7a4ff", "on-secondary-fixed": "#2e004e", "background": "#121316", "surface-variant": "#343538", "outline": "#849585", "error": "#ffb4ab", "text-high-contrast": "#F5F7FA", "surface-bright": "#38393d", "primary-container": "#00ff87", "surface": "#121316", "tertiary-fixed": "#60ff99", "on-secondary-fixed-variant": "#6a0baa", "on-surface": "#e3e2e6", "charcoal-surface": "#181A22", "on-tertiary-container": "#007139", "inverse-on-surface": "#2f3034", "error-container": "#93000a", "on-error": "#690005", "inverse-surface": "#e3e2e6", "border-glass": "rgba(255, 255, 255, 0.08)", "primary-fixed-dim": "#00e478", "on-primary-container": "#007138", "tertiary": "#f1ffef", "on-primary": "#003919", "on-tertiary-fixed": "#00210c", "neon-magenta": "#B5179E", "surface-container-high": "#292a2d", "surface-container-low": "#1b1b1f", "neon-glow-cyan": "#00F5D4", "surface-dim": "#121316", "secondary-container": "#6d11ad", "on-primary-fixed": "#00210c" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-md": "1rem", "margin-mobile": "1rem", "space-xs": "0.25rem", "margin": "2.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "gutter-mobile": "0.75rem" }, fontFamily: { "headline-xl-mobile": ["Space Grotesk"], "body-md": ["Space Grotesk"], "display-hero": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "data-metric": ["JetBrains Mono"], "body-lg": ["Space Grotesk"], "display-hero-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "data-label": ["JetBrains Mono"], "data-micro": ["JetBrains Mono"], "headline-sm": ["Space Grotesk"], "body-sm": ["Space Grotesk"], "headline-lg": ["Space Grotesk"] }, fontSize: { "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "data-metric": ["14px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "display-hero-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "data-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "data-micro": ["9px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-container selection:text-surface-container-lowest"><header class="fixed top-0 inset-x-0 z-50 bg-charcoal-elevated/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #00e5ff
+- Font: spaceGrotesk
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VWt3cunayUCo1YiMP_9H9uVFZ7i-fV-2c2BQ0jt8RsrCH-tyeybpg6naMFT5mdnFsyFoSu0XGx0AwjKeRCqTFT4aL5XO8eI0qs1tXPqf26nGFmfvzlqmYcy6P4r9sa0C2BWKVuXXOQZl5xJOJGYSEP8vG_z3L_yLm7rp-0M81PQAivm2MVQnsKg6faLIEyrJojnieyymRpEohq_YkL0dznKLEmRvmv51GHoui87ckxU_emqPa5EcoGtWvC"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold tracking-tight text-text-high-contrast">FilmDNA</span><span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-micro text-data-micro text-primary-container uppercase tracking-widest">LAB v2.4</span></div><span class="font-data-label text-data-label text-text-muted capitalize">Inicio</span></div></div><div class="flex items-center gap-space-sm"><button aria-label="Search Archive" class="w-11 h-11 rounded-full flex items-center justify-center text-text-muted hover:text-text-high-contrast transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></button><div class="relative flex items-center justify-center p-0.5 rounded-full"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary-container/40" src="https://lh3.googleusercontent.com/aida/AEtjO1VeM49F2ZWzSWKxzQ7D1hWmZqIiuNcCJii8IZlnbvygwAaBMG7WDpk55ax71tXd2bcaTFEUzchWFvsZybG0XGPbprq8yBURE9Lae_2FdYL9BXV4yQzLmwxkCQ4k5Mf_J7M0rJAQGM64qvAURZEuSp2i4XHLGyu-fXzfxHk7rmXqUVW9QdHB2y0xJn2qQFLLjIJQ9z3cBHLUunP3JTAsqzkFLDrlYEStZhj-FcnskCYVRK8_7yUeIBkGUw-i"/><span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-primary-container ring-2 ring-charcoal-elevated"></span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface-container-lowest"><div class="flex flex-col w-full text-on-surface">
+<!-- Top Atmospheric Ambient Aura (Non-intrusive) -->
+<div class="relative w-full overflow-hidden px-margin-mobile pt-space-sm pb-space-lg">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-44 bg-gradient-to-b from-primary-container/15 via-secondary/10 to-transparent blur-3xl pointer-events-none"></div>
+<!-- Section 1: Hero & Value Proposition -->
+<div class="relative flex flex-col gap-space-sm z-10">
+<!-- Badge Observatorio -->
+<div class="inline-flex items-center gap-space-xs self-start px-2.5 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00ff87]"></span>
+<span class="font-data-label text-data-label text-primary-container uppercase tracking-widest">OBSERVATORIO MULTI-DIMENSIONAL V2.4</span>
+</div>
+<!-- Impact Title -->
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-text-high-contrast leading-tight">
+        Descubre el cine según la 
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-[#38ef7d] to-secondary-fixed-dim">experiencia</span>
+        que quieres vivir, más allá de géneros tradicionales.
+      </h1>
+<!-- Telemetry Subtext -->
+<p class="font-body-md text-body-md text-text-muted">
+        Telemetría algorítmica FilmDNA calibrada en tiempo real: mapeo de tensión, densidad de atmósfera, cadencia de ritmo y resonancia psíquica profunda.
+      </p>
+</div>
+<!-- Section 2: Movie DNA del Día Card -->
+<div class="mt-space-lg relative rounded-xl bg-surface-container-low shadow-[0_12px_36px_rgba(0,0,0,0.7)] overflow-hidden">
+<!-- Glow strip top accent -->
+<div class="h-0.5 w-full bg-gradient-to-r from-transparent via-primary-container via-secondary-container to-transparent"></div>
+<!-- Card Content -->
+<div class="p-space-md flex flex-col gap-space-md">
+<!-- Header Metadata -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-data-micro text-data-micro text-primary-container tracking-wider uppercase bg-primary-container/10 px-2 py-0.5 rounded">MUESTRA DIARIA • TELEMETRÍA ACTIVA</span>
+<span class="font-data-label text-data-label text-text-muted">#8902</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-highest px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-primary-container text-[14px]">star</span>
+<span class="font-data-metric text-data-metric text-primary-container">9.4</span>
+</div>
+</div>
+<!-- Poster + Quick Info Grid -->
+<div class="flex gap-space-md items-start">
+<div class="relative w-28 h-40 shrink-0 rounded-lg overflow-hidden shadow-lg bg-surface-container">
+<img alt="Solaris Echoes poster" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VQKz6laMqVZxeRo4qP5vPVOBjGygW4n8s8gK2qTCpydz71K3Muej02D7lbbu1B4yK29-CvGSsKBT0YYoJWhCc_tk8wWOIiEIlmgCnJvUG-lHz5STfDwFwdnibyGED37GBI2FZ2Me2kL6LURcWIbqztibaAK-xDD9rsTilj58rmbaDFG6n7oJQ39DRbpnMP0Uwooua9ugQ8xx2k0hokKWZbVQuOemxuPkgSSNQbndzB2dCeoLMTcqRu22Ii"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-transparent to-transparent"></div>
+<span class="absolute bottom-1.5 left-1.5 font-data-micro text-data-micro text-primary-container uppercase px-1 rounded bg-surface-container-lowest/80 backdrop-blur-sm">4K SCAN</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-40 py-0.5">
+<div>
+<div class="flex items-center gap-1 text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-[15px]">psychology</span>
+<span class="font-data-micro text-data-micro uppercase tracking-wider">Sci-Fi Psicológico</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-text-high-contrast truncate mt-0.5">Solaris Echoes</h2>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2 mt-1">
+                Una anomalía ocular suspendida en el hiperespacio descompone los recuerdos de una tripulación varada.
+              </p>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<span class="font-data-micro text-data-micro text-text-muted">DIR. ELIZA REID</span>
+<span class="w-1 h-1 rounded-full bg-text-muted/40"></span>
+<span class="font-data-micro text-data-micro text-text-muted">2024</span>
+</div>
+</div>
+</div>
+<!-- Spectrum Telemetry Bars Grid -->
+<div class="rounded-lg bg-surface-container-lowest/70 p-space-sm flex flex-col gap-2 shadow-inner">
+<div class="flex items-center justify-between pb-1">
+<span class="font-data-label text-data-label text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-container">insights</span>
+              ESPECTRO VIVENCIAL ADN
+            </span>
+<span class="font-data-micro text-data-micro text-primary-container">MATCH COGNITIVO: 96%</span>
+</div>
+<!-- Metricas 2x3 compact grid -->
+<div class="grid grid-cols-2 gap-x-space-md gap-y-2">
+<!-- Misterio -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Misterio</span>
+<span class="text-primary-container font-semibold">94%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container shadow-[0_0_8px_#00ff87] rounded-full" style="width: 94%;"></div>
+</div>
+</div>
+<!-- Oscuridad -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Oscuridad</span>
+<span class="text-secondary-fixed-dim font-semibold">74%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container shadow-[0_0_8px_#9d4edd] rounded-full" style="width: 74%;"></div>
+</div>
+</div>
+<!-- Complejidad -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Complejidad</span>
+<span class="text-primary-container font-semibold">91%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container shadow-[0_0_8px_#00ff87] rounded-full" style="width: 91%;"></div>
+</div>
+</div>
+<!-- Tensión -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Tensión</span>
+<span class="text-secondary-fixed-dim font-semibold">80%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container shadow-[0_0_8px_#9d4edd] rounded-full" style="width: 80%;"></div>
+</div>
+</div>
+<!-- Surrealismo -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Surrealismo</span>
+<span class="text-secondary-fixed-dim font-semibold">65%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container shadow-[0_0_8px_#9d4edd] rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+<!-- Ritmo -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Ritmo Pausado</span>
+<span class="text-primary-container font-semibold">58%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container shadow-[0_0_8px_#00ff87] rounded-full" style="width: 58%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Buttons -->
+<div class="flex flex-col gap-space-xs pt-1">
+<button class="w-full h-12 rounded-lg bg-primary-container text-surface-container-lowest font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-space-xs tracking-wider uppercase transition-all duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(0,255,135,0.4)]">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">explore</span>
+            COMENZAR A EXPLORAR
+          </button>
+<button class="w-full h-10 rounded-lg bg-surface-container-high text-on-surface font-body-md text-body-md font-medium flex items-center justify-center gap-space-xs hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed-dim">tune</span>
+            Sintonizar experiencia
+          </button>
+</div>
+</div>
+</div>
+<!-- Section 3: Sintonizador Vivencial Rápido -->
+<div class="mt-space-xl rounded-xl bg-surface-container p-space-md shadow-md flex flex-col gap-space-md relative overflow-hidden">
+<!-- Glow highlight dot -->
+<div class="absolute top-0 right-0 w-36 h-36 bg-secondary-container/15 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[20px]">equalizer</span>
+<h3 class="font-headline-sm text-headline-sm text-text-high-contrast">Sintonizador Vivencial</h3>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted">Calibra según tu momento cognitivo actual</span>
+</div>
+<span class="font-data-micro text-data-micro text-primary-container bg-surface-container-highest px-2 py-0.5 rounded uppercase">LIVE BIAS</span>
+</div>
+<!-- Filter Controls: Touch Friendly horizontal chips -->
+<div class="flex flex-col gap-space-sm relative z-10">
+<!-- Estado de Ánimo -->
+<div class="flex flex-col gap-1.5">
+<span class="font-data-label text-data-label text-text-muted uppercase">Estado de Ánimo</span>
+<div class="flex gap-2 overflow-x-auto pb-1 -mx-space-md px-space-md">
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-primary-container text-surface-container-lowest font-headline-sm text-data-metric font-semibold flex items-center gap-1 shadow-[0_0_12px_rgba(0,255,135,0.35)]">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></span>
+              Reflexivo
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Inquieto
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Eufórico
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Melancólico
+            </button>
+</div>
+</div>
+<!-- Atmósfera -->
+<div class="flex flex-col gap-1.5">
+<span class="font-data-label text-data-label text-text-muted uppercase">Atmósfera Deseada</span>
+<div class="flex gap-2 overflow-x-auto pb-1 -mx-space-md px-space-md">
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-secondary-container text-text-high-contrast font-headline-sm text-data-metric font-semibold flex items-center gap-1 shadow-[0_0_12px_rgba(157,78,221,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+              Neo-Noir
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Onírica
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Distópica
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Orgánica
+            </button>
+</div>
+</div>
+<!-- Ritmo -->
+<div class="flex flex-col gap-1.5">
+<span class="font-data-label text-data-label text-text-muted uppercase">Cadencia Cinética</span>
+<div class="flex gap-2 overflow-x-auto pb-1 -mx-space-md px-space-md">
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-primary-container text-surface-container-lowest font-headline-sm text-data-metric font-semibold flex items-center gap-1 shadow-[0_0_12px_rgba(0,255,135,0.35)]">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></span>
+              Pausado
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Equilibrado
+            </button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+              Frenético
+            </button>
+</div>
+</div>
+<!-- Slider Intensidad -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex justify-between items-center font-data-label text-data-label">
+<span class="text-text-muted uppercase">Intensidad Sensorial</span>
+<span class="text-primary-container font-semibold">Nivel 8 / 10</span>
+</div>
+<div class="relative w-full h-4 flex items-center">
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container to-secondary-fixed-dim rounded-full" style="width: 80%;"></div>
+</div>
+<!-- Reticle Scrubber pointer -->
+<div class="absolute left-[80%] -translate-x-1/2 w-4 h-4 rounded-full bg-primary-container shadow-[0_0_10px_#00ff87] flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-12 rounded-lg bg-gradient-to-r from-primary-container via-[#10e57a] to-secondary-container text-surface-container-lowest font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs shadow-[0_4px_24px_rgba(0,255,135,0.35)] active:opacity-90">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+        GENERAR RECOMENDACIONES DE ADN
+      </button>
+</div>
+<!-- Section 4: Tendencias Cinematográficas -->
+<div class="mt-space-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-high-contrast">Tendencias Cinematográficas</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Películas resonando en el espectro FilmDNA</p>
+</div>
+<span class="font-data-micro text-data-micro text-secondary-fixed-dim bg-secondary-container/20 px-2.5 py-1 rounded-full uppercase tracking-wider">MULTI-SPECTRAL</span>
+</div>
+<!-- Vertical Cards Stack (Mobile Optimized) -->
+<div class="flex flex-col gap-space-md">
+<!-- Card 1: Solaris Echoes -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex gap-space-md items-center">
+<div class="relative w-20 h-28 shrink-0 rounded-lg overflow-hidden bg-surface-container-highest shadow">
+<img alt="Solaris Echoes movie poster" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VQKz6laMqVZxeRo4qP5vPVOBjGygW4n8s8gK2qTCpydz71K3Muej02D7lbbu1B4yK29-CvGSsKBT0YYoJWhCc_tk8wWOIiEIlmgCnJvUG-lHz5STfDwFwdnibyGED37GBI2FZ2Me2kL6LURcWIbqztibaAK-xDD9rsTilj58rmbaDFG6n7oJQ39DRbpnMP0Uwooua9ugQ8xx2k0hokKWZbVQuOemxuPkgSSNQbndzB2dCeoLMTcqRu22Ii"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-28 py-0.5">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-data-micro text-data-micro text-primary-container uppercase truncate">Sci-Fi / Drama Psicológico</span>
+<span class="font-data-metric text-data-metric text-primary-container flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">star</span> 8.9
+                </span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast truncate mt-0.5">Solaris Echoes</h4>
+</div>
+<!-- Spectral Mini-Track -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro text-text-muted">
+<span>Afinidad Espectral</span>
+<span class="text-primary-container font-semibold">96% ADN</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container to-secondary-fixed-dim rounded-full" style="width: 96%;"></div>
+</div>
+</div>
+<!-- CTA -->
+<button class="self-end px-3 py-1 rounded bg-primary-container text-surface-container-lowest font-headline-sm text-data-metric font-semibold hover:bg-opacity-90 flex items-center gap-1 shadow-sm">
+              Ver detalle
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2: The Hollow Clockwork -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex gap-space-md items-center">
+<div class="relative w-20 h-28 shrink-0 rounded-lg overflow-hidden bg-surface-container-highest shadow">
+<img alt="The Hollow Clockwork movie poster" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VT-FG03CEV7tejVp4z_4yTrMy4-QpSl-7NyH-iSUSXLewu5S_zGMndQyYre1vRUmw94XVdsRPDcG6zKx-pu-OSKBB5NrUJntKjpfcDq1EoHlw1J308QPcyROZSoV_LYwMbQ2rMUff-dfAqa_h8rls18cqzU5a_MJ5NnTq_lpR3_pWkGQ7rd_o_mgEnhJBDNkkX7cI2aRbqlHzgRgVlFGmG_dZifyXxHkqlon2qWlIXiSZqED04P8FsNpw"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-28 py-0.5">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-data-micro text-data-micro text-secondary-fixed-dim uppercase truncate">Neo-Noir / Misterio</span>
+<span class="font-data-metric text-data-metric text-secondary-fixed-dim flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">star</span> 9.1
+                </span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast truncate mt-0.5">The Hollow Clockwork</h4>
+</div>
+<!-- Spectral Mini-Track -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro text-text-muted">
+<span>Afinidad Espectral</span>
+<span class="text-secondary-fixed-dim font-semibold">92% ADN</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 92%;"></div>
+</div>
+</div>
+<!-- CTA -->
+<button class="self-end px-3 py-1 rounded bg-secondary-container text-text-high-contrast font-headline-sm text-data-metric font-semibold hover:bg-opacity-90 flex items-center gap-1 shadow-sm">
+              Ver detalle
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Memory of the Wind -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex gap-space-md items-center">
+<div class="relative w-20 h-28 shrink-0 rounded-lg overflow-hidden bg-surface-container-highest shadow">
+<img alt="Memory of the Wind movie poster" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1X61nu_fp39T-idnM56CUKx_d-UnierhgdBsKYLrYgFi6WYrFzFIv2A8YtLTrMwBja3B9Vg6_VQxE2NvtK0HBrI9lVtv_jjMvikVGU31PgiDQT7IPD18V_srrMHSUG08GN_OxZsT14t1MxNY0hSWT9SagP5x8lVrtLYwYfR6-Uo-BtFDpeWkF234lAY3VdQXeuyfrqVNgMrHSrcEm7qmfweKMwUICxG6Hnp177Zi_nkiDy3534C3fCgKWQL"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-28 py-0.5">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-data-micro text-data-micro text-primary-container uppercase truncate">Slow Cinema / Contemplativo</span>
+<span class="font-data-metric text-data-metric text-primary-container flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">star</span> 8.7
+                </span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast truncate mt-0.5">Memory of the Wind</h4>
+</div>
+<!-- Spectral Mini-Track -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-data-micro text-data-micro text-text-muted">
+<span>Afinidad Espectral</span>
+<span class="text-primary-container font-semibold">98% ADN</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 98%;"></div>
+</div>
+</div>
+<!-- CTA -->
+<button class="self-end px-3 py-1 rounded bg-primary-container text-surface-container-lowest font-headline-sm text-data-metric font-semibold hover:bg-opacity-90 flex items-center gap-1 shadow-sm">
+              Ver detalle
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 5: Módulos de la Plataforma (Touch Grid) -->
+<div class="mt-space-xl flex flex-col gap-space-sm mb-space-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[20px]">hub</span>
+<h3 class="font-headline-sm text-headline-sm text-text-high-contrast">Módulos de la Plataforma</h3>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">Instrumental analítico para la exploración cinematográfica</p>
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<!-- Card Modulo 1: Explorar -->
+<div class="rounded-xl bg-surface-container p-space-md flex flex-col justify-between gap-space-sm active:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">radar</span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[16px]">chevron_right</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast">Explorar</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Radar multi-eje</p>
+</div>
+</div>
+<!-- Card Modulo 2: Diario de Visionado -->
+<div class="rounded-xl bg-surface-container p-space-md flex flex-col justify-between gap-space-sm active:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[16px]">chevron_right</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast">Diario</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Bitácora de impacto</p>
+</div>
+</div>
+<!-- Card Modulo 3: Mis Listas -->
+<div class="rounded-xl bg-surface-container p-space-md flex flex-col justify-between gap-space-sm active:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">bookmarks</span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[16px]">chevron_right</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast">Mis Listas</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Colecciones curadas</p>
+</div>
+</div>
+<!-- Card Modulo 4: Estadísticas -->
+<div class="rounded-xl bg-surface-container p-space-md flex flex-col justify-between gap-space-sm active:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">ssid_chart</span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[16px]">chevron_right</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-high-contrast">Estadísticas</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Deconstrucción cinéfila</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for touch feedback on experiential chips
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('touchstart', () => {
+      btn.style.transform = 'scale(0.97)';
+    }, {passive: true});
+    btn.addEventListener('touchend', () => {
+      btn.style.transform = 'scale(1)';
+    }, {passive: true});
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-charcoal-elevated/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-container font-semibold drop-shadow-[0_0_10px_rgba(0,255,135,0.45)]"><div class="flex justify-around items-center h-16 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] transition-all duration-200 text-primary-container font-semibold drop-shadow-[0_0_10px_rgba(0,255,135,0.45)]" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">theater_comedy</span><span class="font-data-label text-data-label">Inicio</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-text-muted transition-all duration-200" data-path="explorar" href="#"><span class="material-symbols-outlined text-[22px]">radar</span><span class="font-data-label text-data-label">Explorar</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-text-muted transition-all duration-200" data-path="adn-mix" href="#"><span class="material-symbols-outlined text-[22px]">biotech</span><span class="font-data-label text-data-label">ADN Mix</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-text-muted transition-all duration-200" data-path="diario" href="#"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-data-label text-data-label">Diario</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-text-muted transition-all duration-200" data-path="perfil" href="#"><span class="material-symbols-outlined text-[22px]">fingerprint</span><span class="font-data-label text-data-label">Perfil</span></a></div></nav></body></html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"neon-glow-cyan":"#00F5D4","charcoal-elevated":"#101217","tertiary-fixed-dim":"#09e479","neon-violet":"#7B2CBF","outline":"#849585","surface-container":"#1f1f23","on-secondary":"#4c007d","tertiary-container":"#42fd8f","tertiary-fixed":"#60ff99","on-primary-container":"#007138","inverse-on-surface":"#2f3034","surface-dim":"#121316","on-tertiary-fixed":"#00210c","on-error":"#690005","secondary":"#e0b6ff","on-surface":"#e3e2e6","background":"#121316","border-glow-purple":"rgba(157, 78, 221, 0.4)","on-primary-fixed-variant":"#005227","surface-bright":"#38393d","on-secondary-container":"#d7a4ff","error-container":"#93000a","on-background":"#e3e2e6","secondary-container":"#6d11ad","error":"#ffb4ab","on-tertiary-fixed-variant":"#005227","on-primary-fixed":"#00210c","primary-container":"#00ff87","secondary-fixed-dim":"#e0b6ff","on-error-container":"#ffdad6","on-surface-variant":"#b9cbb9","inverse-primary":"#006d36","surface-variant":"#343538","on-tertiary-container":"#007139","outline-variant":"#3b4b3d","surface-tint":"#00e478","secondary-fixed":"#f2daff","inverse-surface":"#e3e2e6","primary-fixed-dim":"#00e478","on-tertiary":"#003919","on-secondary-fixed-variant":"#6a0baa","charcoal-surface":"#181A22","primary-fixed":"#60ff98","border-glow-green":"rgba(0, 255, 135, 0.35)","primary":"#f1ffef","surface-container-highest":"#343538","border-glass":"rgba(255, 255, 255, 0.08)","neon-magenta":"#B5179E","surface-container-lowest":"#0d0e11","on-primary":"#003919","text-muted":"#8A90A2","text-high-contrast":"#F5F7FA","on-secondary-fixed":"#2e004e","surface":"#121316","tertiary":"#f1ffef","surface-container-high":"#292a2d","surface-container-low":"#1b1b1f"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1.5rem","space-md":"1rem","space-xl":"2.5rem","gutter-mobile":"0.75rem","space-lg":"1.5rem","space-sm":"0.5rem","margin-mobile":"1rem","margin":"2.5rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Space Grotesk"],"data-label":["JetBrains Mono"],"headline-md":["Space Grotesk"],"display-hero-mobile":["Space Grotesk"],"headline-lg":["Space Grotesk"],"data-metric":["JetBrains Mono"],"data-micro":["JetBrains Mono"],"display-hero":["Space Grotesk"],"headline-sm":["Space Grotesk"],"headline-xl-mobile":["Space Grotesk"],"body-md":["Space Grotesk"],"headline-xl":["Space Grotesk"],"body-sm":["Space Grotesk"]},"fontSize":{"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"data-label":["11px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"500"}],"display-hero-mobile":["36px",{"lineHeight":"42px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["32px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"600"}],"data-metric":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"600"}],"data-micro":["9px",{"lineHeight":"12px","letterSpacing":"0.16em","fontWeight":"500"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"500"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-charcoal-elevated/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-20 w-full px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" data-path="inicio" href="#"><img alt="Brand logo. - Primary color: #00e5ff
+- Font: spaceGrotesk
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VWt3cunayUCo1YiMP_9H9uVFZ7i-fV-2c2BQ0jt8RsrCH-tyeybpg6naMFT5mdnFsyFoSu0XGx0AwjKeRCqTFT4aL5XO8eI0qs1tXPqf26nGFmfvzlqmYcy6P4r9sa0C2BWKVuXXOQZl5xJOJGYSEP8vG_z3L_yLm7rp-0M81PQAivm2MVQnsKg6faLIEyrJojnieyymRpEohq_YkL0dznKLEmRvmv51GHoui87ckxU_emqPa5EcoGtWvC"/><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-text-high-contrast hidden sm:inline-block">Film<span class="text-primary-container">DNA</span></span></a><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary-container font-headline-sm rounded-lg"><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="inicio" href="#">Inicio</a><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="explorar" href="#">Explorar</a><a aria-current="page" class="px-space-sm py-space-xs transition-colors bg-surface-container-high text-primary-container font-headline-sm rounded-lg" data-path="recomendaciones" href="#">Recomendaciones</a><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="diario" href="#">Diario</a><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="mis-listas" href="#">Mis listas</a><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="estadisticas" href="#">Estadísticas</a><a class="px-space-sm py-space-xs font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="perfil" href="#">Perfil</a></nav></div><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-xs px-space-sm py-space-xs bg-secondary-container/20 rounded-lg hover:bg-secondary-container/40 transition-colors" data-path="administracion" href="#"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span class="font-data-label text-data-label uppercase tracking-widest text-secondary">Administración</span></a><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VeM49F2ZWzSWKxzQ7D1hWmZqIiuNcCJii8IZlnbvygwAaBMG7WDpk55ax71tXd2bcaTFEUzchWFvsZybG0XGPbprq8yBURE9Lae_2FdYL9BXV4yQzLmwxkCQ4k5Mf_J7M0rJAQGM64qvAURZEuSp2i4XHLGyu-fXzfxHk7rmXqUVW9QdHB2y0xJn2qQFLLjIJQ9z3cBHLUunP3JTAsqzkFLDrlYEStZhj-FcnskCYVRK8_7yUeIBkGUw-i"/><span class="material-symbols-outlined text-text-muted hover:text-on-surface text-body-lg cursor-pointer transition-colors">expand_more</span></div></div></div></header><main class="w-full pt-20 bg-surface flex-1"><div class="flex flex-col w-full">
+<!-- Optical Ambient Aura -->
+<div class="relative w-full overflow-hidden px-margin py-space-xl">
+<div class="pointer-events-none absolute -top-40 -left-32 w-96 h-96 bg-primary-container/10 rounded-full blur-[120px]"></div>
+<div class="pointer-events-none absolute top-48 right-0 w-[500px] h-[500px] bg-secondary-container/20 rounded-full blur-[140px]"></div>
+<!-- Section Header -->
+<section class="relative z-10 mb-space-xl">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-data-label text-data-label uppercase tracking-widest text-text-muted">Motor de Inferencia Cuántica · Calibración Activa</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-high-contrast tracking-tight mb-space-xs">
+        Recomendaciones Personalizadas
+      </h1>
+<p class="font-body-lg text-body-lg text-text-muted max-w-3xl">
+        Configura el tipo de experiencia que buscas o utiliza la búsqueda con lenguaje natural.
+      </p>
+</section>
+<!-- Main Two-Column Control Center -->
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- Left Deck: Sintonizador de Experiencia (8 Cols) -->
+<section class="lg:col-span-8 bg-charcoal-elevated/90 rounded-xl p-space-lg backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+<div>
+<!-- Sub-Header with Status Indicator -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-lg pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-body-md">tune</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-text-high-contrast tracking-tight leading-none">
+                  ¿Qué quieres sentir hoy?
+                </h2>
+<span class="font-data-micro text-data-micro uppercase tracking-widest text-text-muted">Sintonizador de Experiencia</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low">
+<span class="font-data-micro text-data-micro uppercase tracking-wider text-text-muted">Perfiles indexados:</span>
+<span class="font-data-metric text-data-metric text-primary-container">12,480</span>
+</div>
+</div>
+<!-- Parameter 1: Estado de Ánimo -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Estado de ánimo</label>
+<span class="font-data-micro text-data-micro text-text-muted">Parámetro EM-01</span>
+</div>
+<div class="flex flex-wrap gap-space-xs" id="mood-chips">
+<button class="group flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary-container/15 text-primary-container font-headline-sm text-headline-sm transition-all shadow-[0_0_12px_rgba(0,255,135,0.25)]" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Reflexivo</span>
+<span class="material-symbols-outlined text-body-sm font-semibold">check</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Melancólico</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Inquieto</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Eufórico</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Contemplativo</span>
+</button>
+</div>
+</div>
+<!-- Parameter 2: Atmósfera -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Atmósfera</label>
+<span class="font-data-micro text-data-micro text-text-muted">Vector Espacial</span>
+</div>
+<div class="flex flex-wrap gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary-container/15 text-primary-container font-headline-sm text-headline-sm shadow-[0_0_12px_rgba(0,255,135,0.25)]" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Neo-Noir</span>
+<span class="material-symbols-outlined text-body-sm font-semibold">check</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Onírica</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Opresiva</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Minimalista</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container text-text-muted hover:text-text-high-contrast font-headline-sm text-headline-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>Distópica</span>
+</button>
+</div>
+</div>
+<!-- Parameter 3 & 4: Ritmo & Complejidad (Dual Segmented Bars) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mb-space-lg">
+<!-- Ritmo -->
+<div class="bg-surface-container-lowest/80 p-space-sm rounded-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Ritmo</label>
+<span class="font-data-micro text-data-micro text-primary-container">Tempo Lento</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs bg-surface-container-low p-1 rounded">
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded bg-primary-container text-on-primary font-medium shadow-[0_0_12px_rgba(0,255,135,0.4)] transition-all" type="button">
+                  Pausado ✓
+                </button>
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded text-text-muted hover:text-text-high-contrast transition-colors" type="button">
+                  Equilibrado
+                </button>
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded text-text-muted hover:text-text-high-contrast transition-colors" type="button">
+                  Dinámico
+                </button>
+</div>
+</div>
+<!-- Complejidad -->
+<div class="bg-surface-container-lowest/80 p-space-sm rounded-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Complejidad</label>
+<span class="font-data-micro text-data-micro text-secondary">No-lineal</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs bg-surface-container-low p-1 rounded">
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded text-text-muted hover:text-text-high-contrast transition-colors" type="button">
+                  Accesible
+                </button>
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded text-text-muted hover:text-text-high-contrast transition-colors" type="button">
+                  Moderada
+                </button>
+<button class="py-space-xs text-center font-headline-sm text-headline-sm rounded bg-secondary text-on-secondary font-medium shadow-[0_0_12px_rgba(224,182,255,0.35)] transition-all" type="button">
+                  Laberíntica ✓
+                </button>
+</div>
+</div>
+</div>
+<!-- Parameter 5 & 6: Duración & Intensidad -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md mb-space-lg">
+<!-- Duración -->
+<div class="md:col-span-5 bg-surface-container-lowest/80 p-space-sm rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Duración</label>
+<span class="material-symbols-outlined text-body-sm text-text-muted">schedule</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-high px-space-md py-space-xs rounded">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-headline-sm text-headline-sm text-text-high-contrast font-medium">90 - 120 min</span>
+</div>
+<span class="font-data-micro text-data-micro text-primary-container uppercase tracking-wider font-semibold">Seleccionado ✓</span>
+</div>
+<div class="flex justify-between items-center pt-space-xs">
+<span class="font-data-micro text-data-micro text-text-muted">&lt; 90m</span>
+<span class="font-data-micro text-data-micro text-primary-container font-semibold">90-120m</span>
+<span class="font-data-micro text-data-micro text-text-muted">&gt; 150m</span>
+</div>
+</div>
+<!-- Intensidad Slider -->
+<div class="md:col-span-7 bg-surface-container-lowest/80 p-space-sm rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<label class="font-data-label text-data-label uppercase tracking-wider text-on-surface">Intensidad</label>
+<span class="font-data-micro text-data-micro px-space-xs py-0.5 rounded bg-surface-container-high text-secondary">Nivel 8 / 10</span>
+</div>
+<span class="font-data-label text-data-label text-primary-container tracking-wide font-medium">Sensorial Profunda</span>
+</div>
+<!-- Reticle Scrubber Visualization -->
+<div class="py-space-xs">
+<div class="relative w-full h-3 bg-charcoal-surface rounded-full flex items-center">
+<!-- Filled track -->
+<div class="h-1.5 w-[80%] rounded-full bg-gradient-to-r from-primary-container via-neon-glow-cyan to-secondary"></div>
+<!-- Calibrated Head -->
+<div class="absolute left-[80%] -translate-x-1/2 w-4 h-6 rounded-sm bg-primary-container shadow-[0_0_14px_rgba(0,255,135,0.8)] flex items-center justify-center cursor-pointer">
+<span class="w-0.5 h-3 bg-surface-container-lowest"></span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-text-muted font-data-micro text-data-micro pt-space-xs">
+<span>01 Ligera</span>
+<span>05 Intermedia</span>
+<span class="text-primary-container font-semibold">08 Profunda</span>
+<span>10 Catártica</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Master Trigger Button -->
+<div class="pt-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs text-text-muted font-data-micro text-data-micro">
+<span class="material-symbols-outlined text-body-sm text-primary-container">sync</span>
+<span>Algoritmo de alineación espectral v4.1 calibrado</span>
+</div>
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-space-lg py-space-sm rounded bg-primary-container hover:bg-tertiary-fixed-dim text-on-primary font-headline-sm text-headline-sm tracking-wider uppercase transition-all duration-200 shadow-[0_0_24px_rgba(0,255,135,0.45)] hover:shadow-[0_0_32px_rgba(0,255,135,0.65)] active:scale-95" type="button">
+<span class="material-symbols-outlined text-body-lg">auto_awesome</span>
+<span class="font-semibold">Generar Recomendaciones</span>
+</button>
+</div>
+</section>
+<!-- Right Deck: AI Natural Language Module (4 Cols) -->
+<section class="lg:col-span-4 bg-charcoal-elevated/90 rounded-xl p-space-lg backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+<div>
+<!-- Header with Spark Icon -->
+<div class="flex items-center gap-space-sm mb-space-sm">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/40 flex items-center justify-center text-secondary shadow-[0_0_14px_rgba(157,78,221,0.35)]">
+<span class="material-symbols-outlined text-body-lg">psychology</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-text-high-contrast font-medium">Describe qué quieres ver</h3>
+<span class="font-data-micro text-data-micro uppercase px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold">IA NLP</span>
+</div>
+<span class="font-data-micro text-data-micro uppercase tracking-widest text-text-muted">Búsqueda Semántica Abierta</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mb-space-md">
+            Escribe en tus propias palabras la temática, sensación o tipo de historia que deseas encontrar.
+          </p>
+<!-- Input Area -->
+<div class="relative mb-space-md">
+<div class="bg-surface-container-lowest rounded-lg p-space-sm focus-within:shadow-[0_0_18px_rgba(157,78,221,0.35)] transition-all">
+<div class="flex items-center justify-between pb-space-xs font-data-micro text-data-micro text-text-muted">
+<span class="uppercase">Prompt Semántico</span>
+<span class="text-secondary font-mono">TOKENS: 14/120</span>
+</div>
+<textarea class="w-full bg-transparent text-text-high-contrast placeholder:text-text-muted font-body-sm text-body-sm focus:outline-none resize-none leading-relaxed" placeholder="Quiero algo de ciencia ficción, oscuro, existencial y que no sea muy largo..." rows="5">Quiero algo de ciencia ficción, oscuro, existencial y que no sea muy largo...</textarea>
+</div>
+</div>
+<!-- Semantic Radar Chips -->
+<div class="space-y-space-xs mb-space-md">
+<span class="font-data-micro text-data-micro uppercase tracking-wider text-text-muted block">Inferencia automática detectada</span>
+<div class="flex flex-wrap gap-space-xs">
+<span class="font-data-micro text-data-micro px-space-xs py-1 rounded bg-secondary-container/25 text-secondary">Tema: Existencialismo espacial</span>
+<span class="font-data-micro text-data-micro px-space-xs py-1 rounded bg-surface-container-high text-on-surface-variant">&lt; 115m Metraje</span>
+<span class="font-data-micro text-data-micro px-space-xs py-1 rounded bg-surface-container-high text-on-surface-variant">Tono: Umbrío</span>
+</div>
+</div>
+</div>
+<!-- Action Button Secondary Violet -->
+<div>
+<button class="w-full py-space-sm px-space-md rounded-lg bg-secondary-container/25 hover:bg-secondary-container/50 text-text-high-contrast font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-space-sm transition-all duration-200 shadow-[0_0_20px_rgba(157,78,221,0.35)] hover:shadow-[0_0_28px_rgba(157,78,221,0.55)] active:scale-98" type="button">
+<span class="material-symbols-outlined text-body-md text-secondary">grain</span>
+<span class="font-semibold text-secondary">Buscar con IA</span>
+</button>
+<div class="text-center pt-space-xs">
+<span class="font-data-micro text-data-micro text-text-muted">Análisis cruzado con catálogo curado y guías críticas</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Recommendations Section -->
+<section class="relative z-10">
+<!-- Section Results Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg pb-space-sm">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-data-label text-data-label uppercase tracking-widest text-primary-container font-medium">Sintonía Óptica Alcanzada</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-text-high-contrast tracking-tight">
+            3 Películas recomendadas según tu calibración actual
+          </h2>
+</div>
+<div class="flex items-center gap-space-xs text-text-muted font-data-micro text-data-micro">
+<span>ORDENADO POR: AFINIDAD ESTRUCTURAL</span>
+<span class="material-symbols-outlined text-body-sm text-primary-container">tune</span>
+</div>
+</div>
+<!-- Recommendation Cards Mosaic Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- CARD 1: Solaris Echoes -->
+<article class="group bg-charcoal-elevated/95 rounded-xl overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-[0_0_30px_-5px_rgba(0,255,135,0.3)] transition-all duration-300">
+<div>
+<!-- Poster Frame with Ambient Edge -->
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-lowest">
+<img alt="Póster de Solaris Echoes" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1VQKz6laMqVZxeRo4qP5vPVOBjGygW4n8s8gK2qTCpydz71K3Muej02D7lbbu1B4yK29-CvGSsKBT0YYoJWhCc_tk8wWOIiEIlmgCnJvUG-lHz5STfDwFwdnibyGED37GBI2FZ2Me2kL6LURcWIbqztibaAK-xDD9rsTilj58rmbaDFG6n7oJQ39DRbpnMP0Uwooua9ugQ8xx2k0hokKWZbVQuOemxuPkgSSNQbndzB2dCeoLMTcqRu22Ii"/>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-elevated via-charcoal-elevated/30 to-transparent"></div>
+<!-- Compatibility Tag -->
+<div class="absolute top-space-sm left-space-sm">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded bg-charcoal-elevated/90 backdrop-blur-md text-primary-container font-data-label text-data-label tracking-wide uppercase shadow-[0_0_12px_rgba(0,255,135,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                  Alta coincidencia
+                </span>
+</div>
+<!-- Runtime & Year Pill -->
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md text-text-high-contrast font-data-micro text-data-micro">
+                  112 MIN · 2024
+                </span>
+</div>
+<div class="absolute bottom-space-sm left-space-md right-space-md">
+<span class="font-data-micro text-data-micro uppercase tracking-widest text-primary-container font-medium block">Drama Psicológico / Sci-Fi</span>
+<h3 class="font-headline-md text-headline-md text-text-high-contrast font-bold leading-tight">Solaris Echoes</h3>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-space-md space-y-space-md">
+<!-- Visual Affinity Explanation Block -->
+<div class="bg-surface-container-low/90 rounded-lg p-space-sm">
+<div class="flex items-center gap-space-xs text-primary-container font-data-micro text-data-micro uppercase tracking-wider mb-space-xs font-semibold">
+<span class="material-symbols-outlined text-body-sm">insights</span>
+<span>¿Por qué coincide?</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  Coincide con tu búsqueda de ritmo pausado y atmósfera existencial. Presenta alta complejidad narrativa y un tono reflexivo.
+                </p>
+</div>
+<!-- Mini Desglose Movie DNA -->
+<div class="bg-surface-container-lowest/80 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between font-data-micro text-data-micro text-text-muted uppercase tracking-wider mb-space-xs">
+<span>Desglose Movie DNA</span>
+<span class="text-primary-container">Alineación Espectral</span>
+</div>
+<!-- DNA Metric 1 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Ritmo Pausado</span>
+<span class="text-primary-container font-mono">Óptimo</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[94%]"></div>
+</div>
+</div>
+<!-- DNA Metric 2 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Complejidad Narrativa</span>
+<span class="text-secondary font-mono">Laberíntica</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[90%]"></div>
+</div>
+</div>
+<!-- DNA Metric 3 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Intensidad Sensorial</span>
+<span class="text-neon-glow-cyan font-mono">8.4 / 10</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-neon-glow-cyan w-[84%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-space-md pt-0">
+<button class="w-full py-space-xs px-space-md rounded bg-surface-container-high hover:bg-surface-bright text-text-high-contrast font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors group-hover:text-primary-container" type="button">
+<span>Ver detalles</span>
+<span class="material-symbols-outlined text-body-md transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 2: The Hollow Clockwork -->
+<article class="group bg-charcoal-elevated/95 rounded-xl overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-[0_0_30px_-5px_rgba(157,78,221,0.35)] transition-all duration-300">
+<div>
+<!-- Poster Frame with Ambient Edge -->
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-lowest">
+<img alt="Póster de The Hollow Clockwork" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1VT-FG03CEV7tejVp4z_4yTrMy4-QpSl-7NyH-iSUSXLewu5S_zGMndQyYre1vRUmw94XVdsRPDcG6zKx-pu-OSKBB5NrUJntKjpfcDq1EoHlw1J308QPcyROZSoV_LYwMbQ2rMUff-dfAqa_h8rls18cqzU5a_MJ5NnTq_lpR3_pWkGQ7rd_o_mgEnhJBDNkkX7cI2aRbqlHzgRgVlFGmG_dZifyXxHkqlon2qWlIXiSZqED04P8FsNpw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-elevated via-charcoal-elevated/30 to-transparent"></div>
+<!-- Compatibility Tag -->
+<div class="absolute top-space-sm left-space-sm">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded bg-charcoal-elevated/90 backdrop-blur-md text-secondary font-data-label text-data-label tracking-wide uppercase shadow-[0_0_12px_rgba(157,78,221,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Coincidencia directa en atmósfera
+                </span>
+</div>
+<!-- Runtime & Year Pill -->
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md text-text-high-contrast font-data-micro text-data-micro">
+                  104 MIN · 2023
+                </span>
+</div>
+<div class="absolute bottom-space-sm left-space-md right-space-md">
+<span class="font-data-micro text-data-micro uppercase tracking-widest text-secondary font-medium block">Neo-Noir / Suspense</span>
+<h3 class="font-headline-md text-headline-md text-text-high-contrast font-bold leading-tight">The Hollow Clockwork</h3>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-space-md space-y-space-md">
+<!-- Visual Affinity Explanation Block -->
+<div class="bg-surface-container-low/90 rounded-lg p-space-sm">
+<div class="flex items-center gap-space-xs text-secondary font-data-micro text-data-micro uppercase tracking-wider mb-space-xs font-semibold">
+<span class="material-symbols-outlined text-body-sm">insights</span>
+<span>¿Por qué coincide?</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  Comparte el estilo neo-noir y la intensidad sensorial seleccionada, con una estructura de misterio intrincada.
+                </p>
+</div>
+<!-- Mini Desglose Movie DNA -->
+<div class="bg-surface-container-lowest/80 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between font-data-micro text-data-micro text-text-muted uppercase tracking-wider mb-space-xs">
+<span>Desglose Movie DNA</span>
+<span class="text-secondary">Alineación Espectral</span>
+</div>
+<!-- DNA Metric 1 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Atmósfera Neo-Noir</span>
+<span class="text-secondary font-mono">100% Directa</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-full"></div>
+</div>
+</div>
+<!-- DNA Metric 2 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Misterio Intrincado</span>
+<span class="text-primary-container font-mono">Laberíntico</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[88%]"></div>
+</div>
+</div>
+<!-- DNA Metric 3 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Intensidad Sensorial</span>
+<span class="text-neon-glow-cyan font-mono">8.0 / 10</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-neon-glow-cyan w-[80%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-space-md pt-0">
+<button class="w-full py-space-xs px-space-md rounded bg-surface-container-high hover:bg-surface-bright text-text-high-contrast font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors group-hover:text-secondary" type="button">
+<span>Ver detalles</span>
+<span class="material-symbols-outlined text-body-md transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 3: Memory of the Wind -->
+<article class="group bg-charcoal-elevated/95 rounded-xl overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-[0_0_30px_-5px_rgba(0,245,212,0.3)] transition-all duration-300">
+<div>
+<!-- Poster Frame with Ambient Edge -->
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-lowest">
+<img alt="Póster de Memory of the Wind" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1X61nu_fp39T-idnM56CUKx_d-UnierhgdBsKYLrYgFi6WYrFzFIv2A8YtLTrMwBja3B9Vg6_VQxE2NvtK0HBrI9lVtv_jjMvikVGU31PgiDQT7IPD18V_srrMHSUG08GN_OxZsT14t1MxNY0hSWT9SagP5x8lVrtLYwYfR6-Uo-BtFDpeWkF234lAY3VdQXeuyfrqVNgMrHSrcEm7qmfweKMwUICxG6Hnp177Zi_nkiDy3534C3fCgKWQL"/>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-elevated via-charcoal-elevated/30 to-transparent"></div>
+<!-- Compatibility Tag -->
+<div class="absolute top-space-sm left-space-sm">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded bg-charcoal-elevated/90 backdrop-blur-md text-neon-glow-cyan font-data-label text-data-label tracking-wide uppercase shadow-[0_0_12px_rgba(0,245,212,0.35)]">
+<span class="w-1.5 h-1.5 rounded-full bg-neon-glow-cyan"></span>
+                  Coincidencia de ritmo y estado de ánimo
+                </span>
+</div>
+<!-- Runtime & Year Pill -->
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md text-text-high-contrast font-data-micro text-data-micro">
+                  98 MIN · 2023
+                </span>
+</div>
+<div class="absolute bottom-space-sm left-space-md right-space-md">
+<span class="font-data-micro text-data-micro uppercase tracking-widest text-neon-glow-cyan font-medium block">Cine Poético / Contemplativo</span>
+<h3 class="font-headline-md text-headline-md text-text-high-contrast font-bold leading-tight">Memory of the Wind</h3>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-space-md space-y-space-md">
+<!-- Visual Affinity Explanation Block -->
+<div class="bg-surface-container-low/90 rounded-lg p-space-sm">
+<div class="flex items-center gap-space-xs text-neon-glow-cyan font-data-micro text-data-micro uppercase tracking-wider mb-space-xs font-semibold">
+<span class="material-symbols-outlined text-body-sm">insights</span>
+<span>¿Por qué coincide?</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  Ideal para un estado contemplativo con ritmo pausado y duración inferior a 110 minutos.
+                </p>
+</div>
+<!-- Mini Desglose Movie DNA -->
+<div class="bg-surface-container-lowest/80 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between font-data-micro text-data-micro text-text-muted uppercase tracking-wider mb-space-xs">
+<span>Desglose Movie DNA</span>
+<span class="text-neon-glow-cyan">Alineación Espectral</span>
+</div>
+<!-- DNA Metric 1 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Estado Contemplativo</span>
+<span class="text-neon-glow-cyan font-mono">Consonancia Alta</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-neon-glow-cyan w-[96%]"></div>
+</div>
+</div>
+<!-- DNA Metric 2 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Ritmo Pausado</span>
+<span class="text-primary-container font-mono">Tempo Lento</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[92%]"></div>
+</div>
+</div>
+<!-- DNA Metric 3 -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-micro text-data-micro">
+<span class="text-text-muted">Metraje (&lt; 110 min)</span>
+<span class="text-secondary font-mono">98 min (Exacto)</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[82%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-space-md pt-0">
+<button class="w-full py-space-xs px-space-md rounded bg-surface-container-high hover:bg-surface-bright text-text-high-contrast font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors group-hover:text-neon-glow-cyan" type="button">
+<span>Ver detalles</span>
+<span class="material-symbols-outlined text-body-md transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+</section>
+<!-- Calibration Info Strip Footer -->
+<section class="mt-space-xl p-space-md rounded-xl bg-surface-container-lowest/90 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-text-high-contrast">Calibración adaptativa en tiempo real</div>
+<div class="font-body-sm text-body-sm text-text-muted">Las selecciones se contrastan con más de 200 vectores cromáticos y analíticos por película.</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm font-data-metric text-data-metric text-text-muted">
+<span class="text-primary-container">SYS STATUS:</span>
+<span class="font-mono text-text-high-contrast">NORMALIZED [OK]</span>
+</div>
+</section>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest"><div class="w-full px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl mb-space-xl"><div class="space-y-space-sm md:col-span-1"><div class="flex items-center gap-space-sm"><img alt="Brand logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VWt3cunayUCo1YiMP_9H9uVFZ7i-fV-2c2BQ0jt8RsrCH-tyeybpg6naMFT5mdnFsyFoSu0XGx0AwjKeRCqTFT4aL5XO8eI0qs1tXPqf26nGFmfvzlqmYcy6P4r9sa0C2BWKVuXXOQZl5xJOJGYSEP8vG_z3L_yLm7rp-0M81PQAivm2MVQnsKg6faLIEyrJojnieyymRpEohq_YkL0dznKLEmRvmv51GHoui87ckxU_emqPa5EcoGtWvC"/><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-text-high-contrast">Film<span class="text-primary-container">DNA</span></span></div><p class="font-body-sm text-body-sm text-text-muted">Catálogo analítico e indexación de metadatos para la apreciación crítica, preservación y curaduría cinematográfica.</p><div class="flex items-center gap-space-xs pt-space-xs"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="font-data-label text-data-label text-text-muted uppercase">Sistema Óptico Activo</span></div></div><div class="space-y-space-xs"><div class="font-data-label text-data-label text-text-high-contrast uppercase tracking-widest mb-space-sm">Navegación</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Explorar catálogo</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Curadurías de temporada</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Registro de visionado</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Archivo temático</li></ul></div><div class="space-y-space-xs"><div class="font-data-label text-data-label text-text-high-contrast uppercase tracking-widest mb-space-sm">Metadatos &amp; Criterios</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Estructura de taxonomía</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Registro de directores</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Formatos y película</li><li class="cursor-pointer text-text-muted hover:text-on-surface transition-colors">Pautas de indexación</li></ul></div><div class="space-y-space-xs"><div class="font-data-label text-data-label text-text-high-contrast uppercase tracking-widest mb-space-sm">Accesibilidad &amp; Soporte</div><div class="flex items-center gap-space-xs text-text-muted hover:text-on-surface cursor-pointer"><span class="material-symbols-outlined text-body-md">accessibility_new</span><span class="font-body-sm text-body-sm">Modo Alto Contraste</span></div><div class="flex items-center gap-space-xs text-text-muted hover:text-on-surface cursor-pointer"><span class="material-symbols-outlined text-body-md">keyboard</span><span class="font-body-sm text-body-sm">Atajos de Teclado</span></div><div class="flex items-center gap-space-xs text-text-muted hover:text-on-surface cursor-pointer"><span class="material-symbols-outlined text-body-md">terminal</span><span class="font-data-label text-data-label uppercase">API de Consulta v2.4</span></div></div></div><div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-text-muted"><div class="flex items-center gap-space-sm"><span class="font-data-micro text-data-micro tracking-widest uppercase">FilmDNA Console © 2025</span><span class="text-surface-container-highest">|</span><span>Preservación y Documentación de Cine</span></div><div class="flex items-center gap-space-lg font-data-label text-data-label uppercase tracking-wider"><span class="hover:text-on-surface cursor-pointer transition-colors">Privacidad</span><span class="hover:text-on-surface cursor-pointer transition-colors">Términos</span><span class="hover:text-on-surface cursor-pointer transition-colors">Declaración de Datos</span></div></div></div></footer></body></html>
