@@ -6,7 +6,7 @@ const getYear = (date) => date?.slice(0, 4) || null
 
 function MovieCard({ movie }) {
   const title = movie.title || movie.original_title || 'Título no disponible'
-  const posterUrl = buildTmdbImageUrl(movie.poster_path, 'w500')
+  const posterUrl = movie.posterUrl || buildTmdbImageUrl(movie.poster_path, 'w500')
   const score = Number.isFinite(movie.vote_average) && movie.vote_count > 0
     ? movie.vote_average.toFixed(1)
     : null

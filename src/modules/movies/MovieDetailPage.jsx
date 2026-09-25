@@ -4,9 +4,10 @@ import ContentState from '../../shared/components/ContentState.jsx'
 import PageContainer from '../../shared/components/PageContainer.jsx'
 import {
   buildTmdbImageUrl,
-  getMovieDetails,
   getTmdbErrorMessage,
 } from '../../services/tmdbService.js'
+import { getMovieDetails } from '../../services/movieService.js'
+import MovieDNASection from './components/MovieDNAFeatureEntry.jsx'
 import './movie-detail.css'
 
 const formatDate = (date) => {
@@ -44,7 +45,7 @@ function MovieDetailPage() {
   useEffect(() => {
     let active = true
 
-    if (!/^\d+$/.test(id)) {
+    if (!/^\d+$/.test(id) && !/^imdb:tt\d+$/.test(id)) {
       setState({ status: 'not-found', movie: null, error: null })
       return () => { active = false }
     }
@@ -84,7 +85,7 @@ function MovieDetailPage() {
 
   const movie = state.movie
   const title = movie.title || movie.original_title
-  const posterUrl = buildTmdbImageUrl(movie.poster_path, 'w500')
+  const posterUrl = movie.posterUrl || buildTmdbImageUrl(movie.poster_path, 'w500')
   const backdropUrl = buildTmdbImageUrl(movie.backdrop_path, 'w1280')
   const releaseDate = formatDate(movie.release_date)
   const runtime = formatRuntime(movie.runtime)
@@ -138,20 +139,7 @@ function MovieDetailPage() {
         </PageContainer>
       </section>
 
-      <section className="movie-dna-unavailable" aria-labelledby="movie-dna-title">
-        <PageContainer className="movie-dna-unavailable__layout">
-          <div>
-            <p className="eyebrow"><span aria-hidden="true" /> Movie DNA</p>
-            <h2 id="movie-dna-title">Análisis de experiencia cinematográfica</h2>
-            <p>El perfil Movie DNA se incorporará en una fase posterior. Todavía no existen valores calculados para esta película.</p>
-          </div>
-          <div className="movie-dna-unavailable__visual" aria-label="Movie DNA no disponible">
-            <span>Sin análisis disponible</span>
-            <div aria-hidden="true">MISTERIO · OSCURIDAD · COMPLEJIDAD · TENSIÓN · SURREALISMO · RITMO</div>
-          </div>
-        </PageContainer>
-      </section>
-
+      {movie.source !== 'omdb' && <MovieDNASection movie={movie} />}
       <PageContainer className="movie-detail__footer">
         <Link className="text-link" to="/explorar">← Volver al catálogo</Link>
       </PageContainer>

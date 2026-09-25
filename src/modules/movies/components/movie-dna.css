@@ -1,0 +1,230 @@
+.movie-dna-section {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  border-block: 1px solid var(--border-glass);
+  background: var(--color-surface);
+}
+
+.movie-dna-section h2 { margin-bottom: var(--space-md); }
+
+.movie-dna-section__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.movie-dna-section__header > p {
+  max-width: 30rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.movie-dna-state {
+  display: grid;
+  min-height: 18rem;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  border: 1px dashed var(--border-purple);
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.08), transparent 65%), var(--color-surface-lowest);
+  text-align: center;
+}
+
+.movie-dna-state h3,
+.movie-dna-state p { margin: 0; }
+
+.movie-dna-state > p {
+  max-width: 38rem;
+  color: var(--color-text-muted);
+}
+
+.movie-dna-state__symbol {
+  color: var(--color-violet-soft);
+  font-size: 2.5rem;
+}
+
+.movie-dna-state .movie-dna-state__error { color: #ffb4ab; }
+
+.movie-dna-state small,
+.movie-dna-explanation small {
+  max-width: 40rem;
+  color: var(--color-text-muted);
+}
+
+.movie-dna-state button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.movie-dna-visualization {
+  display: grid;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.movie-dna-radar {
+  width: min(100%, 27rem);
+  margin-inline: auto;
+}
+
+.movie-dna-radar svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.movie-dna-radar__grid,
+.movie-dna-radar__axis {
+  fill: none;
+  stroke: rgba(138, 144, 162, 0.3);
+  stroke-width: 1;
+}
+
+.movie-dna-radar__profile {
+  fill: rgba(0, 255, 135, 0.16);
+  stroke: var(--color-primary);
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 0.5rem rgba(0, 255, 135, 0.22));
+}
+
+.movie-dna-radar__point {
+  fill: var(--color-violet-soft);
+  stroke: var(--color-violet);
+  stroke-width: 2;
+}
+
+.movie-dna-radar__label {
+  fill: var(--color-text-surface);
+  font-family: var(--font-data);
+  font-size: var(--type-data-micro);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.movie-dna-metrics {
+  display: grid;
+  gap: var(--space-sm);
+  margin: 0;
+}
+
+.movie-dna-metric {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 1fr) auto;
+  gap: 0.35rem var(--space-md);
+  padding: 0.8rem;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-base);
+  background: var(--color-surface-lowest);
+}
+
+.movie-dna-metric dt {
+  align-self: center;
+  color: var(--color-text-surface);
+  font-weight: 600;
+}
+
+.movie-dna-metric dd {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin: 0;
+}
+
+.movie-dna-metric dd strong {
+  color: var(--color-primary);
+  font-family: var(--font-data);
+  font-size: 1.1rem;
+}
+
+.movie-dna-metric dd span {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.movie-dna-meter {
+  grid-column: 1 / -1;
+  height: 0.25rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-high);
+}
+
+.movie-dna-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-violet));
+}
+
+.movie-dna-explanation {
+  max-width: 56rem;
+  padding: var(--space-lg);
+  margin: var(--space-xl) auto 0;
+  border-left: 2px solid var(--color-violet);
+  background: var(--color-surface-lowest);
+}
+
+.movie-dna-explanation p { margin: 0 0 var(--space-sm); }
+
+.movie-dna-explanation .movie-dna-explanation__label {
+  color: var(--color-violet-soft);
+  font-family: var(--font-data);
+  font-size: var(--type-data-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.movie-dna-skeleton {
+  display: grid;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-lg);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-lowest);
+}
+
+.movie-dna-skeleton__chart {
+  width: min(70vw, 18rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, var(--color-surface-high) 0 3%, transparent 4%), repeating-radial-gradient(circle, transparent 0 18%, var(--color-surface-high) 19% 20%);
+}
+
+.movie-dna-skeleton__lines {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.movie-dna-skeleton__lines span {
+  height: 2.9rem;
+  border-radius: var(--radius-base);
+  background: var(--color-surface-high);
+}
+
+@media (min-width: 64rem) {
+  .movie-dna-visualization,
+  .movie-dna-skeleton {
+    grid-template-columns: minmax(20rem, 0.9fr) minmax(20rem, 1.1fr);
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .movie-dna-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .movie-dna-radar__label { font-size: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movie-dna-radar__profile { filter: none; }
+}

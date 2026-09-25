@@ -320,7 +320,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** FASE 0 completada. FASE 1 completada e integrada en `develop`. FASE 2 completada e integrada en `develop`. FASE 3 implementada técnicamente y pendiente de revisión.
+**Estado:** FASE 0 completada. FASE 1, FASE 2 y FASE 3 completadas e integradas. FASE 4 implementada localmente y pendiente de pruebas reales de proveedores y revisión final.
 
 Completado:
 
@@ -368,10 +368,15 @@ Completado:
 - Guards reutilizables implementados para rutas privadas, rutas de invitado y autorización por rol.
 - Roles `usuario` y `admin` verificados mediante una ruta administrativa mínima y una página 403.
 - Navegación desktop y móvil adaptada al estado de autenticación.
+- Movie DNA implementado con contrato único, validación estricta, radar accesible y persistencia por `tmdbId` en JSON Server.
+- Fallback secuencial de IA implementado: Gemini, DeepSeek y Groq, con modelos configurables mediante variables de entorno.
+- Metadata técnica de proveedor y modelo preparada para persistirse sin duplicar datos de la película.
+- TMDB conservado como fuente principal y OMDb integrado como fallback limitado para búsqueda y detalle básicos, sin mezclar IDs IMDb con `tmdbId`.
+- Limitación de claves `VITE_*` documentada para el alcance académico; una versión de producción deberá usar backend, serverless o proxy.
 
-**Fase actual:** FASE 3 - JSON Server, autenticación, sesión y roles implementados técnicamente; revisión del usuario pendiente.
+**Fase actual:** FASE 4 - Movie DNA y fallback de proveedores implementados localmente; faltan configurar credenciales/modelos locales, probar las APIs reales y realizar la revisión final.
 
-**Siguiente:** revisar FASE 3 antes de su commit. FASE 4 no iniciada.
+**Siguiente:** configurar y probar Gemini, DeepSeek, Groq y OMDb sin exponer credenciales; revisar FASE 4. FASE 5 no iniciada.
 
 ## 28. Decisiones pendientes y contradicciones registradas
 
