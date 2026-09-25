@@ -140,6 +140,34 @@
   opacity: 0.55;
 }
 
+.tmdb-credits {
+  padding-block: var(--space-lg) calc(5rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border-glass);
+  background: var(--color-surface-lowest);
+}
+
+.tmdb-credits__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.tmdb-credits a {
+  flex: 0 0 auto;
+}
+
+.tmdb-credits img {
+  width: 2.25rem;
+  max-height: 2rem;
+}
+
+.tmdb-credits p {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
 @media (min-width: 48rem) {
   .page-container {
     width: min(calc(100% - (2 * var(--page-margin))), var(--content-max));
@@ -185,5 +213,9 @@
 
   .mobile-nav {
     display: none;
+  }
+
+  .tmdb-credits {
+    padding-bottom: var(--space-lg);
   }
 }

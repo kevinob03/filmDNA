@@ -257,6 +257,26 @@
   padding-block: clamp(4rem, 8vw, 7rem);
 }
 
+.section-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.section-heading-row__link {
+  flex: 0 0 auto;
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 39.99rem) {
+  .section-heading-row {
+    align-items: start;
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
 .home-section--experience {
   background: var(--color-surface-lowest);
 }
@@ -351,11 +371,6 @@
 
 .experience-panel__footer p span {
   color: var(--color-cyan);
-}
-
-.placeholder-grid {
-  display: grid;
-  gap: var(--space-md);
 }
 
 .home-section--personal {
@@ -538,12 +553,10 @@
 
 @media (min-width: 40rem) {
   .experience-panel__grid,
-  .placeholder-grid,
   .overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .placeholder-card:last-child,
   .overview-card:last-child {
     grid-column: 1 / -1;
   }
@@ -570,18 +583,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .placeholder-grid,
   .overview-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .placeholder-card:last-child,
   .overview-card:last-child {
     grid-column: auto;
-  }
-
-  .placeholder-card__visual {
-    min-height: 16rem;
   }
 
   .personal-panel,

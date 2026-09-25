@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const NavIcon = ({ type }) => {
   const paths = {
@@ -19,14 +19,14 @@ function MobileNavigation() {
         <NavIcon type="home" />
         <span>Inicio</span>
       </NavLink>
-      <span className="mobile-nav__item mobile-nav__item--disabled">
+      <NavLink className="mobile-nav__item" to="/explorar">
         <NavIcon type="compass" />
         <span>Explorar</span>
-      </span>
-      <a className="mobile-nav__item" href="#experiencia">
+      </NavLink>
+      <Link className="mobile-nav__item" to="/#experiencia">
         <NavIcon type="tune" />
         <span>Experiencia</span>
-      </a>
+      </Link>
       <span className="mobile-nav__item mobile-nav__item--disabled">
         <NavIcon type="diary" />
         <span>Diario</span>

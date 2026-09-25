@@ -31,6 +31,18 @@
   box-shadow: none;
 }
 
+.button--secondary {
+  border: 1px solid var(--color-violet);
+  background: rgba(157, 78, 221, 0.14);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.button--secondary:hover {
+  background: rgba(157, 78, 221, 0.26);
+  box-shadow: 0 0 1rem rgba(157, 78, 221, 0.2);
+}
+
 .eyebrow,
 .section-header__eyebrow {
   display: flex;
@@ -73,49 +85,6 @@
   font-size: 1rem;
 }
 
-.placeholder-card {
-  overflow: hidden;
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  background: rgba(16, 18, 23, 0.85);
-}
-
-.placeholder-card__visual {
-  position: relative;
-  min-height: 12rem;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border-glass);
-  background: linear-gradient(135deg, var(--color-surface-low), var(--color-surface));
-}
-
-.placeholder-card__visual::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.035) 48%, transparent 66%);
-  content: '';
-  transform: translateX(-35%);
-}
-
-.placeholder-card__visual span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid var(--border-green);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.placeholder-card__body {
-  padding: var(--space-md);
-}
-
-.placeholder-card__body p {
-  margin: var(--space-md) 0 0;
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-}
-
 .skeleton-line {
   display: block;
   width: 75%;
@@ -128,4 +97,36 @@
 .skeleton-line--short {
   width: 38%;
   background: rgba(157, 78, 221, 0.22);
+}
+
+.content-state {
+  display: grid;
+  min-height: 17rem;
+  place-content: center;
+  justify-items: center;
+  padding: var(--space-xl);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  background: var(--color-charcoal-elevated);
+  text-align: center;
+}
+
+.content-state__symbol {
+  margin-bottom: var(--space-sm);
+  color: var(--color-violet-soft);
+  font-size: 2.25rem;
+}
+
+.content-state h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.content-state p {
+  max-width: 35rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.content-state .button {
+  margin-top: var(--space-lg);
 }
