@@ -18,6 +18,9 @@
 
   --color-text-primary: #f5f7fa;
   --color-text-muted: #8a90a2;
+  --color-text-surface: #e3e2e6;
+  --color-violet-soft: #e0b6ff;
+  --color-charcoal-elevated: #101217;
 
   --border-glass: rgba(255, 255, 255, 0.08);
   --border-green: rgba(0, 255, 135, 0.35);
@@ -44,4 +47,6 @@
   --font-data: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   --type-body: 1rem;
   --type-data-label: 0.6875rem;
+  --type-data-micro: 0.5625rem;
+  --content-max: 80rem;
 }

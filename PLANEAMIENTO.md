@@ -320,7 +320,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** FASE 0 completada; base técnica de React preparada.
+**Estado:** FASE 0 completada. FASE 1 implementada técnicamente y pendiente de revisión visual del usuario.
 
 Completado:
 
@@ -345,10 +345,15 @@ Completado:
 - Home temporal de verificación implementada.
 - Variable de entorno de ejemplo para TMDB documentada sin credenciales reales.
 - Build de producción verificado correctamente.
+- Layout reutilizable, navegación desktop y navegación móvil implementados.
+- Home real implementada con Hero, selector visual de experiencia y secciones previstas.
+- Estados placeholder preparados para contenido dependiente de TMDB, sin datos cinematográficos ficticios.
+- Introducción conceptual de Movie DNA implementada sin valores ni cálculos inventados.
+- Responsive base y accesibilidad de navegación aplicados para FASE 1.
 
-**Fase actual:** FASE 0 - Preparación del proyecto completada.
+**Fase actual:** FASE 1 - Implementación técnica completada; revisión visual del usuario pendiente.
 
-**Siguiente:** FASE 1 - Layout, navegación, rutas, identidad visual y responsive base. No iniciada.
+**Siguiente:** revisión visual y aprobación de FASE 1 antes de iniciar FASE 2. FASE 2 no iniciada.
 
 ## 28. Decisiones pendientes y contradicciones registradas
 
