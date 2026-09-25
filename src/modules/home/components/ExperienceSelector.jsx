@@ -57,7 +57,7 @@ function ExperienceSelector() {
           <div className="experience-panel__footer">
             <p><span aria-hidden="true">◇</span> Tus preferencias se usarán para descubrir películas en una fase posterior.</p>
             <button className="button button--disabled" type="button" disabled>
-              Resultados disponibles al conectar TMDB
+              Recomendaciones disponibles en una fase posterior
             </button>
           </div>
         </div>

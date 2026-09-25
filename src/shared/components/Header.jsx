@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-const unavailableItems = ['Explorar', 'Recomendaciones', 'Diario', 'Mis listas', 'Estadísticas', 'Perfil']
+const unavailableItems = ['Recomendaciones', 'Diario', 'Mis listas', 'Estadísticas', 'Perfil']
 
 function Header() {
   return (
@@ -14,6 +14,9 @@ function Header() {
           <NavLink className="desktop-nav__link" to="/" end>
             Inicio
           </NavLink>
+          <NavLink className="desktop-nav__link" to="/explorar">
+            Explorar
+          </NavLink>
           {unavailableItems.map((item) => (
             <span className="desktop-nav__link desktop-nav__link--disabled" key={item}>
               {item}
@@ -21,7 +24,7 @@ function Header() {
           ))}
         </nav>
 
-        <span className="phase-badge">FASE 1</span>
+        <span className="phase-badge">FASE 2</span>
       </div>
     </header>
   )

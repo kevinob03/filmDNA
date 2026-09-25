@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PageContainer from '../../../shared/components/PageContainer.jsx'
 
 const dnaRungs = Array.from({ length: 13 }, (_, index) => ({
@@ -17,9 +18,9 @@ function Hero() {
             Descubre el cine según la <em>experiencia</em> que quieres vivir
           </h1>
           <p className="hero__lead">Explora películas más allá de los géneros tradicionales.</p>
-          <a className="button button--primary" href="#experiencia">
-            Descubrir películas <span aria-hidden="true">↓</span>
-          </a>
+          <Link className="button button--primary" to="/explorar">
+            Descubrir películas <span aria-hidden="true">→</span>
+          </Link>
         </div>
 
         <div className="hero__visual" aria-hidden="true">

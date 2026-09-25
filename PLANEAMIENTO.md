@@ -320,7 +320,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** FASE 0 completada. FASE 1 implementada técnicamente y pendiente de revisión visual del usuario.
+**Estado:** FASE 0 completada. FASE 1 completada e integrada en `develop`. FASE 2 implementada técnicamente y pendiente de revisión.
 
 Completado:
 
@@ -350,10 +350,18 @@ Completado:
 - Estados placeholder preparados para contenido dependiente de TMDB, sin datos cinematográficos ficticios.
 - Introducción conceptual de Movie DNA implementada sin valores ni cálculos inventados.
 - Responsive base y accesibilidad de navegación aplicados para FASE 1.
+- FASE 1 integrada y subida a `develop`.
+- Servicio centralizado para tendencias, películas populares, búsqueda y detalle mediante TMDB.
+- Home preparada para mostrar tendencias reales de TMDB.
+- Página Explorar implementada con catálogo, búsqueda y paginación.
+- Detalle de película implementado con información real de TMDB.
+- Estados de configuración, carga, error, contenido vacío e imágenes faltantes implementados.
+- Navegación actualizada para `/explorar` y `/pelicula/:id`.
+- Movie DNA conservado como espacio informativo sin cálculos ni valores ficticios.
 
-**Fase actual:** FASE 1 - Implementación técnica completada; revisión visual del usuario pendiente.
+**Fase actual:** FASE 2 - Integración TMDB implementada técnicamente; revisión del usuario pendiente.
 
-**Siguiente:** revisión visual y aprobación de FASE 1 antes de iniciar FASE 2. FASE 2 no iniciada.
+**Siguiente:** configurar `VITE_TMDB_API_KEY` localmente y revisar FASE 2 antes de su commit. FASE 3 no iniciada.
 
 ## 28. Decisiones pendientes y contradicciones registradas
 
