@@ -67,6 +67,14 @@ export const searchMovies = (query, page = 1) => request('/search/movie', {
 
 export const getMovieDetails = (movieId) => request(`/movie/${encodeURIComponent(movieId)}`)
 
+export const discoverMovies = (params = {}) => request('/discover/movie', {
+  page: 1,
+  include_adult: 'false',
+  sort_by: 'popularity.desc',
+  'vote_count.gte': 50,
+  ...params,
+})
+
 export const buildTmdbImageUrl = (path, size = 'w500') => {
   if (!path) return null
   return `${IMAGE_BASE_URL}/${size}${path}`

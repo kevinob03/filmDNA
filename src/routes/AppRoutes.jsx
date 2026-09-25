@@ -6,6 +6,7 @@ import HomePage from '../modules/home/HomePage.jsx'
 import ExplorePage from '../modules/explore/ExplorePage.jsx'
 import MovieDetailPage from '../modules/movies/MovieDetailPage.jsx'
 import ProfilePage from '../modules/profile/ProfilePage.jsx'
+import RecommendationsPage from '../modules/recommendations/RecommendationsPage.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 import { GuestRoute, PrivateRoute, RoleRoute } from './RouteGuards.jsx'
 import UnauthorizedPage from './UnauthorizedPage.jsx'
@@ -13,6 +14,7 @@ import UnauthorizedPage from './UnauthorizedPage.jsx'
 function AppRoutes() {
   return (
     <Routes>
+      <Route path={'/recomendaciones'} element={<RecommendationsPage />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/explorar" element={<ExplorePage />} />
       <Route path="/pelicula/:id" element={<MovieDetailPage />} />

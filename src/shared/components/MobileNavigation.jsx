@@ -20,7 +20,7 @@ function MobileNavigation() {
   const { status, user, logout } = useAuth()
   const isAuthenticated = status === AUTH_STATUS.AUTHENTICATED
   const isAdmin = isAuthenticated && user.role === 'admin'
-  const itemCount = status === AUTH_STATUS.CHECKING ? 3 : (isAdmin ? 5 : 4)
+  const itemCount = status === AUTH_STATUS.CHECKING ? 4 : (isAdmin ? 6 : 5)
 
   return (
     <nav
@@ -35,6 +35,10 @@ function MobileNavigation() {
       <NavLink className="mobile-nav__item" to="/explorar">
         <NavIcon type="compass" />
         <span>Explorar</span>
+      </NavLink>
+
+      <NavLink className={'mobile-nav__item'} to={'/recomendaciones'}>
+        <NavIcon type={'compass'} /><span>Recomendar</span>
       </NavLink>
 
       {status === AUTH_STATUS.CHECKING && (

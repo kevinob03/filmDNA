@@ -1,22 +1,18 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PageContainer from '../../../shared/components/PageContainer.jsx'
 import SectionHeader from '../../../shared/components/SectionHeader.jsx'
-
-const criteria = [
-  { id: 'mood', label: 'Estado de ánimo', options: ['Reflexivo', 'Inquieto', 'Eufórico', 'Melancólico'] },
-  { id: 'atmosphere', label: 'Atmósfera', options: ['Íntima', 'Onírica', 'Oscura', 'Luminosa'] },
-  { id: 'pace', label: 'Ritmo', options: ['Pausado', 'Equilibrado', 'Dinámico'] },
-  { id: 'complexity', label: 'Complejidad', options: ['Accesible', 'Moderada', 'Laberíntica'] },
-  { id: 'duration', label: 'Duración', options: ['Breve', 'Media', 'Extensa'] },
-  { id: 'intensity', label: 'Intensidad', options: ['Suave', 'Intermedia', 'Profunda'] },
-]
+import { EXPERIENCE_CRITERIA as criteria } from '../../recommendations/recommendationConfig.js'
 
 function ExperienceSelector() {
+  const navigate = useNavigate()
   const [selections, setSelections] = useState({})
 
   const selectOption = (criterionId, option) => {
     setSelections((current) => ({ ...current, [criterionId]: option }))
   }
+
+  const findMovies = () => navigate(`/recomendaciones?${new URLSearchParams(selections)}`)
 
   return (
     <section id="experiencia" className="home-section home-section--experience" aria-labelledby="experience-title">
@@ -56,8 +52,8 @@ function ExperienceSelector() {
 
           <div className="experience-panel__footer">
             <p><span aria-hidden="true">◇</span> Tus preferencias se usarán para descubrir películas en una fase posterior.</p>
-            <button className="button button--disabled" type="button" disabled>
-              Recomendaciones disponibles en una fase posterior
+            <button className="button button--primary" type="button" onClick={findMovies} disabled={!Object.keys(selections).length}>
+              Ver recomendaciones
             </button>
           </div>
         </div>

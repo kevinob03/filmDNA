@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   generateMovieDNA,
   getAIErrorMessage,
@@ -115,6 +116,7 @@ function MovieDNASection({ movie }) {
               <p className="movie-dna-explanation__label">Interpretación FilmDNA</p>
               <p>{state.profile.explicacion}</p>
               <small>Estimación orientativa. No representa una medición científica ni datos proporcionados por TMDB.</small>
+              <Link className={'button button--secondary'} to={`/recomendaciones?similarTo=${movie.id}`}>Buscar películas con DNA similar</Link>
             </div>
           </div>
         )}

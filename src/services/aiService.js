@@ -42,21 +42,21 @@ export const buildMovieDNAPrompt = (movie) => {
 
 Movie DNA no es una medición científica ni un dato de TMDB. Devuelve exclusivamente un objeto JSON válido, sin Markdown ni texto adicional, con esta estructura exacta:
 {
-  "misterio": number,
-  "oscuridad": number,
+  "alegria": number,
+  "emocion": number,
   "complejidad": number,
-  "tension": number,
-  "surrealismo": number,
+  "intensidad": number,
+  "fantasia": number,
   "ritmo": number,
   "explicacion": string
 }
 
 Cada número debe estar entre 0 y 100.
-- misterio: incertidumbre, enigmas, información oculta o necesidad de descubrir qué ocurre.
-- oscuridad: tono emocional o temático sombrío; no significa fotografía oscura.
+- alegria: tono ligero, divertido, optimista o reconfortante.
+- emocion: capacidad de conmover, enternecer o generar impacto afectivo.
 - complejidad: complejidad narrativa, conceptual o estructural.
-- tension: suspense, peligro, presión dramática o sensación de amenaza.
-- surrealismo: elementos extraños, oníricos, abstractos o alejados de una realidad convencional.
+- intensidad: fuerza dramática, sensorial o de acción percibida.
+- fantasia: distancia frente al realismo, desde cotidiano hasta fantástico o imaginativo.
 - ritmo: velocidad narrativa percibida; no equivale a duración. Bajo es contemplativo y alto es rápido o intenso.
 
 La explicación debe ser breve, útil, no excesivamente técnica y relacionarse con la película. Si la metadata no permite estimar responsablemente una dimensión, no inventes detalles narrativos.

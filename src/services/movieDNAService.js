@@ -3,11 +3,11 @@ const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
 const API_BASE_URL = (configuredApiUrl || DEFAULT_API_URL).replace(/\/+$/, '')
 
 export const MOVIE_DNA_DIMENSIONS = Object.freeze([
-  { key: 'misterio', label: 'Misterio' },
-  { key: 'oscuridad', label: 'Oscuridad' },
+  { key: 'alegria', label: 'Alegría' },
+  { key: 'emocion', label: 'Emoción' },
   { key: 'complejidad', label: 'Complejidad' },
-  { key: 'tension', label: 'Tensión' },
-  { key: 'surrealismo', label: 'Surrealismo' },
+  { key: 'intensidad', label: 'Intensidad' },
+  { key: 'fantasia', label: 'Fantasía' },
   { key: 'ritmo', label: 'Ritmo' },
 ])
 
@@ -94,6 +94,17 @@ export const getMovieDNAByTmdbId = async (tmdbId) => {
     model: record.model,
     generatedAt: record.generatedAt,
   }
+}
+
+export const getAllMovieDNAProfiles = async () => {
+  const records = await request('/movieDNA')
+  return records.map((record) => ({
+    id: record.id,
+    tmdbId: requireValidTmdbId(record.tmdbId),
+    ...validateMovieDNAProfile(record),
+    provider: record.provider,
+    model: record.model,
+  }))
 }
 
 export const saveMovieDNA = async (tmdbId, profile) => {

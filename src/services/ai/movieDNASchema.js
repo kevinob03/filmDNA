@@ -1,13 +1,13 @@
 export const movieDNAJsonSchema = {
   type: 'object',
   additionalProperties: false,
-  required: ['misterio', 'oscuridad', 'complejidad', 'tension', 'surrealismo', 'ritmo', 'explicacion'],
+  required: ['alegria', 'emocion', 'complejidad', 'intensidad', 'fantasia', 'ritmo', 'explicacion'],
   properties: {
-    misterio: { type: 'number', minimum: 0, maximum: 100 },
-    oscuridad: { type: 'number', minimum: 0, maximum: 100 },
+    alegria: { type: 'number', minimum: 0, maximum: 100 },
+    emocion: { type: 'number', minimum: 0, maximum: 100 },
     complejidad: { type: 'number', minimum: 0, maximum: 100 },
-    tension: { type: 'number', minimum: 0, maximum: 100 },
-    surrealismo: { type: 'number', minimum: 0, maximum: 100 },
+    intensidad: { type: 'number', minimum: 0, maximum: 100 },
+    fantasia: { type: 'number', minimum: 0, maximum: 100 },
     ritmo: { type: 'number', minimum: 0, maximum: 100 },
     explicacion: { type: 'string', minLength: 1 },
   },

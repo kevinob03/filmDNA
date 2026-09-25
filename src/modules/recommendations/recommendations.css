@@ -1,0 +1,11 @@
+.recommendations-page { padding: 3rem 0 5rem; }
+.recommendations-page header { max-width: 50rem; margin-bottom: 2.5rem; }
+.recommendations-page h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.recommendation-tuner { display: grid; gap: 2rem; padding: 1.5rem; border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: var(--color-charcoal-elevated); }
+.recommendation-tuner__grid { display: grid; gap: 1.5rem; }
+.recommendation-tuner fieldset { display: grid; gap: .5rem; border: 0; }
+.recommendation-tuner fieldset button { margin: .2rem; padding: .5rem; border: 1px solid var(--border-glass); background: var(--color-surface); color: var(--color-text-muted); }
+.recommendation-tuner fieldset button[aria-pressed='true'] { border-color: var(--color-primary); color: var(--color-primary); }
+.recommendation-results { margin-top: 2.5rem; }
+@media (min-width: 48rem) { .recommendation-tuner__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 80rem) { .recommendation-tuner__grid { grid-template-columns: repeat(3, 1fr); } }
