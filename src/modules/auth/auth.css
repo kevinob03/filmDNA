@@ -1,0 +1,211 @@
+.auth-page {
+  min-height: calc(100svh - 4.5rem);
+  padding: clamp(2rem, 6vw, 5rem) var(--page-margin-mobile) 7rem;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(0, 255, 135, 0.09), transparent 25rem),
+    radial-gradient(circle at 88% 72%, rgba(157, 78, 221, 0.12), transparent 27rem),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: auto, auto, 3rem 3rem, 3rem 3rem;
+}
+
+.auth-panel {
+  display: grid;
+  width: min(100%, 64rem);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  background: rgba(16, 18, 23, 0.94);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+}
+
+.auth-panel__intro,
+.auth-panel__content {
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.auth-panel__intro {
+  position: relative;
+  display: flex;
+  min-height: 18rem;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-glass);
+  background: linear-gradient(145deg, rgba(0, 255, 135, 0.06), rgba(157, 78, 221, 0.1));
+}
+
+.auth-panel__intro h1 {
+  max-width: 10ch;
+  margin: 0 0 var(--space-md);
+  font-size: clamp(2rem, 8vw, 3.25rem);
+  line-height: 1.03;
+}
+
+.auth-panel__intro > p:not(.eyebrow) {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.auth-panel__signal {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  gap: 0.35rem;
+  margin-block: var(--space-xl) var(--space-md);
+}
+
+.auth-panel__signal span {
+  width: 0.35rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(var(--color-primary), var(--color-violet));
+  box-shadow: 0 0 0.8rem rgba(0, 255, 135, 0.25);
+}
+
+.auth-panel__signal span:nth-child(1),
+.auth-panel__signal span:nth-child(5) {
+  height: 35%;
+}
+
+.auth-panel__signal span:nth-child(2),
+.auth-panel__signal span:nth-child(4) {
+  height: 68%;
+}
+
+.auth-panel__signal span:nth-child(3) {
+  height: 100%;
+}
+
+.auth-panel__intro .auth-panel__note {
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.auth-panel__content {
+  display: grid;
+  align-content: center;
+}
+
+.auth-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.auth-form__heading h2 {
+  margin: 0 0 var(--space-xs);
+}
+
+.auth-form__heading p,
+.auth-form__alternate {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.auth-form__passwords {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.form-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  color: var(--color-text-surface);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.form-field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: var(--color-charcoal-elevated);
+  color: var(--color-text-primary);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.form-field input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0.75rem rgba(0, 255, 135, 0.2);
+  outline: none;
+}
+
+.form-field input[aria-invalid='true'] {
+  border-color: #ffb4ab;
+}
+
+.form-field__error,
+.form-field__hint {
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.form-field__error {
+  color: #ffb4ab;
+}
+
+.form-field__hint {
+  color: var(--color-text-muted);
+}
+
+.form-message {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+.form-message--error {
+  border: 1px solid rgba(255, 180, 171, 0.35);
+  background: rgba(147, 0, 10, 0.2);
+  color: #ffdad6;
+}
+
+.auth-form__submit {
+  width: 100%;
+  cursor: pointer;
+}
+
+.auth-form__submit:disabled {
+  opacity: 0.65;
+}
+
+.auth-form__alternate {
+  text-align: center;
+}
+
+@media (min-width: 40rem) {
+  .auth-form__passwords {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48rem) {
+  .auth-page {
+    padding-inline: var(--page-margin);
+  }
+
+  .auth-panel {
+    grid-template-columns: minmax(16rem, 0.82fr) minmax(24rem, 1.18fr);
+  }
+
+  .auth-panel__intro {
+    min-height: 35rem;
+    border-right: 1px solid var(--border-glass);
+    border-bottom: 0;
+  }
+}
+
+@media (min-width: 64rem) {
+  .auth-page {
+    min-height: calc(100svh - 5rem);
+    padding-bottom: 5rem;
+  }
+}

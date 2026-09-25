@@ -68,6 +68,10 @@
   display: none;
 }
 
+.header-session {
+  display: none;
+}
+
 .phase-badge {
   padding: 0.35rem 0.5rem;
   border: 1px solid var(--border-purple);
@@ -85,7 +89,7 @@
   bottom: 0;
   left: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--mobile-nav-columns, 4), minmax(0, 1fr));
   min-height: 4.5rem;
   padding: var(--space-xs) var(--space-xs) max(var(--space-xs), env(safe-area-inset-bottom));
   border-top: 1px solid var(--border-glass);
@@ -109,6 +113,13 @@
   letter-spacing: 0.02em;
   text-align: center;
   text-decoration: none;
+}
+
+button.mobile-nav__item {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .mobile-nav__item svg {
@@ -185,6 +196,7 @@
 
   .desktop-nav {
     display: flex;
+    flex: 1 1 auto;
     min-width: 0;
     align-items: center;
     justify-content: center;
@@ -209,6 +221,60 @@
   .desktop-nav__link--disabled {
     cursor: not-allowed;
     opacity: 0.58;
+  }
+
+  .desktop-nav__link--admin {
+    color: var(--color-violet-soft);
+  }
+
+  .phase-badge {
+    display: none;
+  }
+
+  .header-session {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+  }
+
+  .header-session__status,
+  .header-session__link,
+  .header-session__logout {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+  }
+
+  .header-session__link {
+    padding: 0.5rem 0.35rem;
+    border-radius: var(--radius-base);
+    text-decoration: none;
+  }
+
+  .header-session__link:hover,
+  .header-session__link[aria-current='page'] {
+    color: var(--color-primary);
+  }
+
+  .header-session__register {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .header-session__logout {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-base);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .header-session__logout:hover {
+    border-color: var(--border-green);
+    color: var(--color-primary);
   }
 
   .mobile-nav {

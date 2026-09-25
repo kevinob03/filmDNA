@@ -320,7 +320,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** FASE 0 completada. FASE 1 completada e integrada en `develop`. FASE 2 implementada técnicamente y pendiente de revisión.
+**Estado:** FASE 0 completada. FASE 1 completada e integrada en `develop`. FASE 2 completada e integrada en `develop`. FASE 3 implementada técnicamente y pendiente de revisión.
 
 Completado:
 
@@ -358,10 +358,20 @@ Completado:
 - Estados de configuración, carga, error, contenido vacío e imágenes faltantes implementados.
 - Navegación actualizada para `/explorar` y `/pelicula/:id`.
 - Movie DNA conservado como espacio informativo sin cálculos ni valores ficticios.
+- FASE 2 integrada y subida a `develop`.
+- JSON Server configurado como backend simulado con la estructura base de `db.json`.
+- Servicio de autenticación centralizado para login, registro y consulta de usuarios.
+- AuthContext implementado con estados de comprobación, sesión autenticada y sesión no autenticada.
+- Persistencia demostrativa de sesión implementada con `localStorage`, sin almacenar contraseñas.
+- Login y registro implementados con validación, estados de petición y errores comprensibles.
+- Perfil básico implementado únicamente con nombre, email y rol reales del usuario autenticado.
+- Guards reutilizables implementados para rutas privadas, rutas de invitado y autorización por rol.
+- Roles `usuario` y `admin` verificados mediante una ruta administrativa mínima y una página 403.
+- Navegación desktop y móvil adaptada al estado de autenticación.
 
-**Fase actual:** FASE 2 - Integración TMDB implementada técnicamente; revisión del usuario pendiente.
+**Fase actual:** FASE 3 - JSON Server, autenticación, sesión y roles implementados técnicamente; revisión del usuario pendiente.
 
-**Siguiente:** configurar `VITE_TMDB_API_KEY` localmente y revisar FASE 2 antes de su commit. FASE 3 no iniciada.
+**Siguiente:** revisar FASE 3 antes de su commit. FASE 4 no iniciada.
 
 ## 28. Decisiones pendientes y contradicciones registradas
 

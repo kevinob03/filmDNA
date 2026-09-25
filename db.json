@@ -1,0 +1,24 @@
+{
+  "usuarios": [
+    {
+      "id": "admin-demo",
+      "nombre": "Administrador FilmDNA",
+      "email": "admin@filmdna.local",
+      "password": "demo-admin-123",
+      "role": "admin"
+    },
+    {
+      "id": "usuario-demo",
+      "nombre": "Usuario FilmDNA",
+      "email": "usuario@filmdna.local",
+      "password": "demo-usuario-123",
+      "role": "usuario"
+    }
+  ],
+  "diario": [],
+  "favoritos": [],
+  "listas": [],
+  "listaPeliculas": [],
+  "movieDNA": [],
+  "configuracionDNA": []
+}
