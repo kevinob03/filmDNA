@@ -1,0 +1,25 @@
+body {
+  font-family: var(--font-interface);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-text-primary);
+  font-family: var(--font-interface);
+}
+
+.text-link {
+  font-weight: 600;
+}
+
+.status-page__code {
+  color: var(--color-primary);
+  font-family: var(--font-data);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}

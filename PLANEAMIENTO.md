@@ -320,7 +320,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** preparación documental y técnica.
+**Estado:** FASE 0 completada; base técnica de React preparada.
 
 Completado:
 
@@ -337,10 +337,18 @@ Completado:
 - Concepto Movie DNA.
 - Estrategia Git.
 - Documentación técnica para Codex.
+- React y Vite inicializados en la raíz del repositorio.
+- React Router DOM configurado con rutas mínimas de inicio y página no encontrada.
+- Arquitectura modular inicial de `src/` preparada.
+- Estilos globales, tipografías y design tokens de FilmDNA configurados.
+- Asset oficial del logo preparado para uso en runtime.
+- Home temporal de verificación implementada.
+- Variable de entorno de ejemplo para TMDB documentada sin credenciales reales.
+- Build de producción verificado correctamente.
 
-**Fase actual:** FASE 0 - Preparación del proyecto.
+**Fase actual:** FASE 0 - Preparación del proyecto completada.
 
-**Siguiente:** inicialización y configuración de React con Vite y arquitectura inicial. Esta acción no forma parte de la preparación documental actual y requiere una tarea posterior.
+**Siguiente:** FASE 1 - Layout, navegación, rutas, identidad visual y responsive base. No iniciada.
 
 ## 28. Decisiones pendientes y contradicciones registradas
 
