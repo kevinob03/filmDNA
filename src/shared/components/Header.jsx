@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { AUTH_STATUS, useAuth } from '../../context/AuthContext.jsx'
+import AccessibilityButton from './AccessibilityButton.jsx'
 
 function Header() {
   const { status, user, logout } = useAuth()
@@ -34,6 +35,8 @@ function Header() {
         </nav>
 
         <span className="phase-badge">FASE 3</span>
+
+        <AccessibilityButton />
 
         <div className="header-session" aria-live="polite">
           {status === AUTH_STATUS.CHECKING && (

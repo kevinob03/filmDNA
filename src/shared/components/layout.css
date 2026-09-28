@@ -122,6 +122,12 @@ button.mobile-nav__item {
   cursor: pointer;
 }
 
+.mobile-nav__item > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .mobile-nav__item svg {
   width: 1.25rem;
   fill: none;
