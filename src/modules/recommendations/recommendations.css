@@ -71,9 +71,16 @@
   color: var(--color-text-primary);
 }
 
+.natural-search input:focus-visible { border-radius: 0.2rem; outline: 2px solid var(--color-primary); outline-offset: 0.2rem; }
 .natural-search input:disabled { opacity: 0.72; text-overflow: ellipsis; }
 .natural-search small { display: block; margin-top: 0.25rem; color: var(--color-text-muted); font-size: 0.7rem; }
 .natural-search__action:disabled { flex: 0 0 auto; border: 1px solid var(--border-glass); background: var(--color-surface-container); box-shadow: none; color: var(--color-text-muted); cursor: not-allowed; opacity: 0.62; }
+
+.intent-feedback { margin: -0.6rem 0 1.5rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: rgba(27, 27, 31, 0.82); color: var(--color-text-muted); font-size: 0.82rem; }
+.intent-feedback strong { color: var(--color-text-primary); }
+.intent-feedback span { display: block; margin-top: 0.25rem; }
+.intent-feedback--success { border-color: rgba(0, 255, 148, 0.3); }
+.intent-feedback--error { border-color: rgba(255, 112, 112, 0.45); }
 
 .recommendation-filters {
   overflow: hidden;

@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.mjs",
+    "dev:vite": "vite",
     "server": "json-server db.json --port 3001",
-    "server:ai": "node --env-file-if-exists=.env server/aiServer.mjs",
+    "server:ai": "node --use-system-ca --env-file-if-exists=.env server/aiServer.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e:recommendations": "node tests/e2e/recommendations.audit.mjs",
@@ -15,6 +16,8 @@
     "test:e2e:recommendations:ai": "node tests/e2e/recommendations-ai.audit.mjs",
     "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",
+    "test:search-intent": "node tests/server/interpretSearchIntent.test.mjs",
+    "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
     "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs"
   },
   "dependencies": {

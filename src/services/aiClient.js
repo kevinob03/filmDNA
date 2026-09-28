@@ -44,3 +44,9 @@ export const classifyMovieBatch = async (movies) => request('/classify-movies', 
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ movies, budgetMs: INTERACTIVE_BUDGET_MS }),
 })
+
+export const requestSearchIntent = async (query) => request('/interpret-search', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query, budgetMs: INTERACTIVE_BUDGET_MS }),
+})

@@ -36,16 +36,48 @@ La IA sólo puede completar una clasificación determinista `unknown`. Si el bac
 
 Coincidencia, cobertura y confianza siguen siendo medidas independientes. La IA aumenta cobertura sólo cuando resuelve una preferencia con evidencia válida; un score bajo puede reducir la coincidencia.
 
-## Separación de operaciones futuras
+### Interpretación de búsqueda natural
 
-`classifyMovies` clasifica metadata cinematográfica para Recomendaciones. `interpretSearchIntent` será una operación distinta para interpretar texto del usuario y **todavía no está implementada**. El botón de búsqueda natural continúa deshabilitado.
+`POST /api/ai/interpret-search` implementa `interpretSearchIntent`: recibe texto del usuario y devuelve exclusivamente filtros estructurados que existen en `recommendationConfig`. La IA no selecciona películas.
+
+```text
+texto del usuario
+→ interpretSearchIntent
+→ filtros FilmDNA validados
+→ recomendador normal
+→ TMDB + reglas deterministas + classifyMovies
+```
+
+El contrato versionado `recommendation-search-intent-v1` incluye `filters`, `unmappedTerms` y `confidence`. Tanto el servidor como el cliente validan la respuesta contra la fuente de verdad del formulario. Streaming no forma parte del vocabulario de IA porque sus IDs son dinámicos; los filtros todavía deshabilitados de producción y características narrativas tampoco se aceptan.
+
+Una nueva interpretación válida reemplaza los filtros anteriores. Después, el usuario puede ajustarlos manualmente. Una respuesta sin filtros muestra una ayuda sin ejecutar una búsqueda genérica; un fallo de infraestructura conserva intactos los filtros manuales.
+
+## Separación de operaciones
+
+`interpretSearchIntent` convierte texto en filtros. `classifyMovies` clasifica metadata de películas únicamente para completar evidencia `unknown`. Comparten orquestador, proveedores, deadline y manejo de errores, pero tienen prompts, schemas, contratos y responsabilidades independientes.
 
 ## Desarrollo local
 
-Además de Vite y JSON Server, inicia el backend IA:
+El arranque normal levanta Vite y el backend IA en un solo proceso coordinador:
 
 ```bash
-npm run server:ai
+npm run dev
 ```
+
+Si la aplicación necesita persistencia local, inicia JSON Server en otra terminal:
+
+```bash
+npm run server
+```
+
+Para depurar cada servicio por separado:
+
+```bash
+npm run dev:vite
+npm run server:ai
+npm run server
+```
+
+Al cerrar `npm run dev` con Ctrl+C se detienen Vite y el backend IA. El backend utiliza las variables server-side del entorno local sin exponerlas al bundle del navegador.
 
 El orden de proveedores continúa siendo Gemini → DeepSeek → Groq y todos comparten un único deadline por operación.

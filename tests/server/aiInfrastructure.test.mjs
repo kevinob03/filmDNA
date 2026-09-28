@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { getConfiguredProviders, runAIOperation } from '../../server/ai/orchestrator.mjs'
 import { movieDNAOperation, validateMovieDNAProfile } from '../../server/ai/operations/movieDNA.mjs'
+import { omitSchemaKeywords, supportsStrictJsonSchema } from '../../server/ai/providerUtils.mjs'
 
 const validProfile = {
   alegria: 60,
@@ -58,4 +59,37 @@ test('un JSON válido con esquema inválido se rechaza explícitamente', async (
     }),
     { type: 'invalid-schema' },
   )
+})
+
+test('adapta keywords incompatibles sin relajar la validación local', () => {
+  const schema = { type: 'array', uniqueItems: true, items: { type: 'number', multipleOf: 0.5 }, additionalProperties: false }
+  assert.deepEqual(omitSchemaKeywords(schema, new Set(['uniqueItems', 'multipleOf'])), {
+    type: 'array', items: { type: 'number' }, additionalProperties: false,
+  })
+  assert.equal(schema.uniqueItems, true)
+  assert.equal(schema.items.multipleOf, 0.5)
+})
+
+test('desactiva strict output cuando un objeto contiene filtros opcionales', () => {
+  assert.equal(supportsStrictJsonSchema({ type: 'object', properties: { tone: { type: 'string' } } }), false)
+  assert.equal(supportsStrictJsonSchema({ type: 'object', properties: { tone: { type: 'string' } }, required: ['tone'] }), true)
+})
+
+test('un proveedor lento no consume todo el deadline compartido del fallback', async (context) => {
+  const originalFetch = globalThis.fetch
+  context.after(() => { globalThis.fetch = originalFetch })
+  globalThis.fetch = async (url, options) => {
+    if (String(url).includes('googleapis')) {
+      return new Promise((_resolve, reject) => options.signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')), { once: true }))
+    }
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(validProfile) } }] }), { status: 200 })
+  }
+  const generated = await runAIOperation(movieDNAOperation, { title: 'Fallback' }, {
+    env: {
+      GEMINI_API_KEY: 'server-secret-one', GEMINI_MODEL: 'gemini-test',
+      DEEPSEEK_API_KEY: 'server-secret-two', DEEPSEEK_MODEL: 'deepseek-test',
+    },
+    budgetMs: 1_000,
+  })
+  assert.equal(generated.provider, 'deepseek')
 })

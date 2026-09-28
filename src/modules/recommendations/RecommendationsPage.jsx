@@ -5,10 +5,12 @@ import PageContainer from '../../shared/components/PageContainer.jsx'
 import MovieGridSkeleton from '../movies/components/MovieGridSkeleton.jsx'
 import { getExperienceRecommendations, getSimilarDNARecommendations } from '../../services/recommendationService.js'
 import { getMovieWatchProviders } from '../../services/tmdbService.js'
+import { interpretSearchIntent } from '../../services/recommendations/searchIntentService.js'
+import { requiresExpertMode } from '../../services/recommendations/searchIntentContract.js'
 import ExperienceForm from './ExperienceForm.jsx'
 import FilterIcon from './FilterIcon.jsx'
 import RecommendationCard from './RecommendationCard.jsx'
-import { getActiveFilterLabels, INITIAL_SELECTIONS, normalizeOptionValue } from './recommendationConfig.js'
+import { findOption, getActiveFilterLabels, INITIAL_SELECTIONS, normalizeOptionValue } from './recommendationConfig.js'
 import './recommendations.css'
 
 const ARRAY_FIELDS = new Set(['genres', 'providers'])
@@ -27,6 +29,12 @@ const toParams = (selections) => Object.entries(selections).reduce((params, [key
   return params
 }, {})
 
+const describeIntentFilters = (filters) => Object.entries(filters).flatMap(([group, value]) => {
+  if (group === 'genres') return value.map((item) => findOption('genres', item)?.label).filter(Boolean)
+  if (group === 'minRating') return [`TMDB ${Number(value).toFixed(1)}+`]
+  return [findOption(group, value)?.label].filter(Boolean)
+})
+
 function RecommendationsPage() {
   const [params, setParams] = useSearchParams()
   const similarTo = params.get('similarTo')
@@ -40,6 +48,8 @@ function RecommendationsPage() {
   const [sort, setSort] = useState('compatibility')
   const [hasSearched, setHasSearched] = useState(hasPersistedSearch)
   const [state, setState] = useState({ status: hasPersistedSearch ? 'loading' : 'idle', movies: [] })
+  const [naturalQuery, setNaturalQuery] = useState('')
+  const [intentState, setIntentState] = useState({ status: 'idle', labels: [], unmappedTerms: [] })
 
   useEffect(() => {
     getMovieWatchProviders('ES')
@@ -72,6 +82,7 @@ function RecommendationsPage() {
   }, [])
 
   const changeSelection = (group, value, multiple = false) => {
+    if (intentState.status === 'success') setIntentState((current) => ({ ...current, status: 'adjusted' }))
     setSelections((current) => {
       if (multiple) {
         const values = current[group] || []
@@ -90,7 +101,44 @@ function RecommendationsPage() {
     load(null, selections)
   }
 
-  const clear = () => setSelections({ ...INITIAL_SELECTIONS, genres: [], providers: [] })
+  const clear = () => {
+    setSelections({ ...INITIAL_SELECTIONS, genres: [], providers: [] })
+    if (intentState.status === 'success') setIntentState((current) => ({ ...current, status: 'adjusted' }))
+  }
+
+  const searchNaturally = async (event) => {
+    event.preventDefault()
+    const query = naturalQuery.trim()
+    if (!query || intentState.status === 'loading') return
+    setIntentState({ status: 'loading', labels: [], unmappedTerms: [] })
+    const interpretationStartedAt = performance.now()
+    try {
+      const intent = await interpretSearchIntent(query)
+      const interpretationMs = performance.now() - interpretationStartedAt
+      if (!Object.keys(intent.filters).length) {
+        setIntentState({ status: 'uninterpretable', labels: [], unmappedTerms: intent.unmappedTerms, interpretationMs })
+        return
+      }
+      const next = { ...INITIAL_SELECTIONS, genres: [], providers: [], ...intent.filters }
+      setSelections(next)
+      setAppliedSelections(next)
+      setMode(requiresExpertMode(intent.filters) ? 'expert' : 'simple')
+      setParams(toParams(next))
+      setHasSearched(true)
+      setFiltersOpen(false)
+      const recommendationStartedAt = performance.now()
+      await load(null, next)
+      setIntentState({
+        status: 'success',
+        labels: describeIntentFilters(intent.filters),
+        unmappedTerms: intent.unmappedTerms,
+        interpretationMs,
+        recommendationMs: performance.now() - recommendationStartedAt,
+      })
+    } catch {
+      setIntentState({ status: 'error', labels: [], unmappedTerms: [] })
+    }
+  }
 
   const activeFilters = useMemo(() => getActiveFilterLabels(appliedSelections, providers), [appliedSelections, providers])
 
@@ -102,6 +150,7 @@ function RecommendationsPage() {
         : INITIAL_SELECTIONS[group],
     }
     setSelections(next)
+    if (intentState.status === 'success') setIntentState((current) => ({ ...current, status: 'adjusted' }))
     setAppliedSelections(next)
     setParams(toParams(next))
     load(null, next)
@@ -130,10 +179,15 @@ function RecommendationsPage() {
       <p>{similarTo ? 'Historias conectadas por una experiencia cinematográfica parecida.' : 'Cuéntanos qué te apetece y encontraremos películas que encajen contigo. Sin complicaciones.'}</p>
     </section>
 
-    {!similarTo && <section className="natural-search" aria-labelledby="natural-search-title">
-      <div className="natural-search__content"><FilterIcon name="magic" size={24} /><div><label id="natural-search-title" htmlFor="natural-query">También puedes describir lo que buscas con tus propias palabras</label><input id="natural-query" placeholder="Describe lo que buscas…" disabled /><small>Esta búsqueda necesita un servicio que convierta el texto en filtros verificables.</small></div></div>
-      <button className="button natural-search__action" type="button" disabled aria-disabled="true">Buscar con IA</button>
-    </section>}
+    {!similarTo && <form className="natural-search" aria-labelledby="natural-search-title" aria-busy={intentState.status === 'loading'} onSubmit={searchNaturally}>
+      <div className="natural-search__content"><FilterIcon name="magic" size={24} /><div><label id="natural-search-title" htmlFor="natural-query">Describe lo que buscas con tus propias palabras</label><input id="natural-query" placeholder="Ej.: una comedia ligera para ver con amigos" value={naturalQuery} onChange={(event) => setNaturalQuery(event.target.value)} disabled={intentState.status === 'loading'} /><small>FilmDNA convertirá tu descripción en filtros que podrás revisar y ajustar.</small></div></div>
+      <button className="button natural-search__action" type="submit" disabled={!naturalQuery.trim() || intentState.status === 'loading'}>{intentState.status === 'loading' ? 'Interpretando…' : 'Buscar con IA'}</button>
+    </form>}
+
+    {!similarTo && intentState.status === 'success' && <div className="intent-feedback intent-feedback--success" role="status"><strong>FilmDNA entendió:</strong> {intentState.labels.join(', ')}{intentState.unmappedTerms.length > 0 && <span>No se pudo representar: {intentState.unmappedTerms.join(', ')}.</span>}</div>}
+    {!similarTo && intentState.status === 'adjusted' && <div className="intent-feedback" role="status">Filtros interpretados y ajustados manualmente.</div>}
+    {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, tono, ritmo, duración o cómo quieres sentirte.</div>}
+    {!similarTo && intentState.status === 'error' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>La interpretación con IA no está disponible temporalmente.</strong> Puedes seguir usando los filtros manuales.</div>}
 
     {!similarTo && !hasSearched && <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />}
 

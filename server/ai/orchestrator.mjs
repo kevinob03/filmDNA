@@ -17,11 +17,13 @@ export const runAIOperation = async (operation, input, { env = process.env, budg
   const deadline = Date.now() + safeBudget
   let lastError = null
 
-  for (const { provider, config } of configured) {
+  for (const [index, { provider, config }] of configured.entries()) {
     const remainingMs = deadline - Date.now()
     if (remainingMs < MINIMUM_PROVIDER_WINDOW_MS) break
+    const remainingProviders = configured.length - index
+    const providerWindowMs = Math.max(MINIMUM_PROVIDER_WINDOW_MS, Math.floor(remainingMs / remainingProviders))
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), remainingMs)
+    const timeoutId = setTimeout(() => controller.abort(), providerWindowMs)
     try {
       const result = await provider.generate({
         operationName: operation.name,

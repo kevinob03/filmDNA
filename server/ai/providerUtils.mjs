@@ -1,5 +1,23 @@
 import { AIProviderError } from './errors.mjs'
 
+export const omitSchemaKeywords = (value, omittedKeywords) => {
+  if (Array.isArray(value)) return value.map((item) => omitSchemaKeywords(item, omittedKeywords))
+  if (!value || typeof value !== 'object') return value
+  return Object.fromEntries(Object.entries(value)
+    .filter(([key]) => !omittedKeywords.has(key))
+    .map(([key, item]) => [key, omitSchemaKeywords(item, omittedKeywords)]))
+}
+
+export const supportsStrictJsonSchema = (schema) => {
+  if (!schema || typeof schema !== 'object') return true
+  if (Array.isArray(schema)) return schema.every(supportsStrictJsonSchema)
+  if (schema.type === 'object' && schema.properties) {
+    const required = new Set(schema.required || [])
+    if (Object.keys(schema.properties).some((key) => !required.has(key))) return false
+  }
+  return Object.values(schema).every(supportsStrictJsonSchema)
+}
+
 export const parseProviderJson = (value, provider) => {
   if (typeof value !== 'string' || !value.trim()) {
     throw new AIProviderError('empty-response', { provider })
