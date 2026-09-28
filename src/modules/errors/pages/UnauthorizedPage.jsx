@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import PageContainer from '../shared/components/PageContainer.jsx'
-import '../modules/profile/profile.css'
+import PageContainer from '../../../shared/components/PageContainer.jsx'
+import '../../profile/profile.css'
 
 function UnauthorizedPage() {
   return (

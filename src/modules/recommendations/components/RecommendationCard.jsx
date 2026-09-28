@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { buildTmdbImageUrl } from '../../services/tmdbService.js'
+import { buildTmdbImageUrl } from '../../../services/tmdbService.js'
 import FilterIcon from './FilterIcon.jsx'
 
 const formatRuntime = (minutes) => {

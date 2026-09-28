@@ -10,7 +10,7 @@ import {
   POPULARITY_OPTIONS,
   REGION_OPTIONS,
   TONE_OPTIONS,
-} from './recommendationConfig.js'
+} from '../recommendationConfig.js'
 import FilterIcon from './FilterIcon.jsx'
 
 const selected = (selections, group, value) => Array.isArray(selections[group])

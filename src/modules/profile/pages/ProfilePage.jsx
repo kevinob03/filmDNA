@@ -1,6 +1,6 @@
-import { useAuth } from '../../context/AuthContext.jsx'
-import PageContainer from '../../shared/components/PageContainer.jsx'
-import './profile.css'
+import { useAuth } from '../../../context/AuthContext.jsx'
+import PageContainer from '../../../shared/components/PageContainer.jsx'
+import '../profile.css'
 
 const ROLE_LABELS = {
   usuario: 'Usuario',

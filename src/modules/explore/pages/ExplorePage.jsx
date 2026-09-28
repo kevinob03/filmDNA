@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import PageContainer from '../../shared/components/PageContainer.jsx'
-import ContentState from '../../shared/components/ContentState.jsx'
-import MovieCard from '../movies/components/MovieCard.jsx'
-import MovieGridSkeleton from '../movies/components/MovieGridSkeleton.jsx'
-import { getTmdbErrorMessage } from '../../services/tmdbService.js'
-import { getPopularMovies, searchMovies } from '../../services/movieService.js'
-import './explore.css'
+import PageContainer from '../../../shared/components/PageContainer.jsx'
+import ContentState from '../../../shared/components/ContentState.jsx'
+import MovieCard from '../../movies/components/MovieCard.jsx'
+import MovieGridSkeleton from '../../movies/components/MovieGridSkeleton.jsx'
+import { getTmdbErrorMessage } from '../../../services/tmdbService.js'
+import { getPopularMovies, searchMovies } from '../../../services/movieService.js'
+import '../explore.css'
 
 function ExplorePage() {
   const [input, setInput] = useState('')

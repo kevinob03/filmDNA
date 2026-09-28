@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext.jsx'
-import { getAuthErrorMessage } from '../../services/authService.js'
-import AuthPageShell from './components/AuthPageShell.jsx'
+import { useAuth } from '../../../context/AuthContext.jsx'
+import { getAuthErrorMessage } from '../../../services/authService.js'
+import AuthPageShell from '../components/AuthPageShell.jsx'
 
 const MIN_PASSWORD_LENGTH = 6
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext.jsx'
-import { getAuthErrorMessage } from '../../services/authService.js'
-import AuthPageShell from './components/AuthPageShell.jsx'
+import { useAuth } from '../../../context/AuthContext.jsx'
+import { getAuthErrorMessage } from '../../../services/authService.js'
+import AuthPageShell from '../components/AuthPageShell.jsx'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

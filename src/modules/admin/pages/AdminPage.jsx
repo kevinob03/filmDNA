@@ -1,6 +1,6 @@
-import { useAuth } from '../../context/AuthContext.jsx'
-import PageContainer from '../../shared/components/PageContainer.jsx'
-import '../profile/profile.css'
+import { useAuth } from '../../../context/AuthContext.jsx'
+import PageContainer from '../../../shared/components/PageContainer.jsx'
+import '../../profile/profile.css'
 
 function AdminPage() {
   const { user } = useAuth()

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ContentState from '../../shared/components/ContentState.jsx'
-import PageContainer from '../../shared/components/PageContainer.jsx'
+import ContentState from '../../../shared/components/ContentState.jsx'
+import PageContainer from '../../../shared/components/PageContainer.jsx'
 import {
   buildTmdbImageUrl,
   getTmdbErrorMessage,
-} from '../../services/tmdbService.js'
-import { getMovieDetails } from '../../services/movieService.js'
-import MovieDNASection from './components/MovieDNAFeatureEntry.jsx'
-import './movie-detail.css'
+} from '../../../services/tmdbService.js'
+import { getMovieDetails } from '../../../services/movieService.js'
+import MovieDNASection from '../components/MovieDNAFeatureEntry.jsx'
+import '../movie-detail.css'
 
 const formatDate = (date) => {
   if (!date) return null
