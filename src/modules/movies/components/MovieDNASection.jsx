@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   generateMovieDNA,
+  getAIStatus,
   getAIErrorMessage,
-  isAIConfigured,
 } from '../../../services/aiService.js'
 import {
   getMovieDNAByTmdbId,
@@ -29,6 +30,15 @@ function MovieDNASkeleton() {
 function MovieDNASection({ movie }) {
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState(INITIAL_STATE)
+  const [aiConfigured, setAIConfigured] = useState(null)
+
+  useEffect(() => {
+    let active = true
+    getAIStatus()
+      .then((status) => { if (active) setAIConfigured(Boolean(status.configured)) })
+      .catch(() => { if (active) setAIConfigured(false) })
+    return () => { active = false }
+  }, [])
 
   useEffect(() => {
     let active = true
@@ -102,7 +112,7 @@ function MovieDNASection({ movie }) {
             >
               {state.status === 'generating' ? 'Generando…' : 'Generar Movie DNA'}
             </button>
-            {!isAIConfigured && (
+            {aiConfigured === false && (
               <small>Configura al menos un proveedor y su modelo para habilitar la generación.</small>
             )}
           </div>
@@ -115,6 +125,7 @@ function MovieDNASection({ movie }) {
               <p className="movie-dna-explanation__label">Interpretación FilmDNA</p>
               <p>{state.profile.explicacion}</p>
               <small>Estimación orientativa. No representa una medición científica ni datos proporcionados por TMDB.</small>
+              <Link className={'button button--secondary'} to={`/recomendaciones?similarTo=${movie.id}`}>Buscar películas con DNA similar</Link>
             </div>
           </div>
         )}

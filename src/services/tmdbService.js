@@ -2,6 +2,8 @@ const API_BASE_URL = 'https://api.themoviedb.org/3'
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p'
 const LANGUAGE = 'es-ES'
 const CACHE_TTL = 60_000
+const DETAIL_CACHE_TTL = 15 * 60_000
+const PROVIDER_CACHE_TTL = 60 * 60_000
 
 const apiKey = import.meta.env.VITE_TMDB_API_KEY?.trim()
 const responseCache = new Map()
@@ -17,7 +19,7 @@ export class TmdbServiceError extends Error {
   }
 }
 
-const request = async (endpoint, params = {}) => {
+const request = async (endpoint, params = {}, cacheTtl = CACHE_TTL) => {
   if (!isTmdbConfigured) {
     throw new TmdbServiceError('configuration')
   }
@@ -32,7 +34,7 @@ const request = async (endpoint, params = {}) => {
   const cacheKey = url.toString()
   const cached = responseCache.get(cacheKey)
 
-  if (cached && Date.now() - cached.createdAt < CACHE_TTL) {
+  if (cached && Date.now() - cached.createdAt < cacheTtl) {
     return cached.promise
   }
 
@@ -66,6 +68,22 @@ export const searchMovies = (query, page = 1) => request('/search/movie', {
 })
 
 export const getMovieDetails = (movieId) => request(`/movie/${encodeURIComponent(movieId)}`)
+
+export const getRecommendationMovieDetails = (movieId) => request(`/movie/${encodeURIComponent(movieId)}`, {
+  append_to_response: 'keywords,release_dates,watch/providers',
+}, DETAIL_CACHE_TTL)
+
+export const getMovieWatchProviders = (region = 'ES') => request('/watch/providers/movie', {
+  watch_region: region,
+}, PROVIDER_CACHE_TTL)
+
+export const discoverMovies = (params = {}) => request('/discover/movie', {
+  page: 1,
+  include_adult: 'false',
+  sort_by: 'popularity.desc',
+  'vote_count.gte': 50,
+  ...params,
+})
 
 export const buildTmdbImageUrl = (path, size = 'w500') => {
   if (!path) return null

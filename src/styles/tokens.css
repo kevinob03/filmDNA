@@ -29,11 +29,11 @@
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2.5rem;
+  --space-lg: 1.25rem;
+  --space-xl: 2rem;
   --gutter: 1.5rem;
   --gutter-mobile: 0.75rem;
-  --page-margin: 2.5rem;
+  --page-margin: 2rem;
   --page-margin-mobile: 1rem;
 
   --radius-sm: 0.125rem;
@@ -48,5 +48,5 @@
   --type-body: 1rem;
   --type-data-label: 0.6875rem;
   --type-data-micro: 0.5625rem;
-  --content-max: 80rem;
+  --content-max: 72rem;
 }
