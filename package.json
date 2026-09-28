@@ -6,8 +6,16 @@
   "scripts": {
     "dev": "vite",
     "server": "json-server db.json --port 3001",
+    "server:ai": "node --env-file-if-exists=.env server/aiServer.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e:recommendations": "node tests/e2e/recommendations.audit.mjs",
+    "test:e2e:recommendations:performance": "node tests/e2e/recommendations.performance.mjs",
+    "test:e2e:movie-dna": "node tests/e2e/movie-dna.audit.mjs",
+    "test:e2e:recommendations:ai": "node tests/e2e/recommendations-ai.audit.mjs",
+    "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
+    "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",
+    "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs"
   },
   "dependencies": {
     "react": "^19.1.1",
@@ -15,6 +23,7 @@
     "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vitejs/plugin-react": "^5.0.3",
     "json-server": "^1.0.0-beta.15",
     "vite": "^7.1.7"
