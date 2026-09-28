@@ -1,5 +1,6 @@
 import Header from './Header.jsx'
 import MobileNavigation from './MobileNavigation.jsx'
+import AccessibilityPanel from './AccessibilityPanel.jsx'
 import ScrollToTop from './ScrollToTop.jsx'
 import TmdbAttribution from './TmdbAttribution.jsx'
 import './layout.css'
@@ -12,6 +13,7 @@ function AppLayout({ children }) {
         Saltar al contenido
       </a>
       <Header />
+      <AccessibilityPanel />
       <div className="app-layout__content">{children}</div>
       <TmdbAttribution />
       <MobileNavigation />

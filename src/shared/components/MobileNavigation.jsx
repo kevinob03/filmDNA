@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { AUTH_STATUS, useAuth } from '../../context/AuthContext.jsx'
+import AccessibilityButton from './AccessibilityButton.jsx'
 
 const NavIcon = ({ type }) => {
   const paths = {
@@ -20,7 +21,7 @@ function MobileNavigation() {
   const { status, user, logout } = useAuth()
   const isAuthenticated = status === AUTH_STATUS.AUTHENTICATED
   const isAdmin = isAuthenticated && user.role === 'admin'
-  const itemCount = status === AUTH_STATUS.CHECKING ? 4 : (isAdmin ? 6 : 5)
+  const itemCount = status === AUTH_STATUS.CHECKING ? 5 : (isAdmin ? 7 : 6)
 
   return (
     <nav
@@ -40,6 +41,8 @@ function MobileNavigation() {
       <NavLink className={'mobile-nav__item'} to={'/recomendaciones'}>
         <NavIcon type={'compass'} /><span>Recomendar</span>
       </NavLink>
+
+      <AccessibilityButton mobile />
 
       {status === AUTH_STATUS.CHECKING && (
         <span className="mobile-nav__item mobile-nav__item--disabled" aria-label="Comprobando sesión">
