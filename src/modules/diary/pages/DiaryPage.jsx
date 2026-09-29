@@ -27,7 +27,7 @@ function DiaryPage() {
   useEffect(() => { loadDiary() }, [loadDiary])
   return (
     <main id="main-content" className="diary-page"><PageContainer>
-      <header className="diary-page__header"><div><p className="eyebrow"><span aria-hidden="true" />Tu historia en pantalla</p><h1>Mi Diario</h1><p>Consulta las películas que viste y las impresiones que guardaste de cada una.</p></div><Link className="button button--primary" to="/explorar">Explorar películas</Link></header>
+      <header className="diary-page__header"><div><p className="eyebrow"><span aria-hidden="true" />Tu historia en pantalla</p><h1>Mi Diario</h1><p>Consulta las películas que viste y las impresiones que guardaste de cada una.</p></div><div className="diary-page__actions"><Link className="button button--primary" to="/explorar">Explorar películas</Link><Link className="button button--secondary" to="/estadisticas">Ver mis estadísticas</Link></div></header>
       {state.status === 'loading' ? <DiarySkeleton /> : null}
       {state.status === 'error' ? <ContentState title="No pudimos cargar tu Diario" message={state.error} actionLabel="Reintentar" onAction={loadDiary} /> : null}
       {state.status === 'success' && state.entries.length === 0 ? <ContentState title="Tu Diario está vacío" message="Todavía no registraste ninguna película vista. Abre una película para guardar tu primera experiencia." /> : null}

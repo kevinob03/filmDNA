@@ -15,6 +15,7 @@
     "test:e2e:movie-dna": "node tests/e2e/movie-dna.audit.mjs",
     "test:e2e:library": "node tests/e2e/library.audit.mjs",
     "test:e2e:diary": "node tests/e2e/diary.audit.mjs",
+    "test:e2e:statistics": "node tests/e2e/statistics.audit.mjs",
     "test:e2e:recommendations:ai": "node tests/e2e/recommendations-ai.audit.mjs",
     "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",

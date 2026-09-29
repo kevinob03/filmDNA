@@ -12,6 +12,7 @@ import NotFoundPage from '../modules/errors/pages/NotFoundPage.jsx'
 import { GuestRoute, PrivateRoute, RoleRoute } from './RouteGuards.jsx'
 import UnauthorizedPage from '../modules/errors/pages/UnauthorizedPage.jsx'
 import DiaryPage from '../modules/diary/pages/DiaryPage.jsx'
+import StatisticsPage from '../modules/statistics/pages/StatisticsPage.jsx'
 
 function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ function AppRoutes() {
       <Route path="/perfil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
       <Route path="/biblioteca" element={<PrivateRoute><LibraryPage /></PrivateRoute>} />
       <Route path="/diario" element={<PrivateRoute><DiaryPage /></PrivateRoute>} />
+      <Route path="/estadisticas" element={<PrivateRoute><StatisticsPage /></PrivateRoute>} />
       <Route
         path="/admin"
         element={<RoleRoute allowedRoles={['admin']}><AdminPage /></RoleRoute>}

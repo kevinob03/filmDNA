@@ -1,4 +1,5 @@
 import { useAuth } from '../../../context/AuthContext.jsx'
+import { Link } from 'react-router-dom'
 import PageContainer from '../../../shared/components/PageContainer.jsx'
 import '../profile.css'
 
@@ -42,6 +43,7 @@ function ProfilePage() {
             <button className="button button--secondary account-card__action" type="button" onClick={logout}>
               Cerrar sesión
             </button>
+            <Link className="button button--primary account-card__action" to="/estadisticas">Ver mis estadísticas</Link>
           </div>
         </section>
       </PageContainer>
