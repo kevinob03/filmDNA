@@ -4,9 +4,12 @@ import MovieDNAPreview from '../components/MovieDNAPreview.jsx'
 import PersonalizationSection from '../components/PersonalizationSection.jsx'
 import TrendingMovies from '../components/TrendingMovies.jsx'
 import PlatformOverview from '../components/PlatformOverview.jsx'
+import { useScrollReveal } from '../useScrollReveal.js'
 import '../home.css'
 
 function HomePage() {
+  useScrollReveal()
+
   return (
     <main id="main-content" className="home-page">
       <Hero />
