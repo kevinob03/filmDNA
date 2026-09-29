@@ -26,6 +26,7 @@ function Header() {
           {isAuthenticated && (
             <>
               <NavLink className="desktop-nav__link" to="/biblioteca">Biblioteca</NavLink>
+              <NavLink className="desktop-nav__link" to="/diario">Diario</NavLink>
               <NavLink className="desktop-nav__link" to="/perfil">Perfil</NavLink>
             </>
           )}
