@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import AdminPage from '../modules/admin/pages/AdminPage.jsx'
 import LoginPage from '../modules/auth/pages/LoginPage.jsx'
+import LibraryPage from '../modules/library/pages/LibraryPage.jsx'
 import RegisterPage from '../modules/auth/pages/RegisterPage.jsx'
 import HomePage from '../modules/home/pages/HomePage.jsx'
 import ExplorePage from '../modules/explore/pages/ExplorePage.jsx'
@@ -21,6 +22,7 @@ function AppRoutes() {
       <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
       <Route path="/registro" element={<GuestRoute><RegisterPage /></GuestRoute>} />
       <Route path="/perfil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+      <Route path="/biblioteca" element={<PrivateRoute><LibraryPage /></PrivateRoute>} />
       <Route
         path="/admin"
         element={<RoleRoute allowedRoles={['admin']}><AdminPage /></RoleRoute>}

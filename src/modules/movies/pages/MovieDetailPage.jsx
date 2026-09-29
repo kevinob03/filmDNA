@@ -8,6 +8,7 @@ import {
 } from '../../../services/tmdbService.js'
 import { getMovieDetails } from '../../../services/movieService.js'
 import MovieDNASection from '../components/MovieDNAFeatureEntry.jsx'
+import MovieLibraryActions from '../components/MovieLibraryActions.jsx'
 import '../movie-detail.css'
 
 const formatDate = (date) => {
@@ -134,6 +135,8 @@ function MovieDetailPage() {
                 <h2 id="overview-title">Sinopsis</h2>
                 <p>{movie.overview || 'TMDB no proporciona una sinopsis en español para esta película.'}</p>
               </section>
+
+              {movie.source !== 'omdb' ? <MovieLibraryActions movie={movie} /> : null}
             </div>
           </div>
         </PageContainer>
