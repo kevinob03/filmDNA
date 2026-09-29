@@ -13,12 +13,80 @@
       "email": "usuario@filmdna.local",
       "password": "demo-usuario-123",
       "role": "usuario"
+    },
+    {
+      "nombre": "Steven Salas",
+      "email": "steven@gmaill.com",
+      "password": "12345678",
+      "role": "usuario",
+      "id": "3QSL6fv3Q-w"
+    },
+    {
+      "nombre": "Kevin Ortiz",
+      "email": "kevin@gmail.com",
+      "password": "123456",
+      "role": "usuario",
+      "id": "HMEPwXeDCXc"
+    },
+    {
+      "nombre": "Kevin bolaños",
+      "email": "kevin2@gmail.com",
+      "password": "123456",
+      "role": "usuario",
+      "id": "vRj67k8ePoI"
     }
   ],
   "diario": [],
   "favoritos": [],
   "listas": [],
   "listaPeliculas": [],
-  "movieDNA": [],
-  "configuracionDNA": []
+  "movieDNA": [
+    {
+      "tmdbId": 1368337,
+      "alegria": 40,
+      "emocion": 75,
+      "complejidad": 70,
+      "intensidad": 85,
+      "fantasia": 80,
+      "ritmo": 70,
+      "explicacion": "El filme presenta un relato épico de regreso con acción intensa y elementos fantásticos, generando emoción y complejidad narrativa, aunque no es especialmente ligero o contemplativo.",
+      "source": "ai",
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "generatedAt": "2026-09-25T20:34:30.455Z",
+      "id": "REeDrFAX9U0"
+    },
+    {
+      "tmdbId": 969681,
+      "alegria": 65,
+      "emocion": 80,
+      "complejidad": 70,
+      "intensidad": 85,
+      "fantasia": 75,
+      "ritmo": 80,
+      "explicacion": "La película combina acción y evolución personal de Peter Parker, generando un tono optimista y dramático con un ritmo rápido y elementos fantásticos de superhéroes.",
+      "source": "ai",
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "generatedAt": "2026-09-28T16:23:07.307Z",
+      "id": "sV1XPT3Q24Y"
+    },
+    {
+      "tmdbId": 1101383,
+      "alegria": 20,
+      "emocion": 70,
+      "complejidad": 60,
+      "intensidad": 80,
+      "fantasia": 80,
+      "ritmo": 70,
+      "explicacion": "La trama mezcla ciencia ficción y suspense, con un evento cósmico que separa la comunidad. La tensión y el vínculo familiar generan alta emoción, mientras la distancia a la realidad y la trama de supervivencia aportan fantasía y complejidad. El ritmo mantiene una sensación de urgencia sin ser abrumador.",
+      "source": "ai",
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "generatedAt": "2026-09-28T16:25:32.623Z",
+      "id": "wsTdYb__gm8"
+    }
+  ],
+  "configuracionDNA": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
