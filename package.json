@@ -10,6 +10,8 @@
     "server:ai": "node --use-system-ca --env-file-if-exists=.env server/aiServer.mjs",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "jest",
+    "test:unit": "jest",
     "test:e2e:recommendations": "node tests/e2e/recommendations.audit.mjs",
     "test:e2e:recommendations:performance": "node tests/e2e/recommendations.performance.mjs",
     "test:e2e:movie-dna": "node tests/e2e/movie-dna.audit.mjs",
@@ -29,8 +31,16 @@
     "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
+    "@babel/core": "^8.0.6",
+    "@babel/preset-env": "^8.0.6",
+    "@babel/preset-react": "^8.0.1",
     "@playwright/test": "^1.63.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@vitejs/plugin-react": "^5.0.3",
+    "babel-jest": "^30.5.2",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "json-server": "^1.0.0-beta.15",
     "vite": "^7.1.7"
   }
