@@ -9,10 +9,14 @@
     },
     {
       "id": "usuario-demo",
-      "nombre": "Usuario FilmDNA",
+      "nombre": "lol",
       "email": "usuario@filmdna.local",
       "password": "demo-usuario-123",
-      "role": "usuario"
+      "role": "usuario",
+      "bio": "",
+      "avatarPreset": "",
+      "avatarImage": "",
+      "favoriteGenres": []
     }
   ],
   "diario": [],
@@ -20,5 +24,6 @@
   "listas": [],
   "listaPeliculas": [],
   "movieDNA": [],
-  "configuracionDNA": []
+  "configuracionDNA": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
