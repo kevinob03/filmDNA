@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { loginUser, registerUser } from '../services/authService.js'
 
 export const AUTH_STATUS = Object.freeze({
@@ -89,6 +89,16 @@ export function AuthProvider({ children }) {
     setStatus(AUTH_STATUS.UNAUTHENTICATED)
   }
 
+  const syncSessionUser = useCallback((changes) => {
+    setUser((current) => {
+      if (!current) return current
+      const nombre = typeof changes?.nombre === 'string' ? changes.nombre.trim() : current.nombre
+      const nextUser = { ...current, nombre: nombre || current.nombre }
+      storeSession(nextUser)
+      return nextUser
+    })
+  }, [])
+
   const value = useMemo(() => ({
     user,
     status,
@@ -96,7 +106,8 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
-  }), [status, user])
+    syncSessionUser,
+  }), [status, syncSessionUser, user])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
