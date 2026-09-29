@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200">
+  <defs>
+    <linearGradient id="neonGreenLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#087A49" />
+      <stop offset="100%" stop-color="#05633B" />
+    </linearGradient>
+    <linearGradient id="violetMagentaLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7434A8" />
+      <stop offset="100%" stop-color="#9A197F" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(30, 25)">
+    <g transform="translate(0, 15)">
+      <path d="M 10,60 C 40,15 75,15 105,60 C 135,105 170,105 200,60"
+            fill="none" stroke="url(#neonGreenLight)" stroke-width="8" stroke-linecap="round" />
+      <path d="M 10,60 C 40,105 75,105 105,60 C 135,15 170,15 200,60"
+            fill="none" stroke="url(#violetMagentaLight)" stroke-width="8" stroke-linecap="round" />
+      <line x1="40" y1="35" x2="40" y2="85" stroke="#7434A8" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+      <circle cx="40" cy="35" r="4.5" fill="#087A49" />
+      <circle cx="40" cy="85" r="4.5" fill="#9A197F" />
+      <circle cx="105" cy="60" r="6" fill="#171A21" />
+      <line x1="170" y1="35" x2="170" y2="85" stroke="#087A49" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+      <circle cx="170" cy="35" r="4.5" fill="#7434A8" />
+      <circle cx="170" cy="85" r="4.5" fill="#087A49" />
+    </g>
+
+    <text x="240" y="98"
+          font-family="'Space Grotesk', system-ui, sans-serif"
+          font-weight="700" font-size="76" letter-spacing="-1.5" fill="#171A21">Film</text>
+    <text x="390" y="98"
+          font-family="'Space Grotesk', system-ui, sans-serif"
+          font-weight="800" font-size="76" letter-spacing="0.5" fill="url(#neonGreenLight)">DNA</text>
+  </g>
+</svg>

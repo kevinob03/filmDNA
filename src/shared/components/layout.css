@@ -35,7 +35,7 @@
   right: 0;
   left: 0;
   border-bottom: 1px solid var(--border-glass);
-  background: rgba(8, 9, 12, 0.9);
+  background: var(--color-header);
   backdrop-filter: blur(16px);
 }
 
@@ -56,6 +56,18 @@
   width: 8.5rem;
   aspect-ratio: 3.2;
   object-fit: cover;
+}
+
+.brand-logo--light {
+  display: none;
+}
+
+html[data-theme='light'] .brand-logo--dark {
+  display: none;
+}
+
+html[data-theme='light'] .brand-logo--light {
+  display: block;
 }
 
 @media (max-width: 24rem) {
@@ -93,7 +105,7 @@
   min-height: 4.5rem;
   padding: var(--space-xs) var(--space-xs) max(var(--space-xs), env(safe-area-inset-bottom));
   border-top: 1px solid var(--border-glass);
-  background: rgba(13, 14, 17, 0.96);
+  background: var(--color-mobile-nav);
   backdrop-filter: blur(16px);
 }
 

@@ -11,6 +11,10 @@ const CONTRAST_OPTIONS = [
   { value: 'normal', label: 'Normal', description: 'Estilo cinematográfico original' },
   { value: 'high', label: 'Alto contraste', description: 'Negro puro y bordes reforzados' },
 ]
+const THEME_OPTIONS = [
+  { value: 'dark', label: 'Oscuro', description: 'Experiencia cinematográfica' },
+  { value: 'light', label: 'Claro', description: 'Fondos claros y tonos editoriales' },
+]
 const FOCUSABLE_SELECTOR = 'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
 
 function SelectionMark() {
@@ -18,7 +22,7 @@ function SelectionMark() {
 }
 
 function AccessibilityPanel() {
-  const { closePanel, contrast, isPanelOpen, resetPreferences, setContrast, setTextSize, textSize } = useAccessibility()
+  const { closePanel, contrast, isPanelOpen, resetPreferences, setContrast, setTextSize, setTheme, textSize, theme } = useAccessibility()
   const panelRef = useRef(null)
   const closeButtonRef = useRef(null)
   const [announcement, setAnnouncement] = useState('')
@@ -54,7 +58,7 @@ function AccessibilityPanel() {
 
   const handleReset = () => {
     resetPreferences()
-    setAnnouncement('Preferencias de accesibilidad restablecidas.')
+    setAnnouncement('Preferencias visuales restablecidas.')
   }
 
   return (
@@ -81,6 +85,21 @@ function AccessibilityPanel() {
         <p id="accessibility-description" className="accessibility-panel__description">
           Ajusta la lectura de FilmDNA. Los cambios se aplican al instante.
         </p>
+
+        <fieldset className="accessibility-fieldset">
+          <legend>Tema</legend>
+          <div className="accessibility-options accessibility-options--contrast">
+            {THEME_OPTIONS.map((option) => (
+              <label className="accessibility-option" key={option.value}>
+                <input type="radio" name="accessibility-theme" value={option.value} checked={theme === option.value} onChange={() => setTheme(option.value)} />
+                <span className="accessibility-option__content">
+                  <strong>{option.label}</strong><small>{option.description}</small>
+                  {theme === option.value ? <SelectionMark /> : null}
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <fieldset className="accessibility-fieldset">
           <legend>Contraste</legend>
@@ -112,7 +131,7 @@ function AccessibilityPanel() {
           </div>
         </fieldset>
 
-        <button className="accessibility-reset" type="button" onClick={handleReset}>Restablecer accesibilidad</button>
+        <button className="accessibility-reset" type="button" onClick={handleReset}>Restablecer preferencias</button>
         <p className="visually-hidden" role="status" aria-live="polite">{announcement}</p>
       </section>
     </div>

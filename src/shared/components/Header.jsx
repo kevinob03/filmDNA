@@ -11,7 +11,8 @@ function Header() {
     <header className="site-header">
       <div className="page-container site-header__inner">
         <NavLink className="brand-link" to="/" aria-label="FilmDNA, inicio">
-          <img src="/brand/filmdna-logo-primary-dark.svg" alt="" />
+          <img className="brand-logo brand-logo--dark" src="/brand/filmdna-logo-primary-dark.svg" alt="" />
+          <img className="brand-logo brand-logo--light" src="/brand/filmdna-logo-primary-light.svg" alt="" />
         </NavLink>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
