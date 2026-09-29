@@ -1,6 +1,7 @@
 .diary-page { padding: clamp(2rem, 5vw, 4.5rem) 0; }
 .diary-page__header, .diary-form__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; }
 .diary-page__header { margin-bottom: 2.25rem; }
+.diary-page__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .diary-page__header h1 { margin: .35rem 0 .65rem; }
 .diary-page__header p:last-child { max-width: 42rem; color: var(--color-text-muted); }
 .diary-entries { display: grid; gap: 1.25rem; }
