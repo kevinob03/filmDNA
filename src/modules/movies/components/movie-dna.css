@@ -46,7 +46,7 @@
   font-size: 2.5rem;
 }
 
-.movie-dna-state .movie-dna-state__error { color: #ffb4ab; }
+.movie-dna-state .movie-dna-state__error { color: var(--color-danger-auth); }
 
 .movie-dna-state small,
 .movie-dna-explanation small {
@@ -80,7 +80,7 @@
 .movie-dna-radar__grid,
 .movie-dna-radar__axis {
   fill: none;
-  stroke: rgba(138, 144, 162, 0.3);
+  stroke: var(--color-radar-grid);
   stroke-width: 1;
 }
 

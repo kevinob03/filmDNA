@@ -2,12 +2,14 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState } fro
 
 export const ACCESSIBILITY_STORAGE_KEY = 'filmdna_accessibility_preferences_v1'
 
-const DEFAULT_PREFERENCES = Object.freeze({ contrast: 'normal', textSize: '100' })
+const DEFAULT_PREFERENCES = Object.freeze({ theme: 'dark', contrast: 'normal', textSize: '100' })
+const VALID_THEMES = new Set(['dark', 'light'])
 const VALID_CONTRASTS = new Set(['normal', 'high'])
 const VALID_TEXT_SIZES = new Set(['100', '110', '125'])
 const AccessibilityContext = createContext(null)
 
 const normalizePreferences = (preferences) => ({
+  theme: VALID_THEMES.has(preferences?.theme) ? preferences.theme : DEFAULT_PREFERENCES.theme,
   contrast: VALID_CONTRASTS.has(preferences?.contrast) ? preferences.contrast : DEFAULT_PREFERENCES.contrast,
   textSize: VALID_TEXT_SIZES.has(preferences?.textSize) ? preferences.textSize : DEFAULT_PREFERENCES.textSize,
 })
@@ -22,8 +24,12 @@ const readPreferences = () => {
 }
 
 const applyPreferences = (preferences) => {
+  document.documentElement.dataset.theme = preferences.theme
+  document.documentElement.style.colorScheme = preferences.theme
   document.documentElement.dataset.contrast = preferences.contrast
   document.documentElement.dataset.textSize = preferences.textSize
+  const themeColor = document.querySelector('meta[name="theme-color"]')
+  if (themeColor) themeColor.content = preferences.theme === 'light' ? '#E9EEEC' : '#08090C'
 }
 
 const storePreferences = (preferences) => {
@@ -53,6 +59,7 @@ export function AccessibilityProvider({ children }) {
   }, [])
 
   const setContrast = useCallback((contrast) => updatePreferences({ contrast }), [updatePreferences])
+  const setTheme = useCallback((theme) => updatePreferences({ theme }), [updatePreferences])
   const setTextSize = useCallback((textSize) => updatePreferences({ textSize }), [updatePreferences])
   const resetPreferences = useCallback(() => {
     applyPreferences(DEFAULT_PREFERENCES)
@@ -75,8 +82,9 @@ export function AccessibilityProvider({ children }) {
     openPanel,
     resetPreferences,
     setContrast,
+    setTheme,
     setTextSize,
-  }), [closePanel, isPanelOpen, openPanel, preferences, resetPreferences, setContrast, setTextSize])
+  }), [closePanel, isPanelOpen, openPanel, preferences, resetPreferences, setContrast, setTextSize, setTheme])
 
   return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>
 }

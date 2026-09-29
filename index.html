@@ -7,13 +7,20 @@
     <script>
       try {
         const storedAccessibility = JSON.parse(localStorage.getItem('filmdna_accessibility_preferences_v1'))
+        const validTheme = ['dark', 'light'].includes(storedAccessibility?.theme)
         const validContrast = ['normal', 'high'].includes(storedAccessibility?.contrast)
         const validTextSize = ['100', '110', '125'].includes(storedAccessibility?.textSize)
+        const theme = validTheme ? storedAccessibility.theme : 'dark'
+        document.documentElement.dataset.theme = theme
         document.documentElement.dataset.contrast = validContrast ? storedAccessibility.contrast : 'normal'
         document.documentElement.dataset.textSize = validTextSize ? storedAccessibility.textSize : '100'
+        document.documentElement.style.colorScheme = theme
+        document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#E9EEEC' : '#08090C'
       } catch {
+        document.documentElement.dataset.theme = 'dark'
         document.documentElement.dataset.contrast = 'normal'
         document.documentElement.dataset.textSize = '100'
+        document.documentElement.style.colorScheme = 'dark'
       }
     </script>
     <meta

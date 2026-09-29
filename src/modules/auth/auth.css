@@ -4,8 +4,8 @@
   background:
     radial-gradient(circle at 16% 20%, rgba(0, 255, 135, 0.09), transparent 25rem),
     radial-gradient(circle at 88% 72%, rgba(157, 78, 221, 0.12), transparent 27rem),
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-size: auto, auto, 3rem 3rem, 3rem 3rem;
 }
 
@@ -16,8 +16,8 @@
   overflow: hidden;
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-xl);
-  background: rgba(16, 18, 23, 0.94);
-  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+  background: var(--color-auth-panel);
+  box-shadow: var(--shadow-auth-panel);
 }
 
 .auth-panel__intro,
@@ -124,7 +124,7 @@
   width: 100%;
   min-height: 3rem;
   padding: 0.75rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-input);
   border-radius: var(--radius-lg);
   background: var(--color-charcoal-elevated);
   color: var(--color-text-primary);
@@ -138,7 +138,7 @@
 }
 
 .form-field input[aria-invalid='true'] {
-  border-color: #ffb4ab;
+  border-color: var(--color-danger-auth);
 }
 
 .form-field__error,
@@ -148,7 +148,7 @@
 }
 
 .form-field__error {
-  color: #ffb4ab;
+  color: var(--color-danger-auth);
 }
 
 .form-field__hint {
@@ -163,9 +163,9 @@
 }
 
 .form-message--error {
-  border: 1px solid rgba(255, 180, 171, 0.35);
-  background: rgba(147, 0, 10, 0.2);
-  color: #ffdad6;
+  border: 1px solid var(--border-danger-auth);
+  background: var(--color-danger-message-background);
+  color: var(--color-danger-message);
 }
 
 .auth-form__submit {
