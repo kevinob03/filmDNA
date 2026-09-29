@@ -11,6 +11,7 @@ import RecommendationsPage from '../modules/recommendations/pages/Recommendation
 import NotFoundPage from '../modules/errors/pages/NotFoundPage.jsx'
 import { GuestRoute, PrivateRoute, RoleRoute } from './RouteGuards.jsx'
 import UnauthorizedPage from '../modules/errors/pages/UnauthorizedPage.jsx'
+import DiaryPage from '../modules/diary/pages/DiaryPage.jsx'
 
 function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/registro" element={<GuestRoute><RegisterPage /></GuestRoute>} />
       <Route path="/perfil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
       <Route path="/biblioteca" element={<PrivateRoute><LibraryPage /></PrivateRoute>} />
+      <Route path="/diario" element={<PrivateRoute><DiaryPage /></PrivateRoute>} />
       <Route
         path="/admin"
         element={<RoleRoute allowedRoles={['admin']}><AdminPage /></RoleRoute>}

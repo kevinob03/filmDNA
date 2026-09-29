@@ -9,6 +9,8 @@ import {
 import { getMovieDetails } from '../../../services/movieService.js'
 import MovieDNASection from '../components/MovieDNAFeatureEntry.jsx'
 import MovieLibraryActions from '../components/MovieLibraryActions.jsx'
+import DiaryEntryForm from '../../diary/components/DiaryEntryForm.jsx'
+import '../../diary/diary.css'
 import '../movie-detail.css'
 
 const formatDate = (date) => {
@@ -137,6 +139,7 @@ function MovieDetailPage() {
               </section>
 
               {movie.source !== 'omdb' ? <MovieLibraryActions movie={movie} /> : null}
+              {movie.source !== 'omdb' ? <DiaryEntryForm movie={movie} /> : null}
             </div>
           </div>
         </PageContainer>
