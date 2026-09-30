@@ -23,6 +23,9 @@ for (const relativePath of workflowFiles) {
   assert(workflow.active === false, `${relativePath}: debe importarse inactivo`)
   assert(!serialized.includes('credentials'), `${relativePath}: contiene credenciales embebidas`)
   assert(!serialized.includes('VITE_') && !serialized.includes('API_KEY'), `${relativePath}: contiene referencias a secretos`)
+  for (const node of workflow.nodes.filter((candidate) => candidate.type === 'n8n-nodes-base.httpRequest')) {
+    assert(node.alwaysOutputData === true, `${relativePath}: ${node.name} debe tolerar respuestas vacías`)
+  }
 
   for (const [source, outputs] of Object.entries(workflow.connections ?? {})) {
     assert(names.has(source), `${relativePath}: conexión desde nodo inexistente ${source}`)
@@ -48,7 +51,7 @@ const backupText = JSON.stringify(backup)
 assert(backup.nodes.some((node) => node.type === 'n8n-nodes-base.scheduleTrigger'), 'scheduled-backup: falta Schedule Trigger')
 assert(backup.nodes.some((node) => node.type === 'n8n-nodes-base.manualTrigger'), 'scheduled-backup: falta Manual Trigger')
 assert(backupText.includes("delete user.password"), 'scheduled-backup: falta sanitización de contraseñas')
-assert(backupText.includes('/files/backups/'), 'scheduled-backup: falta ruta de salida')
+assert(backupText.includes('backups/filmdna-backup-'), 'scheduled-backup: falta ruta de salida')
 for (const resource of ['usuarios', 'diario', 'favoritos', 'listas', 'listaPeliculas', 'movieDNA', 'configuracionDNA']) {
   assert(backupText.includes(`/${resource}`), `scheduled-backup: falta recurso ${resource}`)
 }

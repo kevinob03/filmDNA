@@ -26,7 +26,8 @@
       "name": "Cargar usuarios",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-880, 0]
+      "position": [-880, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/diario", "options": {} },
@@ -34,7 +35,8 @@
       "name": "Cargar diario",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-660, 0]
+      "position": [-660, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/favoritos", "options": {} },
@@ -42,7 +44,8 @@
       "name": "Cargar favoritos",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-440, 0]
+      "position": [-440, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/listas", "options": {} },
@@ -50,7 +53,8 @@
       "name": "Cargar listas",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-220, 0]
+      "position": [-220, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/listaPeliculas", "options": {} },
@@ -58,7 +62,8 @@
       "name": "Cargar relaciones de listas",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [0, 0]
+      "position": [0, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/movieDNA", "options": {} },
@@ -66,7 +71,8 @@
       "name": "Cargar Movie DNA",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 0]
+      "position": [220, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": { "url": "http://localhost:3001/configuracionDNA", "options": {} },
@@ -74,11 +80,12 @@
       "name": "Cargar configuración DNA",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [440, 0]
+      "position": [440, 0],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "const collect = (name) => $(name).all().map((item) => item.json);\nconst usuarios = collect('Cargar usuarios').map((record) => {\n  const user = { ...record };\n  delete user.password;\n  return user;\n});\nconst generatedAt = new Date().toISOString();\nreturn [{ json: { schemaVersion: 1, generatedAt, source: 'FilmDNA JSON Server', usuarios, diario: collect('Cargar diario'), favoritos: collect('Cargar favoritos'), listas: collect('Cargar listas'), listaPeliculas: collect('Cargar relaciones de listas'), movieDNA: collect('Cargar Movie DNA'), configuracionDNA: collect('Cargar configuración DNA') } }];"
+        "jsCode": "const collect = (name) => $(name).all().map((item) => item.json).filter((value) => value && Object.keys(value).length > 0);\nconst usuarios = collect('Cargar usuarios').map((record) => {\n  const user = { ...record };\n  delete user.password;\n  return user;\n});\nconst generatedAt = new Date().toISOString();\nreturn [{ json: { schemaVersion: 1, generatedAt, source: 'FilmDNA JSON Server', usuarios, diario: collect('Cargar diario'), favoritos: collect('Cargar favoritos'), listas: collect('Cargar listas'), listaPeliculas: collect('Cargar relaciones de listas'), movieDNA: collect('Cargar Movie DNA'), configuracionDNA: collect('Cargar configuración DNA') } }];"
       },
       "id": "9a6a6f27-5f4f-450b-b3e7-306970685fc3",
       "name": "Construir respaldo sanitizado",
@@ -100,7 +107,7 @@
     {
       "parameters": {
         "operation": "write",
-        "fileName": "={{ '/files/backups/filmdna-backup-' + $('Construir respaldo sanitizado').first().json.generatedAt.replace(/[:.]/g, '-') + '.json' }}",
+        "fileName": "={{ 'backups/filmdna-backup-' + $('Construir respaldo sanitizado').first().json.generatedAt.replace(/[:.]/g, '-') + '.json' }}",
         "options": {}
       },
       "id": "c1a987c4-eb2d-4eef-be8f-98a6ca67b86f",
