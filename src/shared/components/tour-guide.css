@@ -1,0 +1,15 @@
+.tour-trigger { position: fixed; z-index: 95; right: 1rem; bottom: 5.5rem; display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.45rem; padding: 0.55rem 0.8rem; border: 1px solid var(--border-purple); border-radius: var(--radius-full); background: var(--color-charcoal-elevated); color: var(--color-text-primary); box-shadow: var(--shadow-card); cursor: pointer; }
+.tour-trigger:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.tour-trigger span { display: grid; width: 1.25rem; height: 1.25rem; place-items: center; border-radius: 50%; background: var(--color-violet); color: var(--color-text-primary); font-family: var(--font-data); }
+.tour-layer { position: fixed; z-index: 300; inset: 0; background: rgba(0, 0, 0, 0.72); }
+.tour-layer--spotlight { background: transparent; }
+.tour-spotlight { position: fixed; z-index: 301; border: 2px solid var(--color-primary); border-radius: var(--radius-lg); box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.72), 0 0 1.5rem rgba(0, 255, 135, 0.45); pointer-events: none; transition: inset 180ms ease, width 180ms ease, height 180ms ease; }
+.tour-dialog { position: fixed; z-index: 302; right: 1rem; bottom: 1rem; left: 1rem; width: min(32rem, calc(100% - 2rem)); margin-inline: auto; padding: var(--space-lg); border: 1px solid var(--border-green); border-radius: var(--radius-xl); background: var(--color-surface); box-shadow: var(--shadow-elevated-panel); }
+.tour-dialog__progress, .tour-dialog__actions { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.tour-dialog__progress { color: var(--color-text-muted); font-family: var(--font-data); font-size: var(--type-data-micro); letter-spacing: 0.08em; text-transform: uppercase; }
+.tour-dialog__progress button { padding: 0.3rem; background: transparent; color: var(--color-text-muted); cursor: pointer; }
+.tour-dialog__progress button:hover { color: var(--color-primary); }
+.tour-dialog h2 { margin-block: var(--space-md) var(--space-sm); font-size: 1.35rem; }
+.tour-dialog > p { margin: 0 0 var(--space-lg); color: var(--color-text-muted); }
+@media (min-width: 64rem) { .tour-trigger { bottom: 1.25rem; } .tour-dialog { right: 1.5rem; bottom: 1.5rem; left: auto; margin: 0; } }
+@media (prefers-reduced-motion: reduce) { .tour-spotlight { transition: none; } }
