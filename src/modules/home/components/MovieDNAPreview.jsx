@@ -1,5 +1,6 @@
 import PageContainer from '../../../shared/components/PageContainer.jsx'
 import SectionHeader from '../../../shared/components/SectionHeader.jsx'
+import { Link } from 'react-router-dom'
 
 const dimensions = ['Misterio', 'Oscuridad', 'Complejidad', 'Tensión', 'Surrealismo', 'Ritmo']
 
@@ -21,6 +22,7 @@ function MovieDNAPreview() {
               <li key={dimension}><span>{String(index + 1).padStart(2, '0')}</span>{dimension}</li>
             ))}
           </ul>
+          <Link className="button button--secondary" to="/explorar">Explorar películas</Link>
         </div>
 
         <div className="dna-visual" role="img" aria-label="Diagrama conceptual sin valores de las seis dimensiones de Movie DNA">
@@ -44,7 +46,7 @@ function MovieDNAPreview() {
               <circle cx="95" cy="229" r="4" /><circle cx="95" cy="131" r="4" />
             </g>
           </svg>
-          <span className="dna-visual__label">Vista conceptual · sin datos</span>
+          <span className="dna-visual__label">Vista de las seis dimensiones</span>
         </div>
       </PageContainer>
     </section>

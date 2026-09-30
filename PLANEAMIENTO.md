@@ -413,12 +413,15 @@ Completado:
 - Tarjetas de Explorar con acciones rápidas de Favoritos y Pendientes, reutilizando la biblioteca existente.
 - Filtro Tono eliminado por solaparse con la preferencia emocional; pesos de compatibilidad redistribuidos entre preferencias activas.
 - Interpretación de búsqueda actualizada para no emitir el filtro Tono y conservar conceptos no representables de forma explícita.
+- Home actualizado para presentar funciones reales de Recomendaciones, Movie DNA, Explorar, Biblioteca y Diario sin mensajes temporales de fases anteriores.
+- Resumen reutilizable de preguntas frecuentes integrado al final del Home; `/ayuda` conserva la colección completa desde una única fuente de contenido.
+- Auditoría E2E del Home añadida para `375px`, `768px` y `1280px`, enlaces funcionales, acordeones y ausencia de contenido obsoleto.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 
 ## 28. Siguiente paso
 
-Revisar visualmente el Bloque 1 de mejoras rápidas y, tras su aprobación, diseñar el Tour Guide interactivo como siguiente bloque.
+Diseñar y aprobar el alcance del Tour Guide interactivo antes de implementarlo.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 

@@ -20,7 +20,7 @@ function ExperienceSelector() {
         <SectionHeader
           eyebrow="Tu experiencia"
           title="¿Qué quieres sentir hoy?"
-          description="Selecciona parámetros para definir la experiencia cinematográfica que buscas. En esta fase, las selecciones son una demostración visual."
+          description="Selecciona algunos criterios y abre Recomendaciones con tus preferencias ya aplicadas."
         />
 
         <div className="experience-panel">
@@ -51,7 +51,7 @@ function ExperienceSelector() {
           </div>
 
           <div className="experience-panel__footer">
-            <p><span aria-hidden="true">◇</span> Tus preferencias se usarán para descubrir películas en una fase posterior.</p>
+            <p><span aria-hidden="true">◇</span> Puedes ajustar o ampliar estos filtros en Recomendaciones.</p>
             <button className="button button--primary" type="button" onClick={findMovies} disabled={!Object.keys(selections).length}>
               Ver recomendaciones
             </button>
