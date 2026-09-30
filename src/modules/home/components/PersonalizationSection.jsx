@@ -1,4 +1,5 @@
 import PageContainer from '../../../shared/components/PageContainer.jsx'
+import { Link } from 'react-router-dom'
 
 function PersonalizationSection() {
   return (
@@ -6,15 +7,16 @@ function PersonalizationSection() {
       <PageContainer className="personal-panel">
         <div>
           <p className="eyebrow"><span aria-hidden="true" /> Personalización</p>
-          <h2 id="personal-title">Una selección que evoluciona contigo</h2>
+          <h2 id="personal-title">Encuentra una película para hoy</h2>
           <p>
-            Las recomendaciones estarán disponibles cuando exista información suficiente sobre tus preferencias y actividad.
+            Combina género, emociones, ritmo, duración y otros criterios para obtener una selección explicable y ajustable.
           </p>
         </div>
         <div className="personal-panel__status">
-          <span aria-hidden="true">◎</span>
-          <p>Sin recomendaciones todavía</p>
-          <small>Estado informativo · no se han generado resultados</small>
+          <span aria-hidden="true">✦</span>
+          <p>Recomendaciones disponibles</p>
+          <small>Elige sólo los filtros que te importen</small>
+          <Link className="button button--primary" to="/recomendaciones">Obtener recomendaciones</Link>
         </div>
       </PageContainer>
     </section>

@@ -428,11 +428,16 @@
 }
 
 .personal-panel__status small {
+  display: block;
   color: var(--color-text-muted);
   font-family: var(--font-data);
   font-size: var(--type-data-micro);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.personal-panel__status .button {
+  margin-top: var(--space-lg);
 }
 
 .dna-section {
@@ -470,6 +475,10 @@
   color: var(--color-primary);
   font-family: var(--font-data);
   font-size: var(--type-data-micro);
+}
+
+.dna-section__copy > .button {
+  margin-top: var(--space-md);
 }
 
 .dna-visual {
@@ -556,12 +565,38 @@
   color: var(--color-text-muted);
 }
 
-.overview-card small {
+.overview-card > a {
   color: var(--color-violet-soft);
   font-family: var(--font-data);
   font-size: var(--type-data-micro);
   letter-spacing: 0.08em;
+  text-decoration: none;
   text-transform: uppercase;
+}
+
+.overview-card > a:hover {
+  color: var(--color-primary);
+}
+
+.home-section--faq {
+  padding-bottom: calc(var(--space-xl) * 2);
+  border-top: 1px solid var(--border-glass);
+}
+
+.home-faq__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.home-faq__header h2 { margin-block: 0.45rem 0.7rem; }
+.home-faq__header p:last-child { margin: 0; color: var(--color-text-muted); }
+.home-section--faq .faq-list { max-width: none; }
+
+@media (max-width: 39.99rem) {
+  .home-faq__header { align-items: start; flex-direction: column; }
 }
 
 @media (min-width: 40rem) {
