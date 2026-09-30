@@ -309,8 +309,8 @@ Reglas permanentes:
 - Centralizar APIs en `services/`.
 - Mantener arquitectura modular, responsive y accesibilidad.
 - No sobreingenierizar.
-- No hacer commits ni push salvo solicitud.
-- No cambiar de rama salvo solicitud.
+- Gestionar ramas, commits, push e integración automáticamente únicamente cuando un bloque lógico esté terminado y validado, de acuerdo con el Protocolo de continuidad para Codex.
+- Mantener el desarrollo normal en `develop` y ramas `feature/*`; no tocar `main` salvo solicitud expresa.
 - Ejecutar build después de cambios importantes cuando el proyecto esté configurado.
 - Reportar errores y warnings.
 - Si una decisión importante no está definida, preguntar.
@@ -393,4 +393,93 @@ Completado:
 - El anteproyecto contempla TMDB como principal y OMDb como complemento; el contexto oficial posterior selecciona TMDB. Se adopta TMDB y no se incorpora OMDb sin autorización.
 - El manual usa `#08090C` como fondo principal; los tokens de Stitch asignan `background: #121316`. La diferencia se conserva en `DESIGN_SYSTEM.md`.
 - El requisito responsive valida `375px`, `768px` y `1280px+`; Stitch define cortes de cuadrícula en `640px` y `1024px`. La relación final debe validarse al implementar.
+
+## 29. Protocolo de continuidad para Codex
+
+Cuando el usuario diga solamente **“siguiente paso”**, Codex debe ejecutar este protocolo automáticamente, sin esperar recordatorios separados para actualizar el planeamiento, gestionar Git/GitHub o sincronizar Trello.
+
+### Inicio de cada bloque
+
+1. Leer `PLANEAMIENTO.md` y localizar la primera tarea pendiente de la sección **Siguiente paso**.
+2. Auditar el estado real del repositorio: rama actual, `git status`, historial pertinente, ramas, stashes y sincronización con el remoto.
+3. Considerar el código real como fuente principal de verdad sobre lo implementado; no marcar trabajo como terminado si el repositorio no lo respalda.
+4. Inspeccionar el código, scripts, pruebas y documentación relacionados antes de modificar algo.
+5. Revisar el estado real de la tarea/card de Trello y moverla o actualizarla cuando corresponda, si la integración está disponible.
+6. Partir de `develop` actualizado y crear o continuar una rama `feature/<nombre>` adecuada para el bloque.
+7. Ejecutar únicamente el siguiente bloque lógico de trabajo. No rehacer funcionalidades completadas ni inventar requisitos históricos.
+8. Se permiten decisiones técnicas conservadoras necesarias para avanzar cuando no contradigan requisitos existentes. Se debe pedir autorización antes de usar credenciales privadas, servicios de pago, eliminar datos, realizar cambios destructivos o cambiar de forma importante la arquitectura.
+
+### Trello
+
+Trello debe mantenerse sincronizado con el estado real del proyecto.
+
+Antes de comenzar cada bloque correspondiente a una tarea/card:
+
+1. Revisar el estado real de la tarea.
+2. Actualizar o mover su card cuando corresponda.
+
+Después de completar un bloque:
+
+1. Ejecutar primero las pruebas necesarias.
+2. Actualizar Trello únicamente si el bloque está realmente completado.
+3. Marcar automáticamente solo los criterios de aceptación existentes que se hayan cumplido.
+4. No crear criterios de aceptación nuevos salvo solicitud expresa del usuario.
+5. No marcar una tarea como **Finalizada** mientras falten pruebas, integración o validaciones requeridas.
+6. Cuando el trabajo esté completamente integrado en `develop` y pase las pruebas finales, mover la card correspondiente a **Finalizado** cuando proceda.
+7. Registrar en la card información útil como commits, merge y validaciones cuando sea relevante.
+
+Si Trello o su integración/MCP no están disponibles, no inventar actualizaciones ni afirmar que Trello fue actualizado. Informar claramente que no pudo sincronizarse y continuar con el resto del trabajo cuando sea seguro.
+
+### Git y GitHub
+
+Cuando un bloque lógico esté realmente terminado, Codex debe gestionar Git y GitHub automáticamente mediante este flujo normal:
+
+```text
+develop actualizado
+→ feature/<nombre>
+→ implementación
+→ pruebas
+→ git diff --check
+→ commit
+→ push feature
+→ merge --no-ff a develop
+→ pruebas/regresión final
+→ push develop
+→ comprobar develop == origin/develop
+→ working tree limpio
+```
+
+Reglas permanentes:
+
+- Hacer commit, push y merge solo cuando el bloque esté terminado y validado.
+- Crear commits lógicos y descriptivos; no crear un commit por cada cambio pequeño.
+- Si una tarea requiere varios bloques, mantenerla en su rama feature hasta que exista un bloque integrable realmente listo.
+- Si las pruebas fallan, no integrar en `develop` ni publicar un `develop` defectuoso; corregir primero o reportar el bloqueo.
+- No hacer force push.
+- No realizar rebases destructivos.
+- No tocar `main` durante el desarrollo normal.
+- No incluir `.env`, credenciales, datos locales protegidos ni archivos ajenos a la tarea.
+- No eliminar stashes protegidos sin autorización.
+- Mantener estables `main` y los datos locales protegidos.
+
+### Cierre y sincronización de cada bloque
+
+Después de cada bloque completado deben quedar sincronizados, cuando exista acceso:
+
+1. El código real.
+2. `PLANEAMIENTO.md`.
+3. Trello.
+4. Git/GitHub.
+
+Antes de declarar el bloque completado:
+
+1. Ejecutar las pruebas relevantes.
+2. Ejecutar el build cuando corresponda.
+3. Ejecutar `git diff --check`.
+4. Actualizar `PLANEAMIENTO.md` con el resultado real y actualizar la sección **Siguiente paso** con una única acción concreta.
+5. Completar el flujo Git/GitHub y confirmar que `develop` coincide con `origin/develop` y que el working tree está limpio.
+6. Actualizar Trello conforme a las reglas anteriores.
+7. Reportar brevemente qué se hizo, las pruebas ejecutadas, el estado de Git, la sincronización de Trello y qué sigue.
+
+No avanzar múltiples fases grandes en silencio. Si una integración externa no está disponible, informar la limitación sin representar como realizada ninguna actualización externa.
 
