@@ -24,7 +24,8 @@
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",
     "test:search-intent": "node tests/server/interpretSearchIntent.test.mjs",
     "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
-    "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs"
+    "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs",
+    "test:n8n-workflows": "node scripts/validate-n8n-workflows.mjs"
   },
   "dependencies": {
     "react": "^19.1.1",

@@ -250,6 +250,29 @@ No hacer commits, push ni cambios de rama automáticamente. No modificar configu
 12. **FASE 11:** Jest, accesibilidad y responsive final.
 13. **FASE 12:** Pulido, documentación y entrega.
 
+### FASE 10 - Workflows n8n definidos
+
+La rúbrica requiere un proyecto n8n con un mínimo de dos flujos relacionados con FilmDNA. Se implementan como exportaciones JSON importables, sin servicios de pago ni credenciales externas:
+
+#### Flujo 1: Reporte de actividad cinematográfica
+
+- **Objetivo:** consolidar automáticamente la actividad real de un usuario.
+- **Trigger:** webhook HTTP `POST /filmdna/activity-report`.
+- **Entrada:** `userId` en el cuerpo JSON.
+- **Nodos principales:** validación de entrada, consultas HTTP a diario, favoritos, listas y relaciones, agregación y respuesta HTTP.
+- **Resultado:** reporte JSON con totales, promedio de calificación y fecha de generación.
+
+#### Flujo 2: Respaldo programado de FilmDNA
+
+- **Objetivo:** respaldar automáticamente los recursos propios almacenados mediante JSON Server.
+- **Trigger:** manual para demostración y programado diariamente a las 02:00.
+- **Entrada:** recursos `usuarios`, `diario`, `favoritos`, `listas`, `listaPeliculas`, `movieDNA` y `configuracionDNA`.
+- **Nodos principales:** consultas HTTP, sanitización, conversión a JSON y escritura del archivo.
+- **Resultado:** archivo fechado en `/files/backups` dentro del entorno n8n.
+- **Protección:** las contraseñas se eliminan antes de construir el respaldo y no se leen archivos `.env`.
+
+Los exports y sus instrucciones se conservan en `docs/n8n/`. El script `npm run test:n8n-workflows` valida estructura, conexiones, triggers, recursos, ausencia de credenciales y sanitización. Ambos archivos también fueron importados correctamente mediante el CLI oficial de n8n.
+
 ## 25. Fuentes oficiales del proyecto
 
 ### PLANEAMIENTO.md
@@ -320,7 +343,7 @@ Reglas permanentes:
 
 **Proyecto:** FilmDNA.
 
-**Estado:** FASE 0 completada. FASE 1, FASE 2, FASE 3 y FASE 4 completadas e integradas. FASE 5 implementada técnicamente y pendiente de revisión.
+**Estado:** FASES 0 a 10 completadas. FASE 11 muy avanzada y parcialmente completada; queda la auditoría final de regresión, accesibilidad y responsive. FASE 12 pendiente.
 
 Completado:
 
@@ -376,12 +399,23 @@ Completado:
 - Incidencias externas conocidas de Gemini, DeepSeek y Groq documentadas sin bloquear el resto de FilmDNA.
 - Recomendaciones por seis criterios de experiencia implementadas con TMDB y reglas deterministas independientes de IA.
 - Búsqueda por Movie DNA similar implementada mediante distancia euclidiana normalizada sobre perfiles almacenados.
+- Favoritos, pendientes, listas personalizadas y biblioteca personal implementados.
+- Diario cinematográfico con fecha, calificación y reseña implementado.
+- Estadísticas reales derivadas de la actividad del usuario implementadas.
+- Perfil personalizable y administración de usuarios implementados.
+- Tema claro, oscuro y alto contraste, tamaño de texto y mejoras responsive implementados.
+- Jest configurado con 3 suites y 22 pruebas aprobadas en la validación de FASE 10.
+- Pruebas E2E y auditorías específicas disponibles para perfil, estadísticas, diario, biblioteca, recomendaciones e infraestructura de IA.
+- Dos workflows n8n exportables implementados: reporte de actividad y respaldo programado sanitizado.
+- Workflows n8n validados por script local e importados correctamente con el CLI oficial.
 
-**Fase actual:** FASE 5 - Recomendaciones y películas con Movie DNA similar implementadas técnicamente; pendiente de revisión.
+**Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 
-**Siguiente:** revisar FASE 5 localmente. FASE 6 no iniciada.
+## 28. Siguiente paso
 
-## 28. Decisiones pendientes y contradicciones registradas
+Ejecutar la auditoría global de FASE 11 para identificar y corregir únicamente problemas reales de regresión, accesibilidad o responsive antes de la entrega.
+
+## 29. Decisiones pendientes y contradicciones registradas
 
 - Proveedor y modelo de IA: no definidos.
 - Fórmula de Movie DNA y similitud: no definida.
@@ -389,12 +423,12 @@ Completado:
 - URLs exactas y matriz detallada de rutas: no definidas.
 - Mecanismo concreto de autenticación y persistencia: no definido.
 - Métricas específicas de estadísticas y administración: no definidas.
-- Flujos concretos de n8n: no definidos.
+- La ejecución de los workflows n8n requiere una instancia local con acceso a JSON Server y una ruta `/files/backups` escribible; los exports no incluyen configuración privada del entorno.
 - El anteproyecto contempla TMDB como principal y OMDb como complemento; el contexto oficial posterior selecciona TMDB. Se adopta TMDB y no se incorpora OMDb sin autorización.
 - El manual usa `#08090C` como fondo principal; los tokens de Stitch asignan `background: #121316`. La diferencia se conserva en `DESIGN_SYSTEM.md`.
 - El requisito responsive valida `375px`, `768px` y `1280px+`; Stitch define cortes de cuadrícula en `640px` y `1024px`. La relación final debe validarse al implementar.
 
-## 29. Protocolo de continuidad para Codex
+## 30. Protocolo de continuidad para Codex
 
 Cuando el usuario diga solamente **“siguiente paso”**, Codex debe ejecutar este protocolo automáticamente, sin esperar recordatorios separados para actualizar el planeamiento, gestionar Git/GitHub o sincronizar Trello.
 
