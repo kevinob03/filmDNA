@@ -20,6 +20,7 @@
     "test:e2e:statistics": "node tests/e2e/statistics.audit.mjs",
     "test:e2e:profile": "node tests/e2e/profile.audit.mjs",
     "test:e2e:home": "node tests/e2e/home-content.audit.mjs",
+    "test:e2e:tour": "node tests/e2e/tour-guide.audit.mjs",
     "test:e2e:recommendations:ai": "node tests/e2e/recommendations-ai.audit.mjs",
     "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",

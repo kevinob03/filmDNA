@@ -4,6 +4,7 @@ import AccessibilityPanel from './AccessibilityPanel.jsx'
 import ScrollToTop from './ScrollToTop.jsx'
 import TmdbAttribution from './TmdbAttribution.jsx'
 import './layout.css'
+import { TourButton, TourGuide } from './TourGuide.jsx'
 
 function AppLayout({ children }) {
   return (
@@ -17,6 +18,8 @@ function AppLayout({ children }) {
       <div className="app-layout__content">{children}</div>
       <TmdbAttribution />
       <MobileNavigation />
+      <TourButton />
+      <TourGuide />
     </div>
   )
 }
