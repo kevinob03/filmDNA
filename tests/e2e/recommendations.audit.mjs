@@ -137,13 +137,15 @@ const inspectCards = async (preferences, runId) => {
 
     const dna = buildMovieDNA(detail, { region: 'ES' })
     const expected = calculateCompatibility(fullPreferences, dna, { optionGroups: OPTION_GROUPS })
-    const expectedBadge = expected.percentage === null ? 'Compatibilidad por determinar' : `${expected.percentage}% de coincidencia`
+    const expectedBadge = expected.percentage === null ? 'Sin criterios para calcular' : `${expected.percentage}% coincidencia`
     const evaluationText = (await card.locator('.recommendation-card__evaluation').textContent().catch(() => ''))?.replace(/\s+/g, ' ').trim() || ''
     validations.push({ pass: badge === expectedBadge, message: `${title}: porcentaje ${badge}; esperado ${expectedBadge}` })
     validations.push({ pass: JSON.stringify(reasons) === JSON.stringify(expected.reasons.map((reason) => reason.text)), message: `${title}: razones respaldadas por el cálculo` })
     validations.push({ pass: !badge.startsWith('0%'), message: `${title}: no muestra 0% para unknown` })
     validations.push({ pass: expected.evaluatedPreferences.length + expected.unknownPreferences.length === Object.keys(preferences).filter((key) => key !== 'genres').length, message: `${title}: toda preferencia experiencial queda evaluada o unknown` })
-    validations.push({ pass: !preferences.mood && !preferences.pace && !preferences.attention && !preferences.company || evaluationText.includes(`${expected.evaluatedPreferences.length} de ${expected.evaluatedPreferences.length + expected.unknownPreferences.length}`), message: `${title}: cobertura parcial visible` })
+    const evaluatedTotal = expected.evaluatedPreferences.length + expected.evaluatedCriteria.length
+    const criteriaTotal = evaluatedTotal + expected.unknownPreferences.length + expected.unknownCriteria.length
+    validations.push({ pass: criteriaTotal === 0 || evaluationText.includes(`${evaluatedTotal} de ${criteriaTotal}`), message: `${title}: cobertura parcial visible` })
     validations.push({ pass: expected.unknownPreferences.length === 0 || evaluationText.includes('Sin datos suficientes'), message: `${title}: preferencias unknown visibles` })
 
     const selectedGenres = new Set(fullPreferences.genres.map(Number))

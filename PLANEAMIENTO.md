@@ -419,12 +419,15 @@ Completado:
 - Tour Guide global implementado con seis pasos sobre Inicio, Explorar, Recomendaciones, Accesibilidad y FAQ.
 - Tutorial accesible con navegación automática entre rutas, foco visual, controles anterior/siguiente, cierre con Escape y persistencia local de finalización.
 - Botón global para iniciar o repetir el tutorial y auditoría E2E aprobada en escritorio y móvil a `375px`.
+- Porcentaje de coincidencia unificado en escala `1–100%` con ponderación de género, duración, época, puntuación, idioma, país, plataforma y preferencias de experiencia.
+- Cobertura y confianza visibles por tarjeta mediante criterios comprobados; los datos desconocidos se informan y no se convierten artificialmente en `0%`.
+- Orden de compatibilidad, fórmula combinada y fallback de IA validados con pruebas unitarias y auditorías E2E sobre seis combinaciones reales.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 
 ## 28. Siguiente paso
 
-Auditar y mejorar el porcentaje de coincidencia de Recomendaciones para que represente de forma clara y consistente las preferencias y la búsqueda del usuario.
+Diseñar e implementar el quiz inicial de personalización para recopilar preferencias al primer ingreso y reutilizarlas en Recomendaciones.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 

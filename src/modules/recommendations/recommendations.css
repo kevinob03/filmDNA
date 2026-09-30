@@ -267,6 +267,8 @@
 .recommendation-card:hover .recommendation-card__poster img { transform: scale(1.025); }
 .recommendation-card__missing { display: grid; height: 100%; place-content: center; color: var(--color-text-muted); text-align: center; }
 .recommendation-card__match { position: absolute; z-index: 1; top: 0.75rem; right: 0.75rem; max-width: calc(100% - 1.5rem); padding: 0.38rem 0.55rem; border: 1px solid var(--border-green); border-radius: var(--radius-full); background: var(--color-poster-chip); color: var(--color-primary); font-family: var(--font-data); font-size: 0.64rem; text-align: center; backdrop-filter: blur(8px); }
+.recommendation-card__match strong { font-size: 0.8rem; }
+.recommendation-card__match small { margin-left: 0.25rem; color: inherit; font: inherit; }
 .recommendation-card__match--unknown { padding: 0.48rem 0.65rem; border-color: var(--border-glass); color: var(--color-text-surface); font-size: 0.68rem; }
 .recommendation-card__facts { position: absolute; z-index: 1; right: 0.7rem; bottom: 0.7rem; left: 0.7rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; color: var(--color-text-primary); font-size: 0.72rem; }
 .recommendation-card__facts > span { padding: 0.3rem 0.45rem; border-radius: var(--radius-base); background: var(--color-poster-fact); backdrop-filter: blur(6px); }
