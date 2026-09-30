@@ -28,8 +28,8 @@ await page.route('**/api/ai/interpret-search', async (route) => {
   } else if (responseMode === 'empty') {
     await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(intent({}, ['petición ambigua'])) })
   } else {
-    let filters = { genres: ['35'], mood: 'laugh', tone: 'light' }
-    if (/oscura|ciencia/i.test(query)) filters = { genres: ['878'], mood: 'think', tone: 'dark' }
+    let filters = { genres: ['35'], mood: 'laugh' }
+    if (/oscura|ciencia/i.test(query)) filters = { genres: ['878'], mood: 'think' }
     if (/familia/i.test(query)) filters = { company: 'family' }
     if (/2020|español/i.test(query)) filters = { genres: ['18'], era: '2020s', language: 'es', minRating: 7.5 }
     await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(intent(filters)) })
@@ -72,14 +72,12 @@ await search('Quiero reírme con una comedia ligera')
 await waitForResults()
 check(await activeFilter('Comedia').isVisible(), 'A: género Comedia visible')
 check(await activeFilter('Reír').isVisible(), 'A: estado Reír visible')
-check(await activeFilter('Ligero').isVisible(), 'A: tono Ligero visible')
 
 await reset()
 await search('Una película oscura de ciencia ficción que me haga pensar')
 await waitForResults()
 check(await activeFilter('Ciencia ficción').isVisible(), 'B: Ciencia ficción visible')
 check(await activeFilter('Pensar').isVisible(), 'B: Pensar visible')
-check(await activeFilter('Oscuro').isVisible(), 'B: Oscuro visible')
 await page.getByRole('button', { name: /Ajustar filtros/ }).click()
 check(await page.getByRole('dialog').getByRole('button', { name: 'Sencillo' }).getAttribute('aria-pressed') === 'true', 'B: conserva modo Sencillo cuando no necesita Experto')
 await page.getByRole('dialog').getByLabel('Cerrar filtros').click()
@@ -123,17 +121,17 @@ check(JSON.stringify(await page.locator('.recommendation-card h3').allTextConten
 check(await activeFilter('Comedia').isVisible(), 'H: Atrás restaura filtros interpretados')
 
 await page.getByRole('button', { name: /Ajustar filtros/ }).click()
-await page.getByRole('dialog').getByRole('button', { name: 'Ligero', exact: true }).click()
-await page.getByRole('dialog').getByRole('button', { name: 'Oscuro', exact: true }).click()
+await page.getByRole('dialog').getByRole('button', { name: 'Reír', exact: true }).click()
+await page.getByRole('dialog').getByRole('button', { name: 'Asustarme', exact: true }).click()
 await page.getByRole('dialog').getByRole('button', { name: 'Aplicar cambios', exact: true }).click()
 await waitForResults()
-check(await activeFilter('Oscuro').isVisible(), 'I: edición manual usa el valor nuevo')
-check(await activeFilter('Ligero').count() === 0, 'I: valor interpretado anterior deja de aplicarse')
+check(await activeFilter('Asustarme').isVisible(), 'I: edición manual usa el valor nuevo')
+check(await activeFilter('Reír').count() === 0, 'I: valor interpretado anterior deja de aplicarse')
 
 await search('Algo para ver en familia')
 await waitForResults()
 check(await activeFilter('En familia').isVisible(), 'J: nueva búsqueda aplica intención nueva')
-check(await activeFilter('Comedia').count() === 0 && await activeFilter('Oscuro').count() === 0, 'J: no acumula filtros incompatibles anteriores')
+check(await activeFilter('Comedia').count() === 0 && await activeFilter('Asustarme').count() === 0, 'J: no acumula filtros incompatibles anteriores')
 
 await reset()
 await search('Drama español de los 2020 con al menos 7.5')

@@ -10,7 +10,7 @@ import {
 
 const valid = (overrides = {}) => ({
   schemaVersion: 'recommendation-search-intent-v1',
-  filters: { genres: ['35'], mood: 'laugh', tone: 'light' },
+  filters: { genres: ['35'], mood: 'laugh' },
   unmappedTerms: [],
   confidence: 0.92,
   ...overrides,
@@ -24,8 +24,8 @@ test('respuesta válida conserva sólo filtros permitidos', () => {
   assert.deepEqual(validateInterpretSearchResponse(valid()), valid())
 })
 
-test('valor inexistente es rechazado', () => {
-  assert.throws(() => validateInterpretSearchResponse(valid({ filters: { tone: 'epic' } })), { type: 'invalid-schema' })
+test('filtro de tono eliminado es rechazado', () => {
+  assert.throws(() => validateInterpretSearchResponse(valid({ filters: { tone: 'light' } })), { type: 'invalid-schema' })
 })
 
 test('dimensión inexistente es rechazada', () => {
@@ -76,14 +76,15 @@ test('fallback entre providers conserva el schema validado', async (context) => 
   const originalFetch = globalThis.fetch
   context.after(() => { globalThis.fetch = originalFetch })
   globalThis.fetch = async (url) => {
-    if (String(url).includes('googleapis')) return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(valid({ filters: { tone: 'invented' } })) }] } }] }), { status: 200 })
-    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(valid({ filters: { genres: ['878'], mood: 'think', tone: 'dark' } })) } }] }), { status: 200 })
+    if (String(url).includes('googleapis')) return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(valid({ filters: { tone: 'light' } })) }] } }] }), { status: 200 })
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(valid({ filters: { genres: ['878'], mood: 'think' }, unmappedTerms: ['oscura'] })) } }] }), { status: 200 })
   }
   const result = await runAIOperation(interpretSearchIntentOperation, { query: 'ciencia ficción oscura para pensar' }, {
     env: { GEMINI_API_KEY: 'one', GEMINI_MODEL: 'gemini-test', DEEPSEEK_API_KEY: 'two', DEEPSEEK_MODEL: 'deepseek-test' }, budgetMs: 1_000,
   })
   assert.equal(result.provider, 'deepseek')
-  assert.deepEqual(result.result.filters, { genres: ['878'], mood: 'think', tone: 'dark' })
+  assert.deepEqual(result.result.filters, { genres: ['878'], mood: 'think' })
+  assert.deepEqual(result.result.unmappedTerms, ['oscura'])
 })
 
 test('respuesta no puede incluir secretos ni propiedades adicionales', () => {

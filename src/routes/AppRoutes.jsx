@@ -13,6 +13,7 @@ import { GuestRoute, PrivateRoute, RoleRoute } from './RouteGuards.jsx'
 import UnauthorizedPage from '../modules/errors/pages/UnauthorizedPage.jsx'
 import DiaryPage from '../modules/diary/pages/DiaryPage.jsx'
 import StatisticsPage from '../modules/statistics/pages/StatisticsPage.jsx'
+import FaqPage from '../modules/help/pages/FaqPage.jsx'
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/explorar" element={<ExplorePage />} />
       <Route path="/pelicula/:id" element={<MovieDetailPage />} />
+      <Route path="/ayuda" element={<FaqPage />} />
       <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
       <Route path="/registro" element={<GuestRoute><RegisterPage /></GuestRoute>} />
       <Route path="/perfil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />

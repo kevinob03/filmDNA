@@ -186,7 +186,7 @@ function RecommendationsPage() {
 
     {!similarTo && intentState.status === 'success' && <div className="intent-feedback intent-feedback--success" role="status"><strong>FilmDNA entendió:</strong> {intentState.labels.join(', ')}{intentState.unmappedTerms.length > 0 && <span>No se pudo representar: {intentState.unmappedTerms.join(', ')}.</span>}</div>}
     {!similarTo && intentState.status === 'adjusted' && <div className="intent-feedback" role="status">Filtros interpretados y ajustados manualmente.</div>}
-    {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, tono, ritmo, duración o cómo quieres sentirte.</div>}
+    {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, ritmo, duración o cómo quieres sentirte.</div>}
     {!similarTo && intentState.status === 'error' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>La interpretación con IA no está disponible temporalmente.</strong> Puedes seguir usando los filtros manuales.</div>}
 
     {!similarTo && !hasSearched && <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />}

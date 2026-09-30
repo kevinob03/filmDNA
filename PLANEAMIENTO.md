@@ -408,12 +408,17 @@ Completado:
 - Pruebas E2E y auditorías específicas disponibles para perfil, estadísticas, diario, biblioteca, recomendaciones e infraestructura de IA.
 - Dos workflows n8n exportables implementados: reporte de actividad y respaldo programado sanitizado.
 - Workflows n8n validados por script local e importados correctamente con el CLI oficial.
+- FAQ pública implementada con acceso desde la navegación principal y móvil.
+- Tarjetas de Recomendaciones completamente navegables, con acciones independientes para Pendientes y descarte.
+- Tarjetas de Explorar con acciones rápidas de Favoritos y Pendientes, reutilizando la biblioteca existente.
+- Filtro Tono eliminado por solaparse con la preferencia emocional; pesos de compatibilidad redistribuidos entre preferencias activas.
+- Interpretación de búsqueda actualizada para no emitir el filtro Tono y conservar conceptos no representables de forma explícita.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 
 ## 28. Siguiente paso
 
-Ejecutar la auditoría global de FASE 11 para identificar y corregir únicamente problemas reales de regresión, accesibilidad o responsive antes de la entrega.
+Revisar visualmente el Bloque 1 de mejoras rápidas y, tras su aprobación, diseñar el Tour Guide interactivo como siguiente bloque.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 

@@ -9,7 +9,6 @@ import {
   PACE_OPTIONS,
   POPULARITY_OPTIONS,
   REGION_OPTIONS,
-  TONE_OPTIONS,
 } from '../recommendationConfig.js'
 import FilterIcon from './FilterIcon.jsx'
 
@@ -71,22 +70,17 @@ function ExperienceForm({ selections, providers, mode, onModeChange, onChange, o
       </fieldset>
 
       <fieldset className="filter-group">
-        <legend><span>4</span> Tono</legend>
-        <Chips group="tone" options={TONE_OPTIONS} selections={selections} onChange={onChange} />
-      </fieldset>
-
-      <fieldset className="filter-group">
-        <legend><span>5</span> Nivel de atención</legend>
+        <legend><span>4</span> Nivel de atención</legend>
         <Chips group="attention" options={ATTENTION_OPTIONS} selections={selections} onChange={onChange} />
       </fieldset>
 
       <fieldset className="filter-group">
-        <legend><span>6</span> Duración</legend>
+        <legend><span>5</span> Duración</legend>
         <Chips group="duration" options={DURATION_OPTIONS} selections={selections} onChange={onChange} />
       </fieldset>
 
       <fieldset className="filter-group">
-        <legend><span>7</span> ¿Con quién la ves?</legend>
+        <legend><span>6</span> ¿Con quién la ves?</legend>
         <Chips group="company" options={COMPANY_OPTIONS} selections={selections} onChange={onChange} />
       </fieldset>
 

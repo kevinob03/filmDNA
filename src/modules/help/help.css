@@ -1,0 +1,12 @@
+.help-page { padding-block: clamp(2rem, 5vw, 4.5rem); }
+.help-page__header { max-width: 48rem; margin-bottom: var(--space-xl); }
+.help-page__header h1 { margin-block: 0.45rem 0.7rem; }
+.help-page__header > p:last-child { color: var(--color-text-muted); }
+.faq-list { display: grid; max-width: 58rem; gap: var(--space-sm); }
+.faq-item { border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: var(--color-surface-low); }
+.faq-item[open] { border-color: var(--border-green); }
+.faq-item summary { display: flex; min-height: 3.5rem; align-items: center; justify-content: space-between; gap: var(--space-md); padding: var(--space-md); color: var(--color-text-primary); font-weight: 600; cursor: pointer; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary span { color: var(--color-primary); font-family: var(--font-data); font-size: 1.25rem; transition: transform 180ms ease; }
+.faq-item[open] summary span { transform: rotate(45deg); }
+.faq-item p { margin: 0; padding: 0 var(--space-md) var(--space-md); color: var(--color-text-muted); line-height: 1.7; }

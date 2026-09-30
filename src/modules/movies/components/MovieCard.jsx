@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { buildTmdbImageUrl } from '../../../services/tmdbService.js'
+import MovieQuickActions from './MovieQuickActions.jsx'
 import './movie-card.css'
 
 const getYear = (date) => date?.slice(0, 4) || null
@@ -13,8 +14,8 @@ function MovieCard({ movie }) {
 
   return (
     <article className="movie-card">
-      <Link className="movie-card__link" to={`/pelicula/${movie.id}`} aria-label={`Ver detalle de ${title}`}>
-        <div className="movie-card__poster">
+      <Link className="movie-card__link" to={`/pelicula/${movie.id}`} aria-label={`Ver detalle de ${title}`} />
+      <div className="movie-card__poster">
           {posterUrl ? (
             <img src={posterUrl} alt={`Póster de ${title}`} loading="lazy" />
           ) : (
@@ -24,13 +25,13 @@ function MovieCard({ movie }) {
             </div>
           )}
           {score && <span className="movie-card__score" aria-label={`Puntuación de TMDB: ${score} de 10`}>★ {score}</span>}
-        </div>
-        <div className="movie-card__body">
+      </div>
+      <div className="movie-card__body">
           <p className="movie-card__meta">{getYear(movie.release_date) || 'Año no disponible'}</p>
           <h3>{title}</h3>
           <span className="movie-card__action">Ver detalle <span aria-hidden="true">→</span></span>
-        </div>
-      </Link>
+        <MovieQuickActions movie={movie} favorite />
+      </div>
     </article>
   )
 }

@@ -41,6 +41,7 @@ REGLAS INMUTABLES:
 - No recomiendes películas y no inventes filtros.
 - minRating sólo admite incrementos de 0.5. Aproxima únicamente cuando el usuario pida explícitamente una puntuación representable.
 - duration representa rangos discretos; usa el rango más cercano sólo cuando sea semánticamente razonable.
+- No existe un filtro de tono. Interpreta palabras como ligera, emotiva u oscura mediante mood o genres solamente cuando exista una equivalencia responsable; de lo contrario consérvalas en unmappedTerms.
 - No infieras language ni region a partir del idioma en que está escrita la consulta o la ubicación del usuario. Inclúyelos sólo cuando la petición mencione explícitamente el idioma original o país/región deseados.
 
 VOCABULARIO PERMITIDO:
