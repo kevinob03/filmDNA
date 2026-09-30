@@ -1,0 +1,132 @@
+{
+  "id": "FdnScheduledBackup01",
+  "name": "FilmDNA - Respaldo programado",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "59f8bf87-fe0d-477d-af16-0a2077915d08",
+      "name": "Ejecutar manualmente",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-1120, 80]
+    },
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "days", "triggerAtHour": 2 }] }
+      },
+      "id": "9b781ab8-aa64-42a7-a058-6788aff3b17d",
+      "name": "Ejecutar diariamente",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-1120, -100]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/usuarios", "options": {} },
+      "id": "e27bc560-059a-4a1c-8389-31ee391c539e",
+      "name": "Cargar usuarios",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-880, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/diario", "options": {} },
+      "id": "766e6448-d9eb-42fb-822a-f60646656543",
+      "name": "Cargar diario",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-660, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/favoritos", "options": {} },
+      "id": "a9b515f0-12dd-4b34-bf46-8b5a7662bf27",
+      "name": "Cargar favoritos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-440, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/listas", "options": {} },
+      "id": "8818a729-ddc9-4d8c-a7af-d3d45af72457",
+      "name": "Cargar listas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-220, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/listaPeliculas", "options": {} },
+      "id": "f0aa5577-adc1-4c0d-afae-30bd272d0135",
+      "name": "Cargar relaciones de listas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/movieDNA", "options": {} },
+      "id": "5d766714-2314-4206-8388-afc29b3993dc",
+      "name": "Cargar Movie DNA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": { "url": "http://localhost:3001/configuracionDNA", "options": {} },
+      "id": "f60c8a0a-46de-4ffd-ab3a-77e5dd217ac9",
+      "name": "Cargar configuración DNA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const collect = (name) => $(name).all().map((item) => item.json);\nconst usuarios = collect('Cargar usuarios').map((record) => {\n  const user = { ...record };\n  delete user.password;\n  return user;\n});\nconst generatedAt = new Date().toISOString();\nreturn [{ json: { schemaVersion: 1, generatedAt, source: 'FilmDNA JSON Server', usuarios, diario: collect('Cargar diario'), favoritos: collect('Cargar favoritos'), listas: collect('Cargar listas'), listaPeliculas: collect('Cargar relaciones de listas'), movieDNA: collect('Cargar Movie DNA'), configuracionDNA: collect('Cargar configuración DNA') } }];"
+      },
+      "id": "9a6a6f27-5f4f-450b-b3e7-306970685fc3",
+      "name": "Construir respaldo sanitizado",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": { "fileName": "={{ 'filmdna-backup-' + $json.generatedAt.replace(/[:.]/g, '-') + '.json' }}" }
+      },
+      "id": "ee41eda2-2454-4b45-a917-616ee65db2b5",
+      "name": "Convertir a archivo JSON",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ '/files/backups/filmdna-backup-' + $('Construir respaldo sanitizado').first().json.generatedAt.replace(/[:.]/g, '-') + '.json' }}",
+        "options": {}
+      },
+      "id": "c1a987c4-eb2d-4eef-be8f-98a6ca67b86f",
+      "name": "Guardar respaldo",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.2,
+      "position": [1100, 0]
+    }
+  ],
+  "connections": {
+    "Ejecutar manualmente": { "main": [[{ "node": "Cargar usuarios", "type": "main", "index": 0 }]] },
+    "Ejecutar diariamente": { "main": [[{ "node": "Cargar usuarios", "type": "main", "index": 0 }]] },
+    "Cargar usuarios": { "main": [[{ "node": "Cargar diario", "type": "main", "index": 0 }]] },
+    "Cargar diario": { "main": [[{ "node": "Cargar favoritos", "type": "main", "index": 0 }]] },
+    "Cargar favoritos": { "main": [[{ "node": "Cargar listas", "type": "main", "index": 0 }]] },
+    "Cargar listas": { "main": [[{ "node": "Cargar relaciones de listas", "type": "main", "index": 0 }]] },
+    "Cargar relaciones de listas": { "main": [[{ "node": "Cargar Movie DNA", "type": "main", "index": 0 }]] },
+    "Cargar Movie DNA": { "main": [[{ "node": "Cargar configuración DNA", "type": "main", "index": 0 }]] },
+    "Cargar configuración DNA": { "main": [[{ "node": "Construir respaldo sanitizado", "type": "main", "index": 0 }]] },
+    "Construir respaldo sanitizado": { "main": [[{ "node": "Convertir a archivo JSON", "type": "main", "index": 0 }]] },
+    "Convertir a archivo JSON": { "main": [[{ "node": "Guardar respaldo", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "settings": { "executionOrder": "v1", "timezone": "America/Costa_Rica" },
+  "active": false,
+  "versionId": "443d157a-6911-4445-a4e5-d3b7bb990903",
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}

@@ -1,0 +1,152 @@
+{
+  "id": "FdnActivityReport01",
+  "name": "FilmDNA - Reporte de actividad cinematográfica",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "filmdna/activity-report",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "44a169df-f22a-426f-98bc-d14e695afc47",
+      "name": "Recibir solicitud",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-900, 0],
+      "webhookId": "65c96977-df9a-4207-a475-02ffdf56ac18"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $json.body ?? $json;\nconst userId = String(body.userId ?? '').trim();\nreturn [{ json: { userId, valid: userId.length > 0 } }];"
+      },
+      "id": "70493a88-9285-4d7f-813f-f402068e7bd7",
+      "name": "Normalizar entrada",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-680, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "conditions": [
+            {
+              "id": "b08d690a-9af4-4696-89ca-66f2549eaac4",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "87e05ca3-ee32-44dc-a5ed-21d81e6b8406",
+      "name": "¿Entrada válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-460, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { error: 'userId es obligatorio' } }}",
+        "options": { "responseCode": 400 }
+      },
+      "id": "cd67a2be-7172-4783-abf7-08d679710096",
+      "name": "Responder entrada inválida",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [-220, 180]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3001/diario",
+        "sendQuery": true,
+        "queryParameters": { "parameters": [{ "name": "usuarioId", "value": "={{ $('Normalizar entrada').first().json.userId }}" }] },
+        "options": {}
+      },
+      "id": "2bc77587-855b-4792-b6e5-d294ad25a13d",
+      "name": "Cargar diario",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-220, -100]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3001/favoritos",
+        "sendQuery": true,
+        "queryParameters": { "parameters": [{ "name": "usuarioId", "value": "={{ $('Normalizar entrada').first().json.userId }}" }] },
+        "options": {}
+      },
+      "id": "744158f1-9ccd-42fc-98bb-b2d355738c43",
+      "name": "Cargar favoritos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [0, -100]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3001/listas",
+        "sendQuery": true,
+        "queryParameters": { "parameters": [{ "name": "usuarioId", "value": "={{ $('Normalizar entrada').first().json.userId }}" }] },
+        "options": {}
+      },
+      "id": "be4fe1ed-e2a4-4412-ac52-f91b5f8ac10b",
+      "name": "Cargar listas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, -100]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3001/listaPeliculas",
+        "options": {}
+      },
+      "id": "0ce47439-f4c8-4910-9ca6-cab2340cbfc3",
+      "name": "Cargar relaciones de listas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const userId = $('Normalizar entrada').first().json.userId;\nconst diary = $('Cargar diario').all().map((item) => item.json);\nconst favorites = $('Cargar favoritos').all().map((item) => item.json);\nconst lists = $('Cargar listas').all().map((item) => item.json);\nconst relations = $('Cargar relaciones de listas').all().map((item) => item.json);\nconst listIds = new Set(lists.map((list) => String(list.id)));\nconst userRelations = relations.filter((relation) => listIds.has(String(relation.listaId)));\nconst customLists = lists.filter((list) => list.tipo !== 'pendientes');\nconst watchlist = lists.filter((list) => list.tipo === 'pendientes');\nconst ratings = diary.map((entry) => Number(entry.calificacion)).filter(Number.isFinite);\nconst averageRating = ratings.length ? Number((ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length).toFixed(2)) : null;\nreturn [{ json: { userId, generatedAt: new Date().toISOString(), totals: { diaryEntries: diary.length, favorites: favorites.length, watchlistMovies: userRelations.filter((relation) => watchlist.some((list) => String(list.id) === String(relation.listaId))).length, customLists: customLists.length, moviesInCustomLists: userRelations.filter((relation) => customLists.some((list) => String(list.id) === String(relation.listaId))).length }, averageRating } }];"
+      },
+      "id": "bf71940d-e6a2-4f5b-8ca8-0c87321f5ec2",
+      "name": "Construir reporte",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, -100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": { "responseCode": 200 }
+      },
+      "id": "48fcbd52-2009-45dd-a336-fe39548ef774",
+      "name": "Responder reporte",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [880, -100]
+    }
+  ],
+  "connections": {
+    "Recibir solicitud": { "main": [[{ "node": "Normalizar entrada", "type": "main", "index": 0 }]] },
+    "Normalizar entrada": { "main": [[{ "node": "¿Entrada válida?", "type": "main", "index": 0 }]] },
+    "¿Entrada válida?": { "main": [[{ "node": "Cargar diario", "type": "main", "index": 0 }], [{ "node": "Responder entrada inválida", "type": "main", "index": 0 }]] },
+    "Cargar diario": { "main": [[{ "node": "Cargar favoritos", "type": "main", "index": 0 }]] },
+    "Cargar favoritos": { "main": [[{ "node": "Cargar listas", "type": "main", "index": 0 }]] },
+    "Cargar listas": { "main": [[{ "node": "Cargar relaciones de listas", "type": "main", "index": 0 }]] },
+    "Cargar relaciones de listas": { "main": [[{ "node": "Construir reporte", "type": "main", "index": 0 }]] },
+    "Construir reporte": { "main": [[{ "node": "Responder reporte", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "settings": { "executionOrder": "v1" },
+  "active": false,
+  "versionId": "f39c36e5-1504-464f-9e65-9ff687ab5166",
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}
