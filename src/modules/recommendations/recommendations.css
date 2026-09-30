@@ -258,7 +258,8 @@
 .active-filters button span { color: var(--color-text-muted); font-size: 1rem; line-height: 1; }
 
 .recommendation-grid { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; align-items: stretch; gap: 1rem; }
-.recommendation-card { display: flex; min-width: 0; height: 100%; overflow: hidden; flex-direction: column; border: 1px solid var(--border-glass); border-radius: var(--radius-xl); background: var(--color-recommendation-card); box-shadow: var(--shadow-card); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.recommendation-card { position: relative; display: flex; min-width: 0; height: 100%; overflow: hidden; flex-direction: column; border: 1px solid var(--border-glass); border-radius: var(--radius-xl); background: var(--color-recommendation-card); box-shadow: var(--shadow-card); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.recommendation-card__card-link { position: absolute; z-index: 1; inset: 0; border-radius: inherit; }
 .recommendation-card:hover { border-color: var(--border-card-hover); box-shadow: var(--shadow-recommendation-card-hover); transform: translateY(-0.2rem); }
 .recommendation-card__poster { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--color-surface-container); }
 .recommendation-card__poster::after { position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(13, 14, 17, 0.92)); content: ''; pointer-events: none; }
@@ -282,7 +283,7 @@
 .recommendation-card__reasons ul { display: grid; gap: 0.25rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
 .recommendation-card__reasons li { display: flex; align-items: flex-start; gap: 0.35rem; font-size: 0.73rem; }
 .recommendation-card__reasons li span { color: var(--color-primary); }
-.recommendation-card__actions { display: flex; gap: 0.4rem; margin-top: auto; }
+.recommendation-card__actions { position: relative; z-index: 2; display: flex; gap: 0.4rem; margin-top: auto; }
 .recommendation-card__details { display: inline-flex; min-width: 0; min-height: 2.4rem; flex: 1 1 auto; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.5rem; border-radius: var(--radius-base); background: var(--color-primary); color: var(--color-background); font-size: 0.8rem; font-weight: 700; text-decoration: none; }
 .recommendation-card__details:hover { background: var(--color-primary-hover); color: var(--color-background); }
 .recommendation-card__icon-action { display: grid; width: 2.4rem; height: 2.4rem; flex: 0 0 auto; place-items: center; border-radius: var(--radius-base); background: var(--color-surface-container); color: var(--color-text-muted); cursor: pointer; }

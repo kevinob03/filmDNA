@@ -30,14 +30,6 @@ export const PACE_OPTIONS = Object.freeze([
   { value: 'relentless', label: 'Sin descanso', description: 'Va rápido casi todo el tiempo.', dnaTarget: 95 },
 ])
 
-export const TONE_OPTIONS = Object.freeze([
-  { value: 'light', label: 'Ligero', dna: { alegria: 80, intensidad: 30 } },
-  { value: 'emotional', label: 'Emotivo', dna: { emocion: 85 } },
-  { value: 'serious', label: 'Serio', dna: { alegria: 25, complejidad: 60 } },
-  { value: 'dark', label: 'Oscuro', dna: { alegria: 15, intensidad: 75 } },
-  { value: 'disturbing', label: 'Perturbador', dna: { alegria: 5, intensidad: 95 } },
-])
-
 export const ATTENTION_OPTIONS = Object.freeze([
   { value: 'easy', label: 'Fácil de seguir', dnaTarget: 20 },
   { value: 'casual', label: 'Algo para disfrutar', dnaTarget: 40 },
@@ -96,7 +88,7 @@ export const POPULARITY_OPTIONS = Object.freeze([
 ])
 
 export const INITIAL_SELECTIONS = Object.freeze({
-  genres: [], mood: '', pace: '', tone: '', attention: '', duration: '', company: '',
+  genres: [], mood: '', pace: '', attention: '', duration: '', company: '',
   era: '', minRating: 0, language: '', region: '', providers: [], popularity: 'popular',
 })
 
@@ -104,7 +96,6 @@ export const OPTION_GROUPS = Object.freeze({
   genres: GENRE_OPTIONS,
   mood: MOOD_OPTIONS,
   pace: PACE_OPTIONS,
-  tone: TONE_OPTIONS,
   attention: ATTENTION_OPTIONS,
   duration: DURATION_OPTIONS,
   company: COMPANY_OPTIONS,

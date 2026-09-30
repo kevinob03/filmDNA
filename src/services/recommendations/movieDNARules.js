@@ -1,9 +1,8 @@
 export const EXPERIENCE_WEIGHTS = Object.freeze({
-  mood: 25,
-  tone: 20,
-  pace: 20,
-  attention: 20,
-  company: 15,
+  mood: 30,
+  pace: 25,
+  attention: 25,
+  company: 20,
 })
 
 export const COMPATIBILITY_THRESHOLDS = Object.freeze({
@@ -28,7 +27,6 @@ export const AI_CLASSIFICATION_THRESHOLDS = Object.freeze({
 
 export const PREFERENCE_DNA_MAP = Object.freeze({
   mood: { dnaGroup: 'moods', weight: 'mood', label: 'Encaja con' },
-  tone: { dnaGroup: 'tones', weight: 'tone', label: 'Tono' },
   pace: { dnaGroup: 'pace', weight: 'pace', label: 'Ritmo' },
   attention: { dnaGroup: 'attention', weight: 'attention', label: null },
   company: { dnaGroup: 'company', weight: 'company', label: 'Adecuada para verla' },

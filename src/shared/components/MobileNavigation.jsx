@@ -14,6 +14,7 @@ const NavIcon = ({ type }) => {
     admin: <><path d="M12 3 4 6v5c0 5 3.4 8.2 8 10 4.6-1.8 8-5 8-10V6l-8-3Z" /><path d="m9 12 2 2 4-4" /></>,
     logout: <><path d="M10 4H5v16h5" /><path d="M21 12H9M17 8l4 4-4 4" /></>,
     session: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
+    help: <><circle cx="12" cy="12" r="9" /><path d="M9.8 9a2.3 2.3 0 1 1 3.4 2c-.8.5-1.2 1-1.2 2M12 17h.01" /></>,
   }
 
   return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>
@@ -23,7 +24,7 @@ function MobileNavigation() {
   const { status, user, logout } = useAuth()
   const isAuthenticated = status === AUTH_STATUS.AUTHENTICATED
   const isAdmin = isAuthenticated && user.role === 'admin'
-  const itemCount = status === AUTH_STATUS.CHECKING ? 5 : (isAdmin ? 9 : 8)
+  const itemCount = status === AUTH_STATUS.CHECKING ? 6 : (isAdmin ? 10 : 9)
 
   return (
     <nav
@@ -42,6 +43,10 @@ function MobileNavigation() {
 
       <NavLink className={'mobile-nav__item'} to={'/recomendaciones'}>
         <NavIcon type={'compass'} /><span>Recomendar</span>
+      </NavLink>
+
+      <NavLink className="mobile-nav__item" to="/ayuda">
+        <NavIcon type="help" /><span>Ayuda</span>
       </NavLink>
 
       <AccessibilityButton mobile />

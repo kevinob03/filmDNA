@@ -23,6 +23,7 @@ function Header() {
             Explorar
           </NavLink>
           <NavLink className={'desktop-nav__link'} to={'/recomendaciones'}>Recomendaciones</NavLink>
+          <NavLink className="desktop-nav__link" to="/ayuda">Ayuda</NavLink>
           {isAuthenticated && (
             <>
               <NavLink className="desktop-nav__link" to="/biblioteca">Biblioteca</NavLink>

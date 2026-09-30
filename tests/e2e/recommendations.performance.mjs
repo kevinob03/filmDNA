@@ -80,7 +80,6 @@ phase = 'boot'
 await page.goto(`${baseURL}/recomendaciones`, { waitUntil: 'domcontentloaded', timeout: 60_000 })
 await page.getByRole('button', { name: 'Comedia', exact: true }).click()
 await page.getByRole('button', { name: 'Reír', exact: true }).click()
-await page.getByRole('button', { name: 'Ligero', exact: true }).click()
 
 const coldTotalMs = await runResultCycle('cold-search', async () => {
   await page.getByRole('button', { name: 'Encontrar películas', exact: true }).click()

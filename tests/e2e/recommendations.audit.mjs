@@ -10,10 +10,10 @@ await mkdir(outputDir, { recursive: true })
 const previousReport = await readFile(`${outputDir}/report.json`, 'utf8').then(JSON.parse).catch(() => null)
 
 const scenarios = [
-  { id: '01-comedia', name: 'Comedia + Reír + Ligero', filters: ['Comedia', 'Reír', 'Ligero'], preferences: { genres: ['35'], mood: 'laugh', tone: 'light' } },
-  { id: '02-terror', name: 'Terror + Asustarme + Oscuro + Sin descanso', filters: ['Terror', 'Asustarme', 'Oscuro', 'Sin descanso'], preferences: { genres: ['27'], mood: 'fear', tone: 'dark', pace: 'relentless' } },
-  { id: '03-ciencia-ficcion', name: 'Ciencia ficción + Pensar + Oscuro + Quiero concentrarme', filters: ['Ciencia ficción', 'Pensar', 'Oscuro', 'Quiero concentrarme'], preferences: { genres: ['878'], mood: 'think', tone: 'dark', attention: 'focus' } },
-  { id: '04-animacion', name: 'Animación + Emocionarme + Ligero + En familia', filters: ['Animación', 'Emocionarme', 'Ligero', 'En familia'], preferences: { genres: ['16'], mood: 'feel', tone: 'light', company: 'family' } },
+  { id: '01-comedia', name: 'Comedia + Reír', filters: ['Comedia', 'Reír'], preferences: { genres: ['35'], mood: 'laugh' } },
+  { id: '02-terror', name: 'Terror + Asustarme + Sin descanso', filters: ['Terror', 'Asustarme', 'Sin descanso'], preferences: { genres: ['27'], mood: 'fear', pace: 'relentless' } },
+  { id: '03-ciencia-ficcion', name: 'Ciencia ficción + Pensar + Quiero concentrarme', filters: ['Ciencia ficción', 'Pensar', 'Quiero concentrarme'], preferences: { genres: ['878'], mood: 'think', attention: 'focus' } },
+  { id: '04-animacion', name: 'Animación + Emocionarme + En familia', filters: ['Animación', 'Emocionarme', 'En familia'], preferences: { genres: ['16'], mood: 'feel', company: 'family' } },
   { id: '05-drama', name: 'Drama + Tranquilo + Solo', filters: ['Drama', 'Tranquilo', 'Solo'], preferences: { genres: ['18'], pace: 'calm', company: 'alone' } },
   { id: '06-romance', name: 'Romance + Equilibrado + En pareja', filters: ['Romance', 'Equilibrado', 'En pareja'], preferences: { genres: ['10749'], pace: 'balanced', company: 'couple' } },
 ]
@@ -143,7 +143,7 @@ const inspectCards = async (preferences, runId) => {
     validations.push({ pass: JSON.stringify(reasons) === JSON.stringify(expected.reasons.map((reason) => reason.text)), message: `${title}: razones respaldadas por el cálculo` })
     validations.push({ pass: !badge.startsWith('0%'), message: `${title}: no muestra 0% para unknown` })
     validations.push({ pass: expected.evaluatedPreferences.length + expected.unknownPreferences.length === Object.keys(preferences).filter((key) => key !== 'genres').length, message: `${title}: toda preferencia experiencial queda evaluada o unknown` })
-    validations.push({ pass: !preferences.mood && !preferences.tone && !preferences.pace && !preferences.attention && !preferences.company || evaluationText.includes(`${expected.evaluatedPreferences.length} de ${expected.evaluatedPreferences.length + expected.unknownPreferences.length}`), message: `${title}: cobertura parcial visible` })
+    validations.push({ pass: !preferences.mood && !preferences.pace && !preferences.attention && !preferences.company || evaluationText.includes(`${expected.evaluatedPreferences.length} de ${expected.evaluatedPreferences.length + expected.unknownPreferences.length}`), message: `${title}: cobertura parcial visible` })
     validations.push({ pass: expected.unknownPreferences.length === 0 || evaluationText.includes('Sin datos suficientes'), message: `${title}: preferencias unknown visibles` })
 
     const selectedGenres = new Set(fullPreferences.genres.map(Number))
@@ -211,7 +211,7 @@ for (const scenario of scenarios) {
 currentRun = 'interface'
 console.log('Ejecutando interacciones auxiliares')
 await navigateFresh('interface')
-await setFilters(['Comedia', 'Reír', 'Ligero'])
+await setFilters(['Comedia', 'Reír'])
 await page.getByRole('button', { name: 'Encontrar películas', exact: true }).click()
 await waitForOutcome()
 

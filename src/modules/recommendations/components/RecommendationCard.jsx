@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { buildTmdbImageUrl } from '../../../services/tmdbService.js'
 import FilterIcon from './FilterIcon.jsx'
+import MovieQuickActions from '../../movies/components/MovieQuickActions.jsx'
 
 const formatRuntime = (minutes) => {
   if (!Number.isFinite(minutes) || minutes <= 0) return null
@@ -21,6 +22,7 @@ function RecommendationCard({ movie, onDismiss }) {
   const preferenceTotal = evaluated.length + unknown.length
 
   return <article className="recommendation-card">
+    <Link className="recommendation-card__card-link" to={`/pelicula/${movie.id}`} aria-label={`Ver detalles de ${title}`} />
     <div className="recommendation-card__poster">
       {poster ? <img src={poster} alt={`Póster de ${title}`} loading="lazy" /> : <div className="recommendation-card__missing">Póster no disponible</div>}
       <span className={`recommendation-card__match${recommendation.percentage === null ? ' recommendation-card__match--unknown' : ''}`}>
@@ -46,7 +48,7 @@ function RecommendationCard({ movie, onDismiss }) {
       </div>
       <div className="recommendation-card__actions">
         <Link className="recommendation-card__details" to={`/pelicula/${movie.id}`}>Ver detalles <FilterIcon name="arrow" size={17} /></Link>
-        <button type="button" className="recommendation-card__icon-action" title="Guardar (disponible al implementar listas)" aria-label={`Guardar ${title}`} disabled><FilterIcon name="bookmark" /></button>
+        <MovieQuickActions movie={movie} />
         <button type="button" className="recommendation-card__icon-action" title="No me interesa" aria-label={`No recomendar ${title}`} onClick={() => onDismiss(movie.id)}><FilterIcon name="hide" /></button>
       </div>
     </div>

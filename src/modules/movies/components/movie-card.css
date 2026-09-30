@@ -5,6 +5,7 @@
 }
 
 .movie-card {
+  position: relative;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--border-glass);
@@ -22,8 +23,9 @@
 }
 
 .movie-card__link {
-  display: block;
-  height: 100%;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -86,11 +88,18 @@
 }
 
 .movie-card__body {
+  position: relative;
   display: flex;
   min-height: 8.25rem;
   padding: var(--space-md);
   flex-direction: column;
 }
+
+.movie-quick-actions { position: relative; z-index: 2; display: flex; gap: var(--space-xs); margin-top: auto; }
+.movie-quick-action { display: grid; width: 2.4rem; height: 2.4rem; place-items: center; border: 1px solid var(--border-glass); border-radius: var(--radius-base); background: var(--color-surface-container); color: var(--color-text-muted); cursor: pointer; }
+.movie-quick-action:hover, .movie-quick-action--active { border-color: var(--border-green); color: var(--color-primary); }
+.movie-quick-action:disabled { cursor: wait; opacity: 0.55; }
+.movie-quick-action svg { width: 1.15rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 
 .movie-card__meta {
   margin: 0 0 var(--space-xs);

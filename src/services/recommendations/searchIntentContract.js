@@ -9,7 +9,6 @@ import {
   PACE_OPTIONS,
   POPULARITY_OPTIONS,
   REGION_OPTIONS,
-  TONE_OPTIONS,
 } from '../../modules/recommendations/recommendationConfig.js'
 
 export const SEARCH_INTENT_SCHEMA_VERSION = 'recommendation-search-intent-v1'
@@ -22,7 +21,6 @@ export const SEARCH_FILTER_VOCABULARY = Object.freeze({
   genres: Object.freeze(values(GENRE_OPTIONS)),
   mood: Object.freeze(values(MOOD_OPTIONS)),
   pace: Object.freeze(values(PACE_OPTIONS)),
-  tone: Object.freeze(values(TONE_OPTIONS)),
   attention: Object.freeze(values(ATTENTION_OPTIONS)),
   duration: Object.freeze(values(DURATION_OPTIONS)),
   company: Object.freeze(values(COMPANY_OPTIONS)),
@@ -32,7 +30,7 @@ export const SEARCH_FILTER_VOCABULARY = Object.freeze({
   popularity: Object.freeze(values(POPULARITY_OPTIONS)),
 })
 
-export const SIMPLE_SEARCH_FILTERS = Object.freeze(['genres', 'mood', 'pace', 'tone', 'attention', 'duration', 'company'])
+export const SIMPLE_SEARCH_FILTERS = Object.freeze(['genres', 'mood', 'pace', 'attention', 'duration', 'company'])
 export const EXPERT_SEARCH_FILTERS = Object.freeze(['era', 'minRating', 'language', 'region', 'popularity'])
 export const SEARCH_FILTER_NAMES = Object.freeze([...SIMPLE_SEARCH_FILTERS, ...EXPERT_SEARCH_FILTERS])
 
