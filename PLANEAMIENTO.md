@@ -271,7 +271,7 @@ La rúbrica requiere un proyecto n8n con un mínimo de dos flujos relacionados c
 - **Resultado:** archivo fechado en `/files/backups` dentro del entorno n8n.
 - **Protección:** las contraseñas se eliminan antes de construir el respaldo y no se leen archivos `.env`.
 
-Los exports y sus instrucciones se conservan en `docs/n8n/`. El script `npm run test:n8n-workflows` valida estructura, conexiones, triggers, recursos, ausencia de credenciales y sanitización. Ambos archivos también fueron importados correctamente mediante el CLI oficial de n8n.
+Los exports y sus instrucciones se conservan en `docs/n8n/`. El script `npm run test:n8n-workflows` valida estructura, conexiones, triggers, recursos, ausencia de credenciales, sanitización y continuidad ante colecciones vacías. Ambos archivos también fueron importados correctamente mediante el CLI oficial de n8n. El respaldo se escribe en la carpeta local versionada `backups/`, cuyos archivos JSON están excluidos de Git.
 
 ## 25. Fuentes oficiales del proyecto
 

@@ -43,10 +43,10 @@ Archivo: `workflows/scheduled-backup.json`.
 - **Trigger:** manual para demostración y Schedule Trigger todos los días a las 02:00.
 - **Entrada:** recursos disponibles en JSON Server.
 - **Nodos principales:** consultas HTTP, sanitización, conversión a JSON y escritura de archivo.
-- **Resultado:** `filmdna-backup-<fecha>.json` dentro de `/files/backups` en el entorno de n8n.
+- **Resultado:** `filmdna-backup-<fecha>.json` dentro de la carpeta `backups/` del directorio desde el que se inicia n8n.
 - **Privacidad:** elimina el campo `password` de todos los usuarios. No lee ni copia `.env`.
 
-La ruta `/files/backups` debe existir y tener permisos de escritura. En Docker se recomienda montarla como volumen persistente.
+La carpeta `backups/` incluida en el proyecto debe tener permisos de escritura. En Docker se recomienda cambiar el nodo **Guardar respaldo** a una ruta montada como volumen persistente.
 
 ## Validación versionada
 

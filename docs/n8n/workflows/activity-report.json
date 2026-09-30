@@ -71,7 +71,8 @@
       "name": "Cargar diario",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-220, -100]
+      "position": [-220, -100],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -84,7 +85,8 @@
       "name": "Cargar favoritos",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [0, -100]
+      "position": [0, -100],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -97,7 +99,8 @@
       "name": "Cargar listas",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, -100]
+      "position": [220, -100],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -108,11 +111,12 @@
       "name": "Cargar relaciones de listas",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [440, -100]
+      "position": [440, -100],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "const userId = $('Normalizar entrada').first().json.userId;\nconst diary = $('Cargar diario').all().map((item) => item.json);\nconst favorites = $('Cargar favoritos').all().map((item) => item.json);\nconst lists = $('Cargar listas').all().map((item) => item.json);\nconst relations = $('Cargar relaciones de listas').all().map((item) => item.json);\nconst listIds = new Set(lists.map((list) => String(list.id)));\nconst userRelations = relations.filter((relation) => listIds.has(String(relation.listaId)));\nconst customLists = lists.filter((list) => list.tipo !== 'pendientes');\nconst watchlist = lists.filter((list) => list.tipo === 'pendientes');\nconst ratings = diary.map((entry) => Number(entry.calificacion)).filter(Number.isFinite);\nconst averageRating = ratings.length ? Number((ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length).toFixed(2)) : null;\nreturn [{ json: { userId, generatedAt: new Date().toISOString(), totals: { diaryEntries: diary.length, favorites: favorites.length, watchlistMovies: userRelations.filter((relation) => watchlist.some((list) => String(list.id) === String(relation.listaId))).length, customLists: customLists.length, moviesInCustomLists: userRelations.filter((relation) => customLists.some((list) => String(list.id) === String(relation.listaId))).length }, averageRating } }];"
+        "jsCode": "const present = (name) => $(name).all().map((item) => item.json).filter((value) => value && Object.keys(value).length > 0);\nconst userId = $('Normalizar entrada').first().json.userId;\nconst diary = present('Cargar diario');\nconst favorites = present('Cargar favoritos');\nconst lists = present('Cargar listas');\nconst relations = present('Cargar relaciones de listas');\nconst listIds = new Set(lists.map((list) => String(list.id)));\nconst userRelations = relations.filter((relation) => listIds.has(String(relation.listaId)));\nconst customLists = lists.filter((list) => list.tipo !== 'pendientes');\nconst watchlist = lists.filter((list) => list.tipo === 'pendientes');\nconst ratings = diary.map((entry) => Number(entry.calificacion)).filter(Number.isFinite);\nconst averageRating = ratings.length ? Number((ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length).toFixed(2)) : null;\nreturn [{ json: { userId, generatedAt: new Date().toISOString(), totals: { diaryEntries: diary.length, favorites: favorites.length, watchlistMovies: userRelations.filter((relation) => watchlist.some((list) => String(list.id) === String(relation.listaId))).length, customLists: customLists.length, moviesInCustomLists: userRelations.filter((relation) => customLists.some((list) => String(list.id) === String(relation.listaId))).length }, averageRating } }];"
       },
       "id": "bf71940d-e6a2-4f5b-8ca8-0c87321f5ec2",
       "name": "Construir reporte",
