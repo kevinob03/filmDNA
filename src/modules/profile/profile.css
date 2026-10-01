@@ -302,6 +302,9 @@
 .profile-preferences ul { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: 0; padding: 0; list-style: none; }
 .profile-preferences li { padding: .5rem .8rem; border: 1px solid var(--border-purple); border-radius: var(--radius-full); color: var(--color-violet-soft); font-weight: 700; }
 .profile-preferences__empty { margin: 0; color: var(--color-text-muted); }
+.profile-discovery-quiz { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--border-glass); }
+.profile-discovery-quiz h3 { margin: 0 0 .3rem; font-size: 1rem; }
+.profile-discovery-quiz p { margin: 0; color: var(--color-text-muted); }
 .profile-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-sm); margin: 0; }
 .profile-metrics > div { display: grid; align-content: space-between; min-height: 8rem; padding: var(--space-md); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: var(--color-surface-lowest); }
 .profile-metrics dt { color: var(--color-text-muted); font-size: .83rem; }

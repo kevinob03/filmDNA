@@ -33,7 +33,10 @@ await page.route('https://api.themoviedb.org/3/**', async (route) => {
 })
 await page.route('http://localhost:3001/usuarios**', async (route) => {
   const request = route.request()
-  if (request.method() === 'GET') return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(storedUser ? [storedUser] : []) })
+  if (request.method() === 'GET') {
+    const userDetail = new URL(request.url()).pathname.endsWith('/quiz-user')
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(userDetail ? storedUser : storedUser ? [storedUser] : []) })
+  }
   if (request.method() === 'POST') {
     storedUser = { id: 'quiz-user', ...request.postDataJSON() }
     return route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify(storedUser) })
@@ -84,6 +87,16 @@ await page.goto(`${baseURL}/recomendaciones`, { waitUntil: 'domcontentloaded' })
 check(await page.getByRole('button', { name: 'Comedia', exact: true }).getAttribute('aria-pressed') === 'false', 'el quiz no rellena filtros de Recomendaciones')
 check(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), 'sin overflow móvil a 390px')
 check(report.errors.length === 0, 'sin errores de página', report.errors)
+
+await page.goto(`${baseURL}/perfil`, { waitUntil: 'domcontentloaded' })
+const retakeQuiz = page.getByRole('link', { name: 'Retomar quiz' })
+await retakeQuiz.waitFor()
+check(await retakeQuiz.getAttribute('href') === '/personalizacion', 'Perfil permite retomar el quiz')
+await retakeQuiz.click()
+await page.waitForURL('**/personalizacion')
+await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).waitFor()
+check(await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).isVisible(), 'Retomar quiz abre el recorrido desde el inicio')
+check(await page.getByRole('button', { name: 'Comedia', exact: true }).getAttribute('aria-pressed') === 'true', 'Retomar quiz conserva las respuestas actuales')
 
 await page.screenshot({ path: `${outputDir}/quiz-mobile.png`, fullPage: true })
 const pendingContext = await browser.newContext({ viewport: { width: 1280, height: 800 }, locale: 'es-ES' })
