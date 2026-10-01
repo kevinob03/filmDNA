@@ -18,13 +18,14 @@ const normalizeTmdbId = (value) => {
   return id
 }
 
-const normalizeEntry = ({ fechaVista, calificacion, resena }) => {
+const normalizeEntry = ({ fechaVista, calificacion, resena, visibilidad = 'privada' }) => {
   const rating = Number(calificacion)
   const review = String(resena ?? '').trim()
   if (!/^\d{4}-\d{2}-\d{2}$/.test(fechaVista ?? '')) throw new DiaryServiceError('invalid-date')
   if (!Number.isInteger(rating) || rating < 1 || rating > 10) throw new DiaryServiceError('invalid-rating')
   if (!review) throw new DiaryServiceError('invalid-review')
-  return { fechaVista, calificacion: rating, resena: review }
+  if (!['privada', 'publica'].includes(visibilidad)) throw new DiaryServiceError('invalid-visibility')
+  return { fechaVista, calificacion: rating, resena: review, publica: visibilidad === 'publica' }
 }
 
 export const createDiaryService = (baseUrl = DEFAULT_BASE_URL) => {
@@ -71,18 +72,29 @@ export const createDiaryService = (baseUrl = DEFAULT_BASE_URL) => {
       if (!Array.isArray(entries)) throw new DiaryServiceError('invalid-response')
       return entries.sort((left, right) => String(right.fechaVista ?? '').localeCompare(String(left.fechaVista ?? '')))
     },
+
+    async listPublicMovieReviews(tmdbId) {
+      const params = new URLSearchParams({ tmdbId: String(normalizeTmdbId(tmdbId)), publica: 'true' })
+      const entries = await request(`/diario?${params}`)
+      if (!Array.isArray(entries)) throw new DiaryServiceError('invalid-response')
+      return entries
+        .filter((entry) => entry.publica === true && Number(entry.tmdbId) === Number(tmdbId))
+        .sort((left, right) => String(right.fechaVista ?? '').localeCompare(String(left.fechaVista ?? '')))
+    },
   }
 }
 
 const service = createDiaryService()
 export const createDiaryEntry = service.createEntry
 export const listUserDiaryEntries = service.listUserEntries
+export const listPublicMovieReviews = service.listPublicMovieReviews
 
 export const getDiaryErrorMessage = (error) => {
   if (error?.type === 'network') return 'No pudimos conectar con JSON Server. Comprueba que esté activo e inténtalo de nuevo.'
   if (error?.type === 'invalid-date') return 'Selecciona una fecha válida.'
   if (error?.type === 'invalid-rating') return 'Selecciona una calificación entera entre 1 y 10.'
   if (error?.type === 'invalid-review') return 'Escribe una reseña.'
+  if (error?.type === 'invalid-visibility') return 'Selecciona una visibilidad válida para la reseña.'
   if (error?.type === 'invalid-response') return 'El servidor devolvió una respuesta inesperada.'
   return 'No pudimos completar la operación. Inténtalo de nuevo.'
 }

@@ -3,9 +3,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AUTH_STATUS, useAuth } from '../../../context/AuthContext.jsx'
 import { createDiaryEntry, getDiaryErrorMessage } from '../../../services/diaryService.js'
 
-const EMPTY_FORM = { fechaVista: '', calificacion: '', resena: '' }
+const EMPTY_FORM = { fechaVista: '', calificacion: '', resena: '', visibilidad: 'privada' }
 
-function DiaryEntryForm({ movie }) {
+function DiaryEntryForm({ movie, onEntryCreated }) {
   const { status, user } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
@@ -42,10 +42,11 @@ function DiaryEntryForm({ movie }) {
     submittingRef.current = true
     setSubmission({ status: 'submitting', message: 'Guardando registro…' })
     try {
-      await createDiaryEntry(user.id, movie.id, form)
+      const createdEntry = await createDiaryEntry(user.id, movie.id, form)
       setForm(EMPTY_FORM)
       setErrors({})
       setSubmission({ status: 'success', message: 'Película registrada correctamente en tu Diario.' })
+      onEntryCreated?.(createdEntry)
     } catch (error) {
       setSubmission({ status: 'error', message: getDiaryErrorMessage(error) })
     } finally {
@@ -94,6 +95,17 @@ function DiaryEntryForm({ movie }) {
           <textarea id="diary-review" name="resena" rows="5" value={form.resena} onChange={updateField} aria-invalid={Boolean(errors.resena)} aria-describedby={errors.resena ? 'diary-review-error' : undefined} />
           {errors.resena ? <p className="field-error" id="diary-review-error">{errors.resena}</p> : null}
         </div>
+        <fieldset className="diary-visibility">
+          <legend>¿Quién puede ver tu reseña?</legend>
+          <label className="diary-visibility__option">
+            <input type="radio" name="visibilidad" value="privada" checked={form.visibilidad === 'privada'} onChange={updateField} />
+            <span><strong>Privada</strong><small>Solo tú la verás en tu Diario.</small></span>
+          </label>
+          <label className="diary-visibility__option">
+            <input type="radio" name="visibilidad" value="publica" checked={form.visibilidad === 'publica'} onChange={updateField} />
+            <span><strong>Pública</strong><small>Aparecerá en la página de esta película.</small></span>
+          </label>
+        </fieldset>
         <button className="button button--primary" type="submit" disabled={submitting}>{submitting ? 'Guardando…' : 'Registrar película vista'}</button>
       </form>
       {submission.message ? <p className={`diary-form__message diary-form__message--${submission.status}`} role={submission.status === 'error' ? 'alert' : 'status'} aria-live="polite">{submission.message}</p> : null}

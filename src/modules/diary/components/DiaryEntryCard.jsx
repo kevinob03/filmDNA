@@ -19,6 +19,9 @@ function DiaryEntryCard({ item }) {
         <h2>{title || `Película TMDB #${entry.tmdbId}`}</h2>
         {!movie ? <p className="diary-entry__metadata-error" role="status">Los datos de esta película no están disponibles temporalmente. Tu registro sigue guardado.</p> : null}
         <p className="diary-entry__rating"><strong>Tu calificación:</strong> {entry.calificacion}/10</p>
+        <p className={`diary-entry__visibility diary-entry__visibility--${entry.publica === true ? 'public' : 'private'}`}>
+          {entry.publica === true ? 'Reseña pública' : 'Reseña privada'}
+        </p>
         <p className="diary-entry__review">{entry.resena}</p>
         <Link className="text-link" to={`/pelicula/${entry.tmdbId}`}>Ver película</Link>
       </div>
