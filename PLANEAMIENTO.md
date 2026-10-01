@@ -431,12 +431,15 @@ Completado:
 - Cuentas antiguas conservan su acceso, las cuentas nuevas pendientes retoman el quiz al iniciar sesión y el recorrido puede omitirse explícitamente.
 - Auditoría E2E del quiz aprobada en móvil a `390px`, incluyendo registro, persistencia, restauración de filtros y reanudación posterior.
 - Campos de contraseña y confirmación del registro alineados con dimensiones visuales equivalentes en escritorio, sin alterar el flujo móvil.
+- Reseñas públicas o privadas implementadas en el Diario; las entradas históricas sin visibilidad se tratan como privadas y cada registro muestra su estado.
+- La página de cada película muestra exclusivamente sus reseñas públicas, también para visitantes, con estados de carga, vacío y error y actualización inmediata tras publicar.
+- Auditoría E2E del Diario ampliada para cubrir visibilidad, privacidad heredada, aislamiento entre usuarios, publicación en detalle y responsive entre `375px` y `1440px`.
 
-**Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
+**Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, pendiente únicamente de auditoría global.
 
 ## 28. Siguiente paso
 
-Implementar reseñas públicas o privadas en el Diario y mostrar las reseñas públicas en la página correspondiente de cada película.
+Ejecutar la auditoría global final de regresión, accesibilidad y responsive para cerrar la FASE 11.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 

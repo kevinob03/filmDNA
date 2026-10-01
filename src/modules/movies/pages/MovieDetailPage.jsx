@@ -10,6 +10,7 @@ import { getMovieDetails } from '../../../services/movieService.js'
 import MovieDNASection from '../components/MovieDNAFeatureEntry.jsx'
 import MovieLibraryActions from '../components/MovieLibraryActions.jsx'
 import DiaryEntryForm from '../../diary/components/DiaryEntryForm.jsx'
+import PublicMovieReviews from '../../diary/components/PublicMovieReviews.jsx'
 import '../../diary/diary.css'
 import '../movie-detail.css'
 
@@ -43,6 +44,7 @@ function DetailSkeleton() {
 function MovieDetailPage() {
   const { id } = useParams()
   const [attempt, setAttempt] = useState(0)
+  const [reviewsVersion, setReviewsVersion] = useState(0)
   const [state, setState] = useState({ status: 'loading', movie: null, error: null })
 
   useEffect(() => {
@@ -139,12 +141,13 @@ function MovieDetailPage() {
               </section>
 
               {movie.source !== 'omdb' ? <MovieLibraryActions movie={movie} /> : null}
-              {movie.source !== 'omdb' ? <DiaryEntryForm movie={movie} /> : null}
+              {movie.source !== 'omdb' ? <DiaryEntryForm movie={movie} onEntryCreated={(entry) => { if (entry.publica === true) setReviewsVersion((value) => value + 1) }} /> : null}
             </div>
           </div>
         </PageContainer>
       </section>
 
+      {movie.source !== 'omdb' ? <PageContainer><PublicMovieReviews movieId={movie.id} refreshKey={reviewsVersion} /></PageContainer> : null}
       {movie.source !== 'omdb' && <MovieDNASection movie={movie} />}
       <PageContainer className="movie-detail__footer">
         <Link className="text-link" to="/explorar">← Volver al catálogo</Link>
