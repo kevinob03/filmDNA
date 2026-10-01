@@ -70,6 +70,8 @@ try {
   await waitFor(webURL, vite)
   browser = await chromium.launch({ headless: true })
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, locale: 'es-ES' })
+  await context.route('https://fonts.googleapis.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/css', body: '' }))
+  await context.route('https://fonts.gstatic.com/**', (route) => route.fulfill({ status: 204, body: '' }))
   await context.addInitScript(() => {
     localStorage.setItem('filmdna_session', JSON.stringify({ id: 'user-a', nombre: 'Usuario A', email: 'a@filmdna.test', role: 'usuario' }))
     if (!localStorage.getItem('filmdna_accessibility_preferences_v1')) {
@@ -158,6 +160,8 @@ try {
   assert.equal(records.filter((entry) => entry.resena === 'Prueba de doble envío.').length, 1)
 
   const guest = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-ES' })
+  await guest.route('https://fonts.googleapis.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/css', body: '' }))
+  await guest.route('https://fonts.gstatic.com/**', (route) => route.fulfill({ status: 204, body: '' }))
   const guestPage = await guest.newPage()
   await guestPage.route('https://api.themoviedb.org/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(movie(550, 'El club de la lucha')) }))
   await guestPage.goto(`${webURL}/diario`)
