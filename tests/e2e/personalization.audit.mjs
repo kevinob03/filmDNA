@@ -47,7 +47,10 @@ await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).waitFor()
 check(await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).isVisible(), 'registro abre el quiz')
 check(await page.getByRole('button', { name: 'Continuar' }).isDisabled(), 'cada paso requiere una selección')
 
-for (const label of ['Comedia', 'Reír', 'Equilibrado', 'Algo para disfrutar']) {
+await page.getByRole('button', { name: 'Comedia' }).click()
+await page.getByRole('button', { name: 'Continuar' }).click()
+check(await page.getByRole('heading', { name: '¿Cómo te gusta sentirte?' }).isVisible(), 'el paso emocional usa el texto aprobado')
+for (const label of ['Reír', 'Equilibrado', 'Algo para disfrutar']) {
   await page.getByRole('button', { name: new RegExp(`^${label}`) }).click()
   await page.getByRole('button', { name: 'Continuar' }).click()
 }

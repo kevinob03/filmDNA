@@ -9,7 +9,7 @@ import '../personalization.css'
 
 const STEPS = [
   { key: 'genres', title: '¿Qué sueles disfrutar?', description: 'Elige hasta tres géneros. Podrás cambiarlos al buscar.', options: GENRE_OPTIONS, multiple: true },
-  { key: 'mood', title: '¿Cómo quieres sentirte?', description: 'Esto ayuda a entender la experiencia que buscas.', options: MOOD_OPTIONS },
+  { key: 'mood', title: '¿Cómo te gusta sentirte?', description: 'Esto ayuda a entender la experiencia que buscas.', options: MOOD_OPTIONS },
   { key: 'pace', title: '¿Qué ritmo prefieres?', description: 'Desde historias tranquilas hasta películas sin descanso.', options: PACE_OPTIONS },
   { key: 'attention', title: '¿Cuánta atención quieres dedicar?', description: 'Selecciona el nivel que más se parezca a ti.', options: ATTENTION_OPTIONS },
   { key: 'company', title: '¿Con quién ves películas normalmente?', description: 'Usaremos esta respuesta como punto de partida.', options: COMPANY_OPTIONS },
