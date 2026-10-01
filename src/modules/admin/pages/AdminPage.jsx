@@ -24,7 +24,7 @@ function AdminPage() {
   }
   useEffect(() => { loadUsers() }, [])
 
-  const metrics = useMemo(() => users.reduce((result, item) => { result.total += 1; if (item.role === 'admin') result.admins += 1; else if (item.role === 'usuario') result.users += 1; return result }, { total: 0, users: 0, admins: 0 }), [users])
+  const metrics = useMemo(() => users.reduce((result, item) => { result.total += 1; if (item.role === 'admin') result.admins += 1; else if (item.role === 'psychologist') result.psychologists += 1; else if (item.role === 'usuario') result.users += 1; return result }, { total: 0, users: 0, psychologists: 0, admins: 0 }), [users])
 
   const saveUser = async (values) => {
     setBusy(true); setMessage(null)

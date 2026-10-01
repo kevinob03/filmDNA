@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { loginUser, registerUser, saveUserPersonalization } from '../services/authService.js'
+import { APP_ROLE_VALUES } from '../shared/auth/roles.js'
 
 export const AUTH_STATUS = Object.freeze({
   CHECKING: 'checking',
@@ -8,7 +9,7 @@ export const AUTH_STATUS = Object.freeze({
 })
 
 const SESSION_STORAGE_KEY = 'filmdna_session'
-const VALID_ROLES = new Set(['usuario', 'admin'])
+const VALID_ROLES = new Set(APP_ROLE_VALUES)
 const AuthContext = createContext(null)
 
 const isValidSession = (session) => (

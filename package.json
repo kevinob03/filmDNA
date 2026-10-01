@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "dev:vite": "vite",
-    "server": "json-server db.json --port 3001",
+    "server": "node scripts/startJsonServer.mjs",
     "server:ai": "node --use-system-ca --env-file-if-exists=.env server/aiServer.mjs",
     "build": "vite build",
     "preview": "vite preview",
@@ -19,6 +19,10 @@
     "test:e2e:diary": "node tests/e2e/diary.audit.mjs",
     "test:e2e:statistics": "node tests/e2e/statistics.audit.mjs",
     "test:e2e:profile": "node tests/e2e/profile.audit.mjs",
+    "test:e2e:psychologist-role": "node tests/e2e/psychologist-role.audit.mjs",
+    "test:e2e:cinematherapy-consent": "node tests/e2e/cinematherapy-consent.audit.mjs",
+    "test:e2e:emotional-history": "node tests/e2e/emotional-history.audit.mjs",
+    "test:e2e:cinematherapy-ai": "node tests/e2e/cinematherapy-supervised-ai.audit.mjs",
     "test:e2e:home": "node tests/e2e/home-content.audit.mjs",
     "test:e2e:tour": "node tests/e2e/tour-guide.audit.mjs",
     "test:e2e:personalization": "node tests/e2e/personalization.audit.mjs",
@@ -26,6 +30,7 @@
     "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",
     "test:search-intent": "node tests/server/interpretSearchIntent.test.mjs",
+    "test:cinematherapy-ai": "node --test tests/server/cinematherapyDraft.test.mjs",
     "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
     "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs",
     "test:n8n-workflows": "node scripts/validate-n8n-workflows.mjs"

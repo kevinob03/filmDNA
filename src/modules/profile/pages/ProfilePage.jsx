@@ -8,15 +8,19 @@ import { getStatisticsErrorMessage, getUserStatisticsActivity } from '../../../s
 import { summarizeStatistics } from '../../statistics/statisticsCalculations.js'
 import ContentState from '../../../shared/components/ContentState.jsx'
 import PageContainer from '../../../shared/components/PageContainer.jsx'
+import { getRoleLabel } from '../../../shared/auth/roles.js'
 import ProfileActivity from '../components/ProfileActivity.jsx'
 import DeleteProfileDialog from '../components/DeleteProfileDialog.jsx'
 import ProfileEditor from '../components/ProfileEditor.jsx'
 import ProfileHero from '../components/ProfileHero.jsx'
 import ProfileQuickLinks from '../components/ProfileQuickLinks.jsx'
+import CinematherapyConsentPanel from '../components/CinematherapyConsentPanel.jsx'
+import EmotionalCheckInPanel from '../components/EmotionalCheckInPanel.jsx'
+import ApprovedCinematherapyPanel from '../components/ApprovedCinematherapyPanel.jsx'
 import '../profile.css'
 
 const EMPTY_SUMMARY = summarizeStatistics()
-const ROLE_LABELS = { usuario: 'Usuario', admin: 'Administrador' }
+
 const GENRE_LABELS = new Map(GENRE_OPTIONS.map(({ value, label }) => [Number(value), label]))
 
 function ProfileSkeleton() {
@@ -97,11 +101,14 @@ function ProfilePage() {
                 </div>
               </section>
             ) : null}
+            {profile.role === 'usuario' ? <CinematherapyConsentPanel userId={user.id} /> : null}
+            {profile.role === 'usuario' ? <EmotionalCheckInPanel userId={user.id} /> : null}
+            {profile.role === 'usuario' ? <ApprovedCinematherapyPanel userId={user.id} /> : null}
             <ProfileActivity {...activityState} onRetry={loadActivity} />
             <ProfileQuickLinks />
             <section className="profile-panel profile-account" aria-labelledby="profile-account-title">
               <header className="profile-section-heading"><p className="eyebrow"><span aria-hidden="true" />Cuenta</p><h2 id="profile-account-title">Datos de acceso</h2><p>Información protegida y disponible solo como referencia.</p></header>
-              <dl><div><dt>Email</dt><dd>{profile.email}</dd></div><div><dt>Rol</dt><dd>{ROLE_LABELS[profile.role] ?? profile.role}</dd></div></dl>
+              <dl><div><dt>Email</dt><dd>{profile.email}</dd></div><div><dt>Rol</dt><dd>{getRoleLabel(profile.role)}</dd></div></dl>
             </section>
             <section className="profile-panel profile-danger-zone" aria-labelledby="profile-danger-title">
               <div><p className="eyebrow"><span aria-hidden="true" />Zona de peligro</p><h2 id="profile-danger-title">Eliminar cuenta</h2><p>Borra permanentemente tu usuario de FilmDNA y cierra la sesión actual.</p></div>

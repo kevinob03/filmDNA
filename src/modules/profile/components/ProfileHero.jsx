@@ -1,9 +1,8 @@
 import { ProfileAvatar } from './ProfileAvatar.jsx'
-
-const ROLE_LABELS = { usuario: 'Usuario', admin: 'Administrador' }
+import { getRoleLabel } from '../../../shared/auth/roles.js'
 
 function ProfileHero({ profile, editing, onEdit }) {
-  const roleLabel = ROLE_LABELS[profile.role] ?? profile.role
+  const roleLabel = getRoleLabel(profile.role)
   const bio = profile.bio || 'Añade una bio para contar qué lugar ocupa el cine en tu historia.'
   return (
     <section className="profile-hero" aria-labelledby="profile-name">

@@ -15,6 +15,7 @@ import DiaryPage from '../modules/diary/pages/DiaryPage.jsx'
 import StatisticsPage from '../modules/statistics/pages/StatisticsPage.jsx'
 import FaqPage from '../modules/help/pages/FaqPage.jsx'
 import PersonalizationPage from '../modules/personalization/pages/PersonalizationPage.jsx'
+import PsychologistDashboardPage from '../modules/psychologist/pages/PsychologistDashboardPage.jsx'
 
 function AppRoutes() {
   return (
@@ -31,6 +32,10 @@ function AppRoutes() {
       <Route path="/biblioteca" element={<PrivateRoute><LibraryPage /></PrivateRoute>} />
       <Route path="/diario" element={<PrivateRoute><DiaryPage /></PrivateRoute>} />
       <Route path="/estadisticas" element={<PrivateRoute><StatisticsPage /></PrivateRoute>} />
+      <Route
+        path="/psicologo"
+        element={<RoleRoute allowedRoles={['psychologist']}><PsychologistDashboardPage /></RoleRoute>}
+      />
       <Route
         path="/admin"
         element={<RoleRoute allowedRoles={['admin']}><AdminPage /></RoleRoute>}
