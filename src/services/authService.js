@@ -73,21 +73,21 @@ export const registerUser = async ({ nombre, email, password }) => {
       password,
       role: 'usuario',
       personalizationCompleted: false,
-      recommendationPreferences: {},
+      discoveryPreferences: {},
     }),
   })
 
   return toSessionUser(user)
 }
 
-export const saveUserPersonalization = async (userId, recommendationPreferences) => {
+export const saveUserPersonalization = async (userId, discoveryPreferences) => {
   const user = await request(`/usuarios/${encodeURIComponent(userId)}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       personalizationCompleted: true,
       personalizationCompletedAt: new Date().toISOString(),
-      recommendationPreferences,
+      discoveryPreferences,
     }),
   })
   return toSessionUser(user)

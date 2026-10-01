@@ -97,8 +97,8 @@ export function AuthProvider({ children }) {
         ...current,
         nombre: nombre || current.nombre,
         ...(changes?.personalizationCompleted === true ? { personalizationCompleted: true } : {}),
-        ...(changes?.recommendationPreferences && typeof changes.recommendationPreferences === 'object'
-          ? { recommendationPreferences: changes.recommendationPreferences }
+        ...(changes?.discoveryPreferences && typeof changes.discoveryPreferences === 'object'
+          ? { discoveryPreferences: changes.discoveryPreferences }
           : {}),
       }
       storeSession(nextUser)
