@@ -37,7 +37,7 @@ function Header() {
           )}
         </nav>
 
-        <span className="phase-badge">FASE 3</span>
+        <span className="phase-badge">FASE 11</span>
 
         <AccessibilityButton />
 
