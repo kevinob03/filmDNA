@@ -11,7 +11,6 @@ import ExperienceForm from '../components/ExperienceForm.jsx'
 import FilterIcon from '../components/FilterIcon.jsx'
 import RecommendationCard from '../components/RecommendationCard.jsx'
 import { findOption, getActiveFilterLabels, INITIAL_SELECTIONS, normalizeOptionValue } from '../recommendationConfig.js'
-import { useAuth } from '../../../context/AuthContext.jsx'
 import '../recommendations.css'
 
 const ARRAY_FIELDS = new Set(['genres', 'providers'])
@@ -30,17 +29,6 @@ const toParams = (selections) => Object.entries(selections).reduce((params, [key
   return params
 }, {})
 
-const mergeStoredPreferences = (preferences) => {
-  if (!preferences || typeof preferences !== 'object') return readSelections(new URLSearchParams())
-  const params = new URLSearchParams()
-  Object.entries(preferences).forEach(([key, value]) => {
-    if (!Object.hasOwn(INITIAL_SELECTIONS, key)) return
-    const serialized = Array.isArray(value) ? value.join(',') : String(value ?? '')
-    if (serialized) params.set(key, serialized)
-  })
-  return readSelections(params)
-}
-
 const describeIntentFilters = (filters) => Object.entries(filters).flatMap(([group, value]) => {
   if (group === 'genres') return value.map((item) => findOption('genres', item)?.label).filter(Boolean)
   if (group === 'minRating') return [`TMDB ${Number(value).toFixed(1)}+`]
@@ -48,15 +36,12 @@ const describeIntentFilters = (filters) => Object.entries(filters).flatMap(([gro
 })
 
 function RecommendationsPage() {
-  const { user } = useAuth()
   const [params, setParams] = useSearchParams()
   const similarTo = params.get('similarTo')
   const hasPersistedSearch = Boolean(similarTo || [...params.keys()].some((key) => key !== 'similarTo'))
-  const personalizedDefaults = hasPersistedSearch ? readSelections(params) : mergeStoredPreferences(user?.recommendationPreferences)
   const restoredSearch = useRef(false)
-  const storedDefaultsApplied = useRef(Boolean(user?.recommendationPreferences))
-  const [selections, setSelections] = useState(() => personalizedDefaults)
-  const [appliedSelections, setAppliedSelections] = useState(() => personalizedDefaults)
+  const [selections, setSelections] = useState(() => readSelections(params))
+  const [appliedSelections, setAppliedSelections] = useState(() => readSelections(params))
   const [mode, setMode] = useState('simple')
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [providers, setProviders] = useState([])
@@ -65,14 +50,6 @@ function RecommendationsPage() {
   const [state, setState] = useState({ status: hasPersistedSearch ? 'loading' : 'idle', movies: [] })
   const [naturalQuery, setNaturalQuery] = useState('')
   const [intentState, setIntentState] = useState({ status: 'idle', labels: [], unmappedTerms: [] })
-
-  useEffect(() => {
-    if (hasPersistedSearch || hasSearched || storedDefaultsApplied.current || !user?.recommendationPreferences) return
-    const stored = mergeStoredPreferences(user.recommendationPreferences)
-    setSelections(stored)
-    setAppliedSelections(stored)
-    storedDefaultsApplied.current = true
-  }, [hasPersistedSearch, hasSearched, user])
 
   useEffect(() => {
     getMovieWatchProviders('ES')
@@ -212,10 +189,7 @@ function RecommendationsPage() {
     {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, ritmo, duración o cómo quieres sentirte.</div>}
     {!similarTo && intentState.status === 'error' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>La interpretación con IA no está disponible temporalmente.</strong> Puedes seguir usando los filtros manuales.</div>}
 
-    {!similarTo && !hasSearched && <>
-      {user?.recommendationPreferences && Object.keys(user.recommendationPreferences).length > 0 && <p className="personalized-defaults" role="status">Empezamos con las preferencias de tu quiz. Puedes ajustarlas antes de buscar.</p>}
-      <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />
-    </>}
+    {!similarTo && !hasSearched && <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />}
 
     {(hasSearched || similarTo) && <section className="recommendation-results" aria-live="polite">
       <header className="results-toolbar">

@@ -1,8 +1,10 @@
-export const toSessionUser = ({ id, nombre, email, role, personalizationCompleted, recommendationPreferences }) => ({
+export const toSessionUser = ({ id, nombre, email, role, personalizationCompleted, discoveryPreferences, recommendationPreferences }) => ({
   id,
   nombre,
   email,
   role,
   ...(personalizationCompleted === false ? { personalizationCompleted: false } : {}),
-  ...(recommendationPreferences && typeof recommendationPreferences === 'object' ? { recommendationPreferences } : {}),
+  ...((discoveryPreferences || recommendationPreferences) && typeof (discoveryPreferences || recommendationPreferences) === 'object'
+    ? { discoveryPreferences: discoveryPreferences || recommendationPreferences }
+    : {}),
 })

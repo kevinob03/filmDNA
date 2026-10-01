@@ -4,10 +4,10 @@ describe('toSessionUser', () => {
   test('expone sólo datos seguros y conserva el estado pendiente del quiz', () => {
     expect(toSessionUser({
       id: 'u1', nombre: 'Ana', email: 'ana@test.dev', role: 'usuario', password: 'secreta',
-      personalizationCompleted: false, recommendationPreferences: { genres: ['35'] },
+      personalizationCompleted: false, discoveryPreferences: { genres: ['35'] },
     })).toEqual({
       id: 'u1', nombre: 'Ana', email: 'ana@test.dev', role: 'usuario',
-      personalizationCompleted: false, recommendationPreferences: { genres: ['35'] },
+      personalizationCompleted: false, discoveryPreferences: { genres: ['35'] },
     })
   })
 

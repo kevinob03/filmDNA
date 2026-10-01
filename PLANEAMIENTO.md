@@ -423,7 +423,8 @@ Completado:
 - Cobertura y confianza visibles por tarjeta mediante criterios comprobados; los datos desconocidos se informan y no se convierten artificialmente en `0%`.
 - Orden de compatibilidad, fórmula combinada y fallback de IA validados con pruebas unitarias y auditorías E2E sobre seis combinaciones reales.
 - Quiz inicial de personalización implementado para cuentas nuevas con cinco pasos sobre géneros, emoción, ritmo, atención y compañía.
-- Preferencias del quiz persistidas en el usuario y reutilizadas como selección inicial en Recomendaciones; el resultado final abre una búsqueda ya aplicada.
+- Preferencias del quiz persistidas como perfil de descubrimiento y aplicadas al contenido de Explorar mediante consultas y ranking por afinidad de géneros verificables de TMDB.
+- Recomendaciones permanece como búsqueda manual independiente: el quiz no rellena ni activa sus filtros.
 - Cuentas antiguas conservan su acceso, las cuentas nuevas pendientes retoman el quiz al iniciar sesión y el recorrido puede omitirse explícitamente.
 - Auditoría E2E del quiz aprobada en móvil a `390px`, incluyendo registro, persistencia, restauración de filtros y reanudación posterior.
 - Campos de contraseña y confirmación del registro alineados con dimensiones visuales equivalentes en escritorio, sin alterar el flujo móvil.

@@ -15,16 +15,6 @@ const STEPS = [
   { key: 'company', title: '¿Con quién ves películas normalmente?', description: 'Usaremos esta respuesta como punto de partida.', options: COMPANY_OPTIONS },
 ]
 
-const toRecommendationUrl = (preferences) => {
-  const params = new URLSearchParams()
-  Object.entries(preferences).forEach(([key, value]) => {
-    const serialized = Array.isArray(value) ? value.join(',') : value
-    if (serialized) params.set(key, serialized)
-  })
-  const query = params.toString()
-  return query ? `/recomendaciones?${query}` : '/recomendaciones'
-}
-
 function PersonalizationPage() {
   const { completePersonalization } = useAuth()
   const navigate = useNavigate()
@@ -48,7 +38,7 @@ function PersonalizationPage() {
     setStatus('saving')
     try {
       await completePersonalization(nextPreferences)
-      navigate(toRecommendationUrl(nextPreferences), { replace: true })
+      navigate('/explorar', { replace: true })
     } catch {
       setStatus('error')
     }
@@ -84,7 +74,7 @@ function PersonalizationPage() {
         <button type="button" className="personalization-skip" onClick={() => finish({})} disabled={status === 'saving'}>Ahora no</button>
         <div>
           {stepIndex > 0 && <button type="button" className="button button--secondary" onClick={() => setStepIndex((index) => index - 1)} disabled={status === 'saving'}>Anterior</button>}
-          <button type="button" className="button button--primary" onClick={next} disabled={!canContinue || status === 'saving'}>{status === 'saving' ? 'Guardando…' : stepIndex === STEPS.length - 1 ? 'Ver mis recomendaciones' : 'Continuar'}</button>
+          <button type="button" className="button button--primary" onClick={next} disabled={!canContinue || status === 'saving'}>{status === 'saving' ? 'Guardando…' : stepIndex === STEPS.length - 1 ? 'Explorar para mí' : 'Continuar'}</button>
         </div>
       </footer>
     </section>

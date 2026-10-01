@@ -5,9 +5,13 @@ import MovieCard from '../../movies/components/MovieCard.jsx'
 import MovieGridSkeleton from '../../movies/components/MovieGridSkeleton.jsx'
 import { getTmdbErrorMessage } from '../../../services/tmdbService.js'
 import { getPopularMovies, searchMovies } from '../../../services/movieService.js'
+import { AUTH_STATUS, useAuth } from '../../../context/AuthContext.jsx'
+import { getPersonalizedExploreMovies } from '../../../services/personalizedExploreService.js'
 import '../explore.css'
 
 function ExplorePage() {
+  const { status: authStatus, user } = useAuth()
+  const hasDiscoveryProfile = Boolean(user?.discoveryPreferences && Object.keys(user.discoveryPreferences).length)
   const [input, setInput] = useState('')
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
@@ -27,7 +31,12 @@ function ExplorePage() {
     let active = true
     setState((current) => ({ ...current, status: 'loading', error: null }))
 
-    const operation = query ? searchMovies(query, page) : getPopularMovies(page)
+    if (!query && authStatus === AUTH_STATUS.CHECKING) return () => { active = false }
+    const operation = query
+      ? searchMovies(query, page)
+      : hasDiscoveryProfile
+        ? getPersonalizedExploreMovies(user.discoveryPreferences, page).then((data) => data || getPopularMovies(page))
+        : getPopularMovies(page)
     operation
       .then((data) => {
         if (!active) return
@@ -44,7 +53,7 @@ function ExplorePage() {
       })
 
     return () => { active = false }
-  }, [query, page, attempt])
+  }, [query, page, attempt, authStatus, hasDiscoveryProfile, user])
 
   const submitSearch = (event) => {
     event.preventDefault()
@@ -69,7 +78,7 @@ function ExplorePage() {
         <header className="explore-header">
           <p className="eyebrow"><span aria-hidden="true" /> Catálogo TMDB</p>
           <h1>Explorar películas</h1>
-          <p>Busca por título o descubre películas populares con información actual de TMDB.</p>
+          <p>{hasDiscoveryProfile ? 'Descubre una selección que parte de tus gustos y evoluciona con tu perfil.' : 'Busca por título o descubre películas populares con información actual de TMDB.'}</p>
         </header>
 
         <form className="movie-search" role="search" onSubmit={submitSearch}>
@@ -91,8 +100,8 @@ function ExplorePage() {
 
         <div className="catalog-heading">
           <div>
-            <p className="catalog-heading__label">{query ? 'Resultados de búsqueda' : 'Películas populares'}</p>
-            <h2>{query ? `Resultados para “${query}”` : 'Descubre qué ver'}</h2>
+            <p className="catalog-heading__label">{query ? 'Resultados de búsqueda' : hasDiscoveryProfile ? 'Selección para ti' : 'Películas populares'}</p>
+            <h2>{query ? `Resultados para “${query}”` : hasDiscoveryProfile ? 'Basado en tus gustos' : 'Descubre qué ver'}</h2>
           </div>
           {state.status === 'success' && state.movies.length > 0 && (
             <span className="catalog-heading__page">Página {page} de {state.totalPages}</span>
