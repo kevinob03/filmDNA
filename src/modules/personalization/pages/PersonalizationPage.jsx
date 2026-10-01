@@ -16,10 +16,12 @@ const STEPS = [
 ]
 
 function PersonalizationPage() {
-  const { completePersonalization } = useAuth()
+  const { completePersonalization, user } = useAuth()
   const navigate = useNavigate()
   const [stepIndex, setStepIndex] = useState(0)
-  const [preferences, setPreferences] = useState({ genres: [], mood: '', pace: '', attention: '', company: '' })
+  const [preferences, setPreferences] = useState(() => ({
+    genres: [], mood: '', pace: '', attention: '', company: '', ...user?.discoveryPreferences,
+  }))
   const [status, setStatus] = useState('idle')
   const step = STEPS[stepIndex]
   const selected = preferences[step.key]
