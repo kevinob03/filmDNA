@@ -21,7 +21,12 @@ export const runAIOperation = async (operation, input, { env = process.env, budg
     const remainingMs = deadline - Date.now()
     if (remainingMs < MINIMUM_PROVIDER_WINDOW_MS) break
     const remainingProviders = configured.length - index
-    const providerWindowMs = Math.max(MINIMUM_PROVIDER_WINDOW_MS, Math.floor(remainingMs / remainingProviders))
+    const preferredWindowMs = index === 0 ? Number(operation.preferredProviderWindowMs) : 0
+    const reservedFallbackMs = (remainingProviders - 1) * MINIMUM_PROVIDER_WINDOW_MS
+    const maximumCurrentWindowMs = Math.max(MINIMUM_PROVIDER_WINDOW_MS, remainingMs - reservedFallbackMs)
+    const providerWindowMs = preferredWindowMs > 0
+      ? Math.min(maximumCurrentWindowMs, Math.max(MINIMUM_PROVIDER_WINDOW_MS, preferredWindowMs))
+      : Math.max(MINIMUM_PROVIDER_WINDOW_MS, Math.floor(remainingMs / remainingProviders))
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), providerWindowMs)
     try {

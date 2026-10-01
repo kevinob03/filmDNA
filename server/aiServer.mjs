@@ -5,6 +5,7 @@ import { toPublicAIError } from './ai/errors.mjs'
 import { movieDNAOperation } from './ai/operations/movieDNA.mjs'
 import { classifyMoviesOperation } from './ai/operations/classifyMovies.mjs'
 import { interpretSearchIntentOperation } from './ai/operations/interpretSearchIntent.mjs'
+import { cinematherapyDraftOperation } from './ai/operations/cinematherapyDraft.mjs'
 
 const PORT = Number(process.env.AI_SERVER_PORT) || 3002
 const MAX_BODY_BYTES = 64 * 1024
@@ -71,6 +72,18 @@ export const createAIServer = () => createServer(async (request, response) => {
     return
   }
 
+  if (request.method === 'POST' && request.url === '/api/ai/cinematherapy-draft') {
+    try {
+      const body = await readJsonBody(request)
+      const draft = await runAIOperation(cinematherapyDraftOperation, body?.input, { budgetMs: body?.budgetMs })
+      sendJson(response, 200, draft)
+    } catch (error) {
+      const type = toPublicAIError(error)
+      const status = type === 'configuration' ? 503 : type === 'rate-limited' ? 429 : type === 'timeout' ? 504 : type === 'invalid-schema' ? 422 : 502
+      sendJson(response, status, { error: type })
+    }
+    return
+  }
   sendJson(response, 404, { error: 'not-found' })
 })
 

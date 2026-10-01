@@ -1,5 +1,6 @@
 const AI_API_BASE = '/api/ai'
 const INTERACTIVE_BUDGET_MS = 6_000
+const CINEMATHERAPY_BUDGET_MS = 10_000
 
 export class AIServiceError extends Error {
   constructor(type, cause) {
@@ -49,4 +50,10 @@ export const requestSearchIntent = async (query) => request('/interpret-search',
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ query, budgetMs: INTERACTIVE_BUDGET_MS }),
+})
+
+export const requestCinematherapyDraft = async (input) => request('/cinematherapy-draft', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ input, budgetMs: CINEMATHERAPY_BUDGET_MS }),
 })

@@ -1,0 +1,106 @@
+.psychologist-page {
+  min-height: calc(100svh - 4.5rem);
+  padding-block: clamp(2.5rem, 7vw, 5rem) 7rem;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(0, 245, 212, 0.11), transparent 27rem),
+    radial-gradient(circle at 12% 65%, rgba(157, 78, 221, 0.12), transparent 25rem),
+    var(--color-background);
+}
+
+.psychologist-page__header {
+  max-width: 54rem;
+  margin-bottom: var(--space-xl);
+}
+
+.psychologist-page__header h1 {
+  margin: 0 0 var(--space-sm);
+  font-size: clamp(2.25rem, 7vw, 4rem);
+}
+
+.psychologist-page__header > p:last-child,
+.psychologist-summary article p,
+.psychologist-summary article span,
+.psychologist-safety > div > p:last-child {
+  color: var(--color-text-muted);
+}
+
+.psychologist-summary,
+.psychologist-safety {
+  margin-bottom: var(--space-xl);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-lowest);
+}
+
+.psychologist-summary__grid {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.psychologist-summary article {
+  display: grid;
+  gap: 0.35rem;
+  padding: var(--space-lg);
+  border: 1px solid var(--border-green);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-low);
+}
+
+.psychologist-summary article p,
+.psychologist-summary article span {
+  margin: 0;
+}
+
+.psychologist-summary article strong {
+  color: var(--color-cyan);
+  font: 700 clamp(2rem, 8vw, 3rem)/1 var(--font-data);
+}
+
+.psychologist-safety {
+  display: grid;
+  gap: var(--space-lg);
+  border-color: var(--border-purple);
+}
+
+.psychologist-safety h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.psychologist-safety ul {
+  display: grid;
+  gap: var(--space-sm);
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--color-text-primary);
+}
+
+@media (min-width: 48rem) {
+  .psychologist-summary__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .psychologist-safety {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+    align-items: start;
+  }
+}
+.psychologist-cases{margin-bottom:var(--space-xl);padding:clamp(1.25rem,4vw,2rem);border:1px solid var(--border-green);border-radius:var(--radius-xl);background:var(--color-surface-lowest)}
+.psychologist-cases>header{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);margin-bottom:var(--space-lg)}
+.psychologist-cases>header h2,.psychologist-cases>header p{margin-bottom:0}
+.psychologist-cases__list{display:grid;gap:var(--space-md)}
+.psychologist-cases__list article{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:var(--space-md);padding:var(--space-lg);border:1px solid var(--border-glass);border-radius:var(--radius-lg);background:var(--color-surface-low)}
+.psychologist-cases__list h3,.psychologist-cases__list p{margin:0}.psychologist-cases__list p,.psychologist-state{color:var(--color-text-muted)}
+.psychologist-cases__avatar{display:grid;width:2.75rem;aspect-ratio:1;place-items:center;border:1px solid var(--border-green);border-radius:50%;color:var(--color-primary);font-family:var(--font-data)}
+.psychologist-cases__status{padding:.35rem .7rem;border:1px solid var(--border-green);border-radius:var(--radius-full);color:var(--color-primary);font-size:.8rem}
+.psychologist-state{padding:var(--space-lg);border:1px dashed var(--border-glass);border-radius:var(--radius-lg)}
+@media(max-width:36rem){.psychologist-cases>header{align-items:flex-start;flex-direction:column}.psychologist-cases__list article{grid-template-columns:auto minmax(0,1fr)}.psychologist-cases__status,.psychologist-cases__action{grid-column:2}}
+.psychologist-history{margin-bottom:var(--space-xl);padding:clamp(1.25rem,4vw,2rem);border:1px solid var(--border-purple);border-radius:var(--radius-xl);background:var(--color-surface-lowest)}
+.psychologist-history>header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-md);margin-bottom:var(--space-md)}.psychologist-history>header h2,.psychologist-history>header p{margin-bottom:0}
+.psychologist-history__notice{padding:var(--space-md);border-left:3px solid var(--color-violet);background:var(--color-surface-low);color:var(--color-text-muted)}
+.psychologist-history__list{display:grid;gap:var(--space-md);margin:var(--space-lg) 0 0;padding:0;list-style:none}.psychologist-history__list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-sm) var(--space-md);padding:var(--space-lg);border:1px solid var(--border-glass);border-radius:var(--radius-lg);background:var(--color-surface-low)}.psychologist-history__list li>div{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-sm)}.psychologist-history__list li span{color:var(--color-cyan)}.psychologist-history__list time{color:var(--color-text-muted)}.psychologist-history__list p{grid-column:1/-1;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.psychologist-history__no-note{color:var(--color-text-muted);font-style:italic}
+@media(max-width:48rem){.psychologist-cases__list article{grid-template-columns:auto minmax(0,1fr)}.psychologist-cases__status,.psychologist-cases__action{grid-column:2}.psychologist-history>header{flex-direction:column}.psychologist-history__list li{grid-template-columns:1fr}.psychologist-history__list p{grid-column:1}}
+.psychologist-proposals{margin-top:var(--space-xl);padding-top:var(--space-xl);border-top:1px solid var(--border-glass)}.psychologist-proposals>header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-md)}.psychologist-proposals>header h3,.psychologist-proposals>header p{margin-bottom:0}.psychologist-proposals__privacy{padding:var(--space-md);border-left:3px solid var(--color-cyan);background:var(--color-surface-low);color:var(--color-text-muted)}
+.psychologist-proposals__list{display:grid;gap:var(--space-lg);margin-top:var(--space-lg)}.psychologist-proposal{padding:var(--space-lg);border:1px solid var(--border-glass);border-radius:var(--radius-lg);background:var(--color-surface-low)}.psychologist-proposal--approved{border-color:var(--border-green)}.psychologist-proposal--rejected{opacity:.7}.psychologist-proposal>header{display:flex;justify-content:space-between;gap:var(--space-md)}.psychologist-proposal>header span{color:var(--color-cyan);font-size:.8rem}.psychologist-proposal h4{margin:.25rem 0}.psychologist-proposal ol{display:grid;gap:var(--space-sm);padding-left:1.25rem}.psychologist-proposal li{padding:var(--space-md);border:1px solid var(--border-glass);border-radius:var(--radius-md);background:var(--color-surface-lowest)}.psychologist-proposal li>div{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-sm)}.psychologist-proposal li p{margin-bottom:var(--space-xs);color:var(--color-text-muted)}.psychologist-proposal li small{color:var(--color-violet-soft)}.psychologist-proposal__actions{display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-top:var(--space-md)}
+@media(max-width:48rem){.psychologist-proposals>header,.psychologist-proposal>header{flex-direction:column}}

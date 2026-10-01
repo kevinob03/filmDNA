@@ -6,6 +6,7 @@ function Header() {
   const { status, user, logout } = useAuth()
   const isAuthenticated = status === AUTH_STATUS.AUTHENTICATED
   const isAdmin = isAuthenticated && user.role === 'admin'
+  const isPsychologist = isAuthenticated && user.role === 'psychologist'
 
   return (
     <header className="site-header">
@@ -29,6 +30,11 @@ function Header() {
               <NavLink className="desktop-nav__link" to="/diario">Diario</NavLink>
               <NavLink className="desktop-nav__link" to="/perfil">Perfil</NavLink>
             </>
+          )}
+          {isPsychologist && (
+            <NavLink className="desktop-nav__link" to="/psicologo">
+              Psicología
+            </NavLink>
           )}
           {isAdmin && (
             <NavLink className="desktop-nav__link desktop-nav__link--admin" to="/admin">

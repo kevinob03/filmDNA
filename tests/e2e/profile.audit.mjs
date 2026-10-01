@@ -39,6 +39,10 @@ const fixture = {
   ],
   movieDNA: [{ id: 'dna-global', tmdbId: 550, ritmo: 8 }],
   configuracionDNA: [{ id: 'config-global', version: 1 }],
+  asignacionesPsicologicas: [{ id: 'assignment-a', usuarioId: 'user-a', psicologoId: 'psych-1', status: 'active', scopes: ['emotional-history', 'movie-recommendations'], consentedAt: '2026-01-01T00:00:00.000Z', revokedAt: null }],
+  auditoriaCinematerapia: [{ id: 'audit-a', assignmentId: 'assignment-a', usuarioId: 'user-a', psicologoId: 'psych-1', action: 'consent-granted', occurredAt: '2026-01-01T00:00:00.000Z' }],
+  registrosEmocionales: [{ id: 'emotion-a', usuarioId: 'user-a', mood: 'sad', intensity: 7, note: 'Dato privado', createdAt: '2026-01-02T00:00:00.000Z' }],
+  propuestasCinematerapia: [{ id: 'proposal-a', usuarioId: 'user-a', psicologoId: 'psych-1', assignmentId: 'assignment-a', emotionalRecordId: 'emotion-a', emotionSnapshot: { mood: 'sad', intensity: 7 }, status: 'approved', summary: 'Propuesta privada', recommendations: [], generatedAt: '2026-01-03T00:00:00.000Z', reviewedAt: '2026-01-04T00:00:00.000Z' }],
 }
 
 const start = (entry, args, extraEnv = {}) => {
@@ -213,6 +217,15 @@ try {
   assert.equal((await fetch(`${apiURL}/favoritos?usuarioId=user-a`).then((response) => response.json())).length, 0)
   assert.equal((await fetch(`${apiURL}/listas?usuarioId=user-a`).then((response) => response.json())).length, 0)
   assert.equal((await fetch(`${apiURL}/listaPeliculas?listaId=pending-a`).then((response) => response.json())).length, 0)
+  assert.equal((await fetch(`${apiURL}/registrosEmocionales?usuarioId=user-a`).then((response) => response.json())).length, 0)
+  assert.equal((await fetch(`${apiURL}/asignacionesPsicologicas?usuarioId=user-a`).then((response) => response.json())).length, 0)
+  const anonymizedAudit = await fetch(`${apiURL}/auditoriaCinematerapia/audit-a`).then((response) => response.json())
+  assert.equal(anonymizedAudit.usuarioId, null)
+  const anonymizedProposal = await fetch(`${apiURL}/propuestasCinematerapia/proposal-a`).then((response) => response.json())
+  assert.equal(anonymizedProposal.usuarioId, null)
+  assert.equal(anonymizedProposal.emotionalRecordId, null)
+  assert.equal(anonymizedProposal.emotionSnapshot, null)
+  assert.equal(typeof anonymizedAudit.anonymizedAt, 'string')
   assert.equal(await deletePage.evaluate(() => localStorage.getItem('filmdna_session')), null)
   assert.equal((await fetch(`${apiURL}/usuarios/user-b`)).ok, true)
   assert.equal((await fetch(`${apiURL}/diario?usuarioId=user-b`).then((response) => response.json())).length, 1)

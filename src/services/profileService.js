@@ -68,6 +68,33 @@ export const createProfileService = (baseUrl = DEFAULT_BASE_URL) => {
         await deleteRecords('listas', lists)
         await deleteRecords('diario', await queryByUser('diario', normalizedUserId))
         await deleteRecords('favoritos', await queryByUser('favoritos', normalizedUserId))
+        const [emotionalRecords, assignmentsAsUser, assignmentsAsPsychologist, auditAsUser, auditAsPsychologist, proposalsAsUser, proposalsAsPsychologist] = await Promise.all([
+          queryByUser('registrosEmocionales', normalizedUserId),
+          queryByUser('asignacionesPsicologicas', normalizedUserId),
+          request('/asignacionesPsicologicas?psicologoId=' + encodeURIComponent(normalizedUserId)),
+          queryByUser('auditoriaCinematerapia', normalizedUserId),
+          request('/auditoriaCinematerapia?psicologoId=' + encodeURIComponent(normalizedUserId)),
+          queryByUser('propuestasCinematerapia', normalizedUserId),
+          request('/propuestasCinematerapia?psicologoId=' + encodeURIComponent(normalizedUserId)),
+        ])
+        const uniqueAssignments = [...new Map([...assignmentsAsUser, ...assignmentsAsPsychologist].map((item) => [String(item.id), item])).values()]
+        const uniqueAuditEvents = [...new Map([...auditAsUser, ...auditAsPsychologist].map((item) => [String(item.id), item])).values()]
+        const uniqueProposals = [...new Map([...proposalsAsUser, ...proposalsAsPsychologist].map((item) => [String(item.id), item])).values()]
+        await deleteRecords('registrosEmocionales', emotionalRecords)
+        await deleteRecords('asignacionesPsicologicas', uniqueAssignments)
+        const anonymizedAt = new Date().toISOString()
+        await Promise.all(uniqueProposals.map((proposal) => {
+          const changes = { emotionalRecordId: null, emotionSnapshot: null, anonymizedAt }
+          if (String(proposal.usuarioId) === normalizedUserId) changes.usuarioId = null
+          if (String(proposal.psicologoId) === normalizedUserId) changes.psicologoId = null
+          return request('/propuestasCinematerapia/' + encodeURIComponent(proposal.id), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(changes) })
+        }))
+        await Promise.all(uniqueAuditEvents.map((event) => {
+          const changes = { anonymizedAt }
+          if (String(event.usuarioId) === normalizedUserId) changes.usuarioId = null
+          if (String(event.psicologoId) === normalizedUserId) changes.psicologoId = null
+          return request('/auditoriaCinematerapia/' + encodeURIComponent(event.id), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(changes) })
+        }))
         await request(`/usuarios/${encodeURIComponent(normalizedUserId)}`, { method: 'DELETE' })
       } catch (error) {
         // JSON Server no ofrece transacciones: un fallo puede dejar una limpieza parcial.

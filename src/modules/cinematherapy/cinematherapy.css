@@ -1,0 +1,72 @@
+.emotional-safety {
+  display: grid;
+  gap: var(--space-md);
+  margin-block: var(--space-lg);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 2px solid var(--border-danger);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-background);
+}
+
+.emotional-safety__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.emotional-safety__heading p,
+.emotional-safety__heading h3,
+.emotional-safety > p,
+.emotional-safety__resources p {
+  margin: 0;
+}
+
+.emotional-safety__indicator {
+  display: grid;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  color: var(--color-danger);
+  font: 800 1.2rem/1 var(--font-data);
+}
+
+.emotional-safety > p,
+.emotional-safety__resources {
+  color: var(--color-text-primary);
+}
+
+.emotional-safety__resources {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border-left: 3px solid var(--color-danger);
+  background: var(--color-surface-lowest);
+}
+
+.emotional-safety a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.emotional-safety__source {
+  width: fit-content;
+}
+
+.emotional-safety-record {
+  border-color: var(--border-danger) !important;
+}
+
+.emotional-safety-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: .3rem .65rem;
+  border: 1px solid var(--border-danger);
+  border-radius: var(--radius-full);
+  background: var(--color-danger-background);
+  color: var(--color-danger) !important;
+  font-size: .78rem;
+  font-weight: 700;
+}

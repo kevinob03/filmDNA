@@ -1,9 +1,15 @@
-export function AdminMetrics({ total, users, admins }) {
-  const metrics = [['Usuarios totales', total, 'Cuentas registradas'], ['Rol usuario', users, 'Acceso estándar'], ['Administradores', admins, 'Acceso administrativo']]
+export function AdminMetrics({ total, users, psychologists, admins }) {
+  const metrics = [
+    ['Usuarios totales', total, 'Cuentas registradas'],
+    ['Rol usuario', users, 'Acceso estándar'],
+    ['Psicólogos', psychologists, 'Acompañamiento supervisado'],
+    ['Administradores', admins, 'Acceso administrativo'],
+  ]
   return <section aria-labelledby="admin-summary-title"><header className="admin-section-heading"><p className="eyebrow"><span aria-hidden="true" />Resumen real</p><h2 id="admin-summary-title">Estado de cuentas</h2></header><div className="admin-metrics">{metrics.map(([label, value, detail]) => <article className="admin-metric" key={label}><p>{label}</p><strong>{value}</strong><span>{detail}</span></article>)}</div></section>
 }
 
-export function RoleDistributionChart({ users, admins, total }) {
-  const rows = [['Usuarios', users, 'user'], ['Administradores', admins, 'admin']]
-  return <section className="admin-chart" aria-labelledby="role-chart-title"><header className="admin-section-heading"><p className="eyebrow"><span aria-hidden="true" />Distribución</p><h2 id="role-chart-title">Cuentas por rol</h2></header><div className="admin-chart__plot" role="img" aria-label={`Distribución: ${users} usuarios y ${admins} administradores`}>{rows.map(([label, value, type]) => { const percent = total ? Math.round(value / total * 100) : 0; return <div className="admin-chart__row" key={label}><div className="admin-chart__label"><span>{label}</span><strong>{value} · {percent}%</strong></div><div className="admin-chart__track" aria-hidden="true"><span className={`admin-chart__bar admin-chart__bar--${type}`} style={{ width: `${percent}%` }} /></div></div> })}</div></section>
+export function RoleDistributionChart({ users, psychologists, admins, total }) {
+  const rows = [['Usuarios', users, 'user'], ['Psicólogos', psychologists, 'psychologist'], ['Administradores', admins, 'admin']]
+  const summary = `${users} usuarios, ${psychologists} psicólogos y ${admins} administradores`
+  return <section className="admin-chart" aria-labelledby="role-chart-title"><header className="admin-section-heading"><p className="eyebrow"><span aria-hidden="true" />Distribución</p><h2 id="role-chart-title">Cuentas por rol</h2></header><div className="admin-chart__plot" role="img" aria-label={`Distribución: ${summary}`}>{rows.map(([label, value, type]) => { const percent = total ? Math.round(value / total * 100) : 0; return <div className="admin-chart__row" key={label}><div className="admin-chart__label"><span>{label}</span><strong>{value} · {percent}%</strong></div><div className="admin-chart__track" aria-hidden="true"><span className={`admin-chart__bar admin-chart__bar--${type}`} style={{ width: `${percent}%` }} /></div></div> })}</div></section>
 }

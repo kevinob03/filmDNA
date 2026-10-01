@@ -1,8 +1,10 @@
+import { APP_ROLE_VALUES } from '../shared/auth/roles.js'
+
 const DEFAULT_API_URL = 'http://localhost:3001'
 const configuredApiUrl = import.meta.env?.VITE_API_URL?.trim()
 const DEFAULT_BASE_URL = (configuredApiUrl || DEFAULT_API_URL).replace(/\/+$/, '')
 
-export const ADMIN_USER_ROLES = Object.freeze(['usuario', 'admin'])
+export const ADMIN_USER_ROLES = APP_ROLE_VALUES
 export class AdminUserServiceError extends Error { constructor(type, status) { super(type); this.name = 'AdminUserServiceError'; this.type = type; this.status = status } }
 const normalizeEmail = (email) => email.trim().toLowerCase()
 const toPublicUser = ({ id, nombre, email, role }) => ({ id, nombre, email, role })

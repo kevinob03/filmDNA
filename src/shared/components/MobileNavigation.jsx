@@ -4,6 +4,7 @@ import AccessibilityButton from './AccessibilityButton.jsx'
 
 const NavIcon = ({ type }) => {
   const paths = {
+    psychologist: <><path d="M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10Z" /><path d="M9 12h6M12 9v6" /></>,
     home: <path d="M3 10.75 12 3l9 7.75V21h-6v-6H9v6H3V10.75Z" />,
     compass: <><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" /></>,
     login: <><path d="M14 4h5v16h-5" /><path d="M3 12h12M11 8l4 4-4 4" /></>,
@@ -23,7 +24,8 @@ function MobileNavigation() {
   const { status, user, logout } = useAuth()
   const isAuthenticated = status === AUTH_STATUS.AUTHENTICATED
   const isAdmin = isAuthenticated && user.role === 'admin'
-  const itemCount = status === AUTH_STATUS.CHECKING ? 5 : (isAdmin ? 9 : 8)
+  const isPsychologist = isAuthenticated && user.role === 'psychologist'
+  const itemCount = status === AUTH_STATUS.CHECKING ? 5 : ((isAdmin || isPsychologist) ? 9 : 8)
 
   return (
     <nav
@@ -80,6 +82,12 @@ function MobileNavigation() {
             <NavIcon type="profile" />
             <span>Perfil</span>
           </NavLink>
+          {isPsychologist && (
+            <NavLink className="mobile-nav__item" to="/psicologo">
+              <NavIcon type="psychologist" />
+              <span>Psicología</span>
+            </NavLink>
+          )}
           {isAdmin && (
             <NavLink className="mobile-nav__item" to="/admin">
               <NavIcon type="admin" />
