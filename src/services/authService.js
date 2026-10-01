@@ -1,3 +1,5 @@
+import { toSessionUser } from './authUserModel.js'
+
 const DEFAULT_API_URL = 'http://localhost:3001'
 
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
@@ -13,13 +15,6 @@ export class AuthServiceError extends Error {
 }
 
 const normalizeEmail = (email) => email.trim().toLowerCase()
-
-const toSessionUser = ({ id, nombre, email, role }) => ({
-  id,
-  nombre,
-  email,
-  role,
-})
 
 const request = async (endpoint, options = {}) => {
   let response
@@ -77,9 +72,24 @@ export const registerUser = async ({ nombre, email, password }) => {
       email: normalizedEmail,
       password,
       role: 'usuario',
+      personalizationCompleted: false,
+      recommendationPreferences: {},
     }),
   })
 
+  return toSessionUser(user)
+}
+
+export const saveUserPersonalization = async (userId, recommendationPreferences) => {
+  const user = await request(`/usuarios/${encodeURIComponent(userId)}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      personalizationCompleted: true,
+      personalizationCompletedAt: new Date().toISOString(),
+      recommendationPreferences,
+    }),
+  })
   return toSessionUser(user)
 }
 

@@ -1,0 +1,18 @@
+.personalization-page { min-height: calc(100vh - var(--header-height)); padding-block: clamp(2rem, 7vw, 5rem); }
+.personalization-card { width: min(100%, 52rem); margin-inline: auto; padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid var(--border-glass); border-radius: var(--radius-xl); background: var(--color-surface); box-shadow: var(--shadow-elevated-panel); }
+.personalization-card > header > p:last-child { color: var(--color-text-muted); }
+.personalization-progress { display: flex; align-items: center; gap: 1rem; margin-bottom: var(--space-lg); color: var(--color-text-muted); font-family: var(--font-data); font-size: var(--type-data-micro); text-transform: uppercase; }
+.personalization-progress > div { height: .3rem; flex: 1; overflow: hidden; border-radius: var(--radius-full); background: var(--color-surface-high); }
+.personalization-progress i { display: block; height: 100%; border-radius: inherit; background: var(--color-primary); transition: width 180ms ease; }
+.personalization-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-block: 1.75rem; }
+.personalization-options button { min-height: 4rem; padding: .9rem 1rem; border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: var(--color-surface-container); color: var(--color-text-surface); cursor: pointer; text-align: left; }
+.personalization-options button:hover, .personalization-options button[aria-pressed="true"] { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.personalization-options button[aria-pressed="true"] { background: var(--color-primary-soft); color: var(--color-primary); }
+.personalization-options strong, .personalization-options small { display: block; }
+.personalization-options small { margin-top: .25rem; color: var(--color-text-muted); }
+.personalization-card footer, .personalization-card footer > div { display: flex; align-items: center; gap: .75rem; }
+.personalization-card footer { justify-content: space-between; }
+.personalization-skip { padding: .65rem; background: transparent; color: var(--color-text-muted); cursor: pointer; }
+.personalization-skip:hover { color: var(--color-primary); }
+@media (max-width: 35.99rem) { .personalization-options { grid-template-columns: 1fr; } .personalization-card footer { align-items: stretch; flex-direction: column-reverse; } .personalization-card footer > div { display: grid; grid-template-columns: 1fr 1fr; } .personalization-card footer > div > :only-child { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) { .personalization-progress i { transition: none; } }

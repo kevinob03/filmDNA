@@ -60,7 +60,7 @@ function RegisterPage() {
         email: values.email,
         password: values.password,
       })
-      navigate('/perfil', { replace: true })
+      navigate('/personalizacion', { replace: true })
     } catch (error) {
       setFormError(getAuthErrorMessage(error))
     } finally {

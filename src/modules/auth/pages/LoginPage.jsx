@@ -49,8 +49,8 @@ function LoginPage() {
     setFormError('')
 
     try {
-      await login(values)
-      navigate(getReturnPath(location.state?.from), { replace: true })
+      const authenticatedUser = await login(values)
+      navigate(authenticatedUser.personalizationCompleted === false ? '/personalizacion' : getReturnPath(location.state?.from), { replace: true })
     } catch (error) {
       setFormError(getAuthErrorMessage(error))
     } finally {

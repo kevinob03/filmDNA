@@ -25,10 +25,12 @@ export function PrivateRoute({ children }) {
 }
 
 export function GuestRoute({ children }) {
-  const { status } = useAuth()
+  const { status, user } = useAuth()
 
   if (status === AUTH_STATUS.CHECKING) return <SessionChecking />
-  if (status === AUTH_STATUS.AUTHENTICATED) return <Navigate to="/perfil" replace />
+  if (status === AUTH_STATUS.AUTHENTICATED) {
+    return <Navigate to={user?.personalizationCompleted === false ? '/personalizacion' : '/perfil'} replace />
+  }
 
   return children
 }
