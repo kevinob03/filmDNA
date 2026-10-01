@@ -24,6 +24,7 @@ const fixture = {
   diario: [
     { id: 'other-user-entry', usuarioId: 'user-b', tmdbId: 551, fechaVista: '2025-01-01', calificacion: 2, resena: 'Reseña privada de B' },
     { id: 'public-review-b', usuarioId: 'user-b', tmdbId: 550, fechaVista: '2026-02-02', calificacion: 9, resena: 'Reseña pública visible.', publica: true },
+    { id: 'public-review-deleted', usuarioId: 'deleted-user', tmdbId: 550, fechaVista: '2026-03-03', calificacion: 7, resena: 'Reseña de una cuenta eliminada.', publica: true },
     { id: 'legacy-private-b', usuarioId: 'user-b', tmdbId: 550, fechaVista: '2026-01-01', calificacion: 4, resena: 'Reseña antigua privada.' },
   ],
   favoritos: [], listas: [], listaPeliculas: [], movieDNA: [], configuracionDNA: [],
@@ -60,7 +61,10 @@ try {
   const service = createDiaryService(apiURL)
   await assert.rejects(() => service.createEntry('user-a', 550, { fechaVista: '2026-09-29', calificacion: 11, resena: 'Inválida' }), { type: 'invalid-rating' })
   await assert.rejects(() => service.createEntry('user-a', 550, { fechaVista: '2026-09-29', calificacion: 8, resena: 'Inválida', visibilidad: 'todos' }), { type: 'invalid-visibility' })
-  assert.deepEqual((await service.listPublicMovieReviews(550)).map((entry) => entry.resena), ['Reseña pública visible.'])
+  assert.deepEqual((await service.listPublicMovieReviews(550)).map((entry) => ({ resena: entry.resena, autorNombre: entry.autorNombre })), [
+    { resena: 'Reseña de una cuenta eliminada.', autorNombre: 'Usuario de FilmDNA' },
+    { resena: 'Reseña pública visible.', autorNombre: 'Usuario B' },
+  ])
 
   const vite = start(join(projectRoot, 'node_modules/vite/bin/vite.js'), ['--host', '127.0.0.1', '--port', String(webPort), '--strictPort'], { VITE_API_URL: apiURL, VITE_TMDB_API_KEY: 'rf08-temporary-key' })
   await waitFor(webURL, vite)
@@ -86,6 +90,8 @@ try {
   await page.goto(`${webURL}/pelicula/550`)
   await page.getByRole('heading', { name: 'Registrar en mi Diario' }).waitFor()
   await page.getByText('Reseña pública visible.').waitFor()
+  await page.getByText('Usuario B').waitFor()
+  await page.getByText('Usuario de FilmDNA').waitFor()
   assert.equal(await page.getByText('Reseña antigua privada.').count(), 0)
   await page.getByRole('button', { name: 'Registrar película vista' }).click()
   await page.getByText('Selecciona la fecha en que viste la película.').waitFor()
@@ -98,6 +104,7 @@ try {
   await page.getByRole('button', { name: 'Registrar película vista' }).click()
   await page.getByText('Película registrada correctamente en tu Diario.').waitFor()
   await page.getByText('Una reseña personal de prueba.').waitFor()
+  await page.getByText('Usuario A').waitFor()
 
   let records = await fetch(`${apiURL}/diario?usuarioId=user-a`).then((response) => response.json())
   assert.equal(records.length, 1)
@@ -157,6 +164,7 @@ try {
   await guestPage.waitForURL('**/login')
   await guestPage.goto(`${webURL}/pelicula/550`)
   await guestPage.getByText('Reseña pública visible.').waitFor()
+  await guestPage.getByText('Usuario B').waitFor()
   assert.equal(await guestPage.getByText('Reseña antigua privada.').count(), 0)
   const guestDimensions = await guestPage.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }))
   assert.ok(guestDimensions.scroll <= guestDimensions.client, `Overflow del detalle público móvil: ${guestDimensions.scroll} > ${guestDimensions.client}`)

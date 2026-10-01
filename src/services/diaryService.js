@@ -77,9 +77,22 @@ export const createDiaryService = (baseUrl = DEFAULT_BASE_URL) => {
       const params = new URLSearchParams({ tmdbId: String(normalizeTmdbId(tmdbId)), publica: 'true' })
       const entries = await request(`/diario?${params}`)
       if (!Array.isArray(entries)) throw new DiaryServiceError('invalid-response')
-      return entries
+      const publicEntries = entries
         .filter((entry) => entry.publica === true && Number(entry.tmdbId) === Number(tmdbId))
         .sort((left, right) => String(right.fechaVista ?? '').localeCompare(String(left.fechaVista ?? '')))
+      const userIds = [...new Set(publicEntries.map((entry) => normalizeId(entry.usuarioId)))]
+      const users = await Promise.all(userIds.map(async (userId) => {
+        const userParams = new URLSearchParams({ id: userId })
+        const matches = await request(`/usuarios?${userParams}`)
+        if (!Array.isArray(matches)) throw new DiaryServiceError('invalid-response')
+        const name = String(matches[0]?.nombre ?? '').trim()
+        return [userId, name || 'Usuario de FilmDNA']
+      }))
+      const namesByUserId = new Map(users)
+      return publicEntries.map((entry) => ({
+        ...entry,
+        autorNombre: namesByUserId.get(normalizeId(entry.usuarioId)) || 'Usuario de FilmDNA',
+      }))
     },
   }
 }

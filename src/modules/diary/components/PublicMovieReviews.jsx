@@ -37,8 +37,11 @@ function PublicMovieReviews({ movieId, refreshKey = 0 }) {
           {state.reviews.map((review) => (
             <article className="public-review" key={review.id}>
               <div className="public-review__metadata">
-                <strong>{review.calificacion}/10</strong>
-                <span>Vista el {formatDate(review.fechaVista)}</span>
+                <div>
+                  <strong>{review.autorNombre}</strong>
+                  <span>Vista el {formatDate(review.fechaVista)}</span>
+                </div>
+                <span className="public-review__rating">★ {review.calificacion}/10</span>
               </div>
               <p>{review.resena}</p>
             </article>
