@@ -426,6 +426,7 @@ Completado:
 - Preferencias del quiz persistidas en el usuario y reutilizadas como selección inicial en Recomendaciones; el resultado final abre una búsqueda ya aplicada.
 - Cuentas antiguas conservan su acceso, las cuentas nuevas pendientes retoman el quiz al iniciar sesión y el recorrido puede omitirse explícitamente.
 - Auditoría E2E del quiz aprobada en móvil a `390px`, incluyendo registro, persistencia, restauración de filtros y reanudación posterior.
+- Campos de contraseña y confirmación del registro alineados con dimensiones visuales equivalentes en escritorio, sin alterar el flujo móvil.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 

@@ -11,7 +11,7 @@ const check = (condition, name, details = null) => {
 }
 
 const browser = await chromium.launch({ headless: true })
-const context = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-ES' })
+const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, locale: 'es-ES' })
 const page = await context.newPage()
 let storedUser
 let savedPayload
@@ -33,6 +33,10 @@ await page.route('http://localhost:3001/usuarios**', async (route) => {
 })
 
 await page.goto(`${baseURL}/registro`, { waitUntil: 'domcontentloaded' })
+const passwordBox = await page.getByLabel('Contraseña', { exact: true }).boundingBox()
+const confirmationBox = await page.getByLabel('Confirmar contraseña').boundingBox()
+check(Math.abs(passwordBox.width - confirmationBox.width) < 1 && passwordBox.height === confirmationBox.height, 'los dos inputs de contraseña tienen el mismo tamaño', { passwordBox, confirmationBox })
+await page.setViewportSize({ width: 390, height: 844 })
 await page.getByLabel('Nombre').fill('Usuario Quiz')
 await page.getByLabel('Email').fill('quiz@filmdna.test')
 await page.getByLabel('Contraseña', { exact: true }).fill('secreta')
