@@ -1,7 +1,6 @@
 import Hero from '../components/Hero.jsx'
 import ExperienceSelector from '../components/ExperienceSelector.jsx'
 import MovieDNAPreview from '../components/MovieDNAPreview.jsx'
-import PersonalizationSection from '../components/PersonalizationSection.jsx'
 import TrendingMovies from '../components/TrendingMovies.jsx'
 import PlatformOverview from '../components/PlatformOverview.jsx'
 import HomeFaq from '../components/HomeFaq.jsx'
@@ -16,7 +15,6 @@ function HomePage() {
       <Hero />
       <ExperienceSelector />
       <TrendingMovies />
-      <PersonalizationSection />
       <MovieDNAPreview />
       <PlatformOverview />
       <HomeFaq />

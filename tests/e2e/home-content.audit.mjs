@@ -23,8 +23,8 @@ for (const width of [375, 768, 1280]) {
   report.responsive.push({ width, ...metrics })
 }
 
-check(await page.getByRole('heading', { name: 'Encuentra una película para hoy' }).isVisible(), 'Personalización presenta recomendaciones reales')
-check(await page.getByRole('link', { name: 'Obtener recomendaciones' }).getAttribute('href') === '/recomendaciones', 'CTA de recomendaciones correcto')
+check(await page.getByRole('heading', { name: '¿Qué quieres sentir hoy?' }).isVisible(), 'Selector interactivo de recomendaciones visible')
+check(await page.getByRole('heading', { name: 'Encuentra una película para hoy' }).count() === 0, 'Sin bloque redundante de recomendaciones')
 check(await page.getByRole('link', { name: 'Explorar películas' }).getAttribute('href') === '/explorar', 'CTA de Movie DNA correcto')
 check(await page.getByRole('heading', { name: 'Preguntas frecuentes' }).isVisible(), 'FAQ visible al final del Home')
 await page.locator('summary').filter({ hasText: '¿Qué es FilmDNA?' }).click()

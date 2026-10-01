@@ -416,6 +416,7 @@ Completado:
 - Home actualizado para presentar funciones reales de Recomendaciones, Movie DNA, Explorar, Biblioteca y Diario sin mensajes temporales de fases anteriores.
 - Resumen reutilizable de preguntas frecuentes integrado al final del Home; `/ayuda` conserva la colección completa desde una única fuente de contenido.
 - Auditoría E2E del Home añadida para `375px`, `768px` y `1280px`, enlaces funcionales, acordeones y ausencia de contenido obsoleto.
+- Inicio simplificado: eliminado el bloque redundante "Encuentra una película para hoy" y conservado el selector interactivo "¿Qué quieres sentir hoy?" como único acceso contextual a Recomendaciones.
 - Tour Guide global implementado con seis pasos sobre Inicio, Explorar, Recomendaciones, Accesibilidad y FAQ.
 - Tutorial accesible con navegación automática entre rutas, foco visual, controles anterior/siguiente, cierre con Escape y persistencia local de finalización.
 - Botón global para iniciar o repetir el tutorial y auditoría E2E aprobada en escritorio y móvil a `375px`.
