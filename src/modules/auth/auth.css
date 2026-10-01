@@ -106,6 +106,7 @@
 
 .auth-form__passwords {
   display: grid;
+  align-items: start;
   gap: var(--space-lg);
 }
 
