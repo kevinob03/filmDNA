@@ -1,6 +1,7 @@
 import { COMPANY_OPTIONS, MOOD_OPTIONS } from '../recommendations/recommendationConfig.js'
 
-const optionGenres = (options, value) => options.find((option) => option.value === value)?.genreIds || []
+const optionGenres = (options, value) => (Array.isArray(value) ? value : [value])
+  .flatMap((selected) => options.find((option) => option.value === selected)?.genreIds || [])
 
 export const buildDiscoveryProfile = (preferences = {}) => {
   const explicit = (preferences.genres || []).map(Number).filter(Number.isFinite)

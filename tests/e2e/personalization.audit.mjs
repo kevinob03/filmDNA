@@ -67,7 +67,12 @@ check(await page.getByRole('button', { name: 'Continuar' }).isDisabled(), 'cada 
 await page.getByRole('button', { name: 'Comedia' }).click()
 await page.getByRole('button', { name: 'Continuar' }).click()
 check(await page.getByRole('heading', { name: '¿Cómo te gusta sentirte?' }).isVisible(), 'el paso emocional usa el texto aprobado')
-for (const label of ['Reír', 'Equilibrado', 'Algo para disfrutar']) {
+await page.getByRole('button', { name: 'Reír', exact: true }).click()
+await page.getByRole('button', { name: 'Emocionarme', exact: true }).click()
+check(await page.getByRole('button', { name: 'Reír', exact: true }).getAttribute('aria-pressed') === 'true'
+  && await page.getByRole('button', { name: 'Emocionarme', exact: true }).getAttribute('aria-pressed') === 'true', 'permite elegir varias emociones')
+await page.getByRole('button', { name: 'Continuar' }).click()
+for (const label of ['Equilibrado', 'Algo para disfrutar']) {
   await page.getByRole('button', { name: new RegExp(`^${label}`) }).click()
   await page.getByRole('button', { name: 'Continuar' }).click()
 }
@@ -75,7 +80,7 @@ await page.getByRole('button', { name: 'Con amigos' }).click()
 await page.getByRole('button', { name: 'Explorar para mí' }).click()
 await page.waitForURL('**/explorar')
 check(savedPayload?.personalizationCompleted === true, 'marca el quiz como completado')
-check(savedPayload?.discoveryPreferences?.mood === 'laugh', 'guarda un perfil de descubrimiento estructurado', savedPayload)
+check(JSON.stringify(savedPayload?.discoveryPreferences?.mood) === JSON.stringify(['laugh', 'feel']), 'guarda varias emociones en el perfil de descubrimiento', savedPayload)
 await page.getByRole('heading', { name: 'Basado en tus gustos' }).waitFor()
 check(await page.getByRole('heading', { name: 'Basado en tus gustos' }).isVisible(), 'abre Explorar con contenido personalizado')
 await page.getByRole('heading', { name: 'Comedia afín' }).waitFor()
@@ -97,6 +102,9 @@ await page.waitForURL('**/personalizacion')
 await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).waitFor()
 check(await page.getByRole('heading', { name: '¿Qué sueles disfrutar?' }).isVisible(), 'Retomar quiz abre el recorrido desde el inicio')
 check(await page.getByRole('button', { name: 'Comedia', exact: true }).getAttribute('aria-pressed') === 'true', 'Retomar quiz conserva las respuestas actuales')
+await page.getByRole('button', { name: 'Continuar' }).click()
+check(await page.getByRole('button', { name: 'Reír', exact: true }).getAttribute('aria-pressed') === 'true'
+  && await page.getByRole('button', { name: 'Emocionarme', exact: true }).getAttribute('aria-pressed') === 'true', 'Retomar quiz conserva varias emociones')
 
 await page.screenshot({ path: `${outputDir}/quiz-mobile.png`, fullPage: true })
 const pendingContext = await browser.newContext({ viewport: { width: 1280, height: 800 }, locale: 'es-ES' })

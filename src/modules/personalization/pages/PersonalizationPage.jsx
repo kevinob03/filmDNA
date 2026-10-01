@@ -9,7 +9,7 @@ import '../personalization.css'
 
 const STEPS = [
   { key: 'genres', title: '¿Qué sueles disfrutar?', description: 'Elige hasta tres géneros. Podrás cambiarlos al buscar.', options: GENRE_OPTIONS, multiple: true },
-  { key: 'mood', title: '¿Cómo te gusta sentirte?', description: 'Esto ayuda a entender la experiencia que buscas.', options: MOOD_OPTIONS },
+  { key: 'mood', title: '¿Cómo te gusta sentirte?', description: 'Elige hasta tres emociones que te guste encontrar en una película.', options: MOOD_OPTIONS, multiple: true, maxSelections: 3 },
   { key: 'pace', title: '¿Qué ritmo prefieres?', description: 'Desde historias tranquilas hasta películas sin descanso.', options: PACE_OPTIONS },
   { key: 'attention', title: '¿Cuánta atención quieres dedicar?', description: 'Selecciona el nivel que más se parezca a ti.', options: ATTENTION_OPTIONS },
   { key: 'company', title: '¿Con quién ves películas normalmente?', description: 'Usaremos esta respuesta como punto de partida.', options: COMPANY_OPTIONS },
@@ -19,9 +19,14 @@ function PersonalizationPage() {
   const { completePersonalization, user } = useAuth()
   const navigate = useNavigate()
   const [stepIndex, setStepIndex] = useState(0)
-  const [preferences, setPreferences] = useState(() => ({
-    genres: [], mood: '', pace: '', attention: '', company: '', ...user?.discoveryPreferences,
-  }))
+  const [preferences, setPreferences] = useState(() => {
+    const stored = user?.discoveryPreferences || {}
+    const storedMood = stored.mood
+    return {
+      genres: [], pace: '', attention: '', company: '', ...stored,
+      mood: Array.isArray(storedMood) ? storedMood : storedMood ? [storedMood] : [],
+    }
+  })
   const [status, setStatus] = useState('idle')
   const step = STEPS[stepIndex]
   const selected = preferences[step.key]
@@ -32,7 +37,7 @@ function PersonalizationPage() {
     if (!step.multiple) return { ...current, [step.key]: value }
     const values = current[step.key]
     if (values.includes(value)) return { ...current, [step.key]: values.filter((item) => item !== value) }
-    if (values.length >= 3) return current
+    if (values.length >= (step.maxSelections || 3)) return current
     return { ...current, [step.key]: [...values, value] }
   })
 
