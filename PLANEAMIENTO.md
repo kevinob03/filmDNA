@@ -426,6 +426,7 @@ Completado:
 - Preferencias del quiz persistidas como perfil de descubrimiento y aplicadas al contenido de Explorar mediante consultas y ranking por afinidad de géneros verificables de TMDB.
 - Recomendaciones permanece como búsqueda manual independiente: el quiz no rellena ni activa sus filtros.
 - Perfil permite retomar el quiz de descubrimiento conservando las respuestas actuales para modificarlas.
+- El paso emocional del quiz admite hasta tres opciones simultáneas y Explorar combina sus señales, manteniendo compatibilidad con perfiles anteriores de una sola emoción.
 - Cuentas antiguas conservan su acceso, las cuentas nuevas pendientes retoman el quiz al iniciar sesión y el recorrido puede omitirse explícitamente.
 - Auditoría E2E del quiz aprobada en móvil a `390px`, incluyendo registro, persistencia, restauración de filtros y reanudación posterior.
 - Campos de contraseña y confirmación del registro alineados con dimensiones visuales equivalentes en escritorio, sin alterar el flujo móvil.

@@ -2,8 +2,12 @@ import { buildDiscoveryProfile, rankPersonalizedMovies } from '../../src/modules
 
 describe('perfil de descubrimiento', () => {
   test('combina géneros explícitos con emoción y compañía sin duplicados', () => {
-    expect(buildDiscoveryProfile({ genres: ['35'], mood: 'laugh', company: 'family' }).genreIds)
-      .toEqual([35, 10751, 16])
+    expect(buildDiscoveryProfile({ genres: ['35'], mood: ['laugh', 'fear'], company: 'family' }).genreIds)
+      .toEqual([35, 27, 10751, 16])
+  })
+
+  test('mantiene compatibilidad con perfiles anteriores de una sola emoción', () => {
+    expect(buildDiscoveryProfile({ mood: 'fear' }).emotional).toEqual([27])
   })
 
   test('prioriza afinidad explícita y usa popularidad para desempatar', () => {
