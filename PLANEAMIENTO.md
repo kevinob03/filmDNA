@@ -422,12 +422,16 @@ Completado:
 - Porcentaje de coincidencia unificado en escala `1–100%` con ponderación de género, duración, época, puntuación, idioma, país, plataforma y preferencias de experiencia.
 - Cobertura y confianza visibles por tarjeta mediante criterios comprobados; los datos desconocidos se informan y no se convierten artificialmente en `0%`.
 - Orden de compatibilidad, fórmula combinada y fallback de IA validados con pruebas unitarias y auditorías E2E sobre seis combinaciones reales.
+- Quiz inicial de personalización implementado para cuentas nuevas con cinco pasos sobre géneros, emoción, ritmo, atención y compañía.
+- Preferencias del quiz persistidas en el usuario y reutilizadas como selección inicial en Recomendaciones; el resultado final abre una búsqueda ya aplicada.
+- Cuentas antiguas conservan su acceso, las cuentas nuevas pendientes retoman el quiz al iniciar sesión y el recorrido puede omitirse explícitamente.
+- Auditoría E2E del quiz aprobada en móvil a `390px`, incluyendo registro, persistencia, restauración de filtros y reanudación posterior.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, muy avanzada y pendiente de auditoría global.
 
 ## 28. Siguiente paso
 
-Diseñar e implementar el quiz inicial de personalización para recopilar preferencias al primer ingreso y reutilizarlas en Recomendaciones.
+Implementar reseñas públicas o privadas en el Diario y mostrar las reseñas públicas en la página correspondiente de cada película.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 

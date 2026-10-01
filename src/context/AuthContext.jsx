@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { loginUser, registerUser } from '../services/authService.js'
+import { loginUser, registerUser, saveUserPersonalization } from '../services/authService.js'
 
 export const AUTH_STATUS = Object.freeze({
   CHECKING: 'checking',
@@ -93,11 +93,26 @@ export function AuthProvider({ children }) {
     setUser((current) => {
       if (!current) return current
       const nombre = typeof changes?.nombre === 'string' ? changes.nombre.trim() : current.nombre
-      const nextUser = { ...current, nombre: nombre || current.nombre }
+      const nextUser = {
+        ...current,
+        nombre: nombre || current.nombre,
+        ...(changes?.personalizationCompleted === true ? { personalizationCompleted: true } : {}),
+        ...(changes?.recommendationPreferences && typeof changes.recommendationPreferences === 'object'
+          ? { recommendationPreferences: changes.recommendationPreferences }
+          : {}),
+      }
       storeSession(nextUser)
       return nextUser
     })
   }, [])
+
+  const completePersonalization = useCallback(async (preferences = {}) => {
+    if (!user) throw new Error('personalization-requires-session')
+    const updatedUser = await saveUserPersonalization(user.id, preferences)
+    storeSession(updatedUser)
+    setUser(updatedUser)
+    return updatedUser
+  }, [user])
 
   const value = useMemo(() => ({
     user,
@@ -107,7 +122,8 @@ export function AuthProvider({ children }) {
     register,
     logout,
     syncSessionUser,
-  }), [status, syncSessionUser, user])
+    completePersonalization,
+  }), [completePersonalization, status, syncSessionUser, user])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
