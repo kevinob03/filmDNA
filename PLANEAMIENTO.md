@@ -433,6 +433,7 @@ Completado:
 - Campos de contraseña y confirmación del registro alineados con dimensiones visuales equivalentes en escritorio, sin alterar el flujo móvil.
 - Reseñas públicas o privadas implementadas en el Diario; las entradas históricas sin visibilidad se tratan como privadas y cada registro muestra su estado.
 - La página de cada película muestra exclusivamente sus reseñas públicas, también para visitantes, con estados de carga, vacío y error y actualización inmediata tras publicar.
+- Las reseñas públicas identifican al autor mediante el nombre actual de su perfil, con un texto genérico seguro si la cuenta ya no existe o no tiene nombre.
 - Auditoría E2E del Diario ampliada para cubrir visibilidad, privacidad heredada, aislamiento entre usuarios, publicación en detalle y responsive entre `375px` y `1440px`.
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, pendiente únicamente de auditoría global.
