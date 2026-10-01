@@ -138,7 +138,17 @@ try {
   const storedSession = await page.evaluate(() => JSON.parse(localStorage.getItem('filmdna_session')))
   assert.equal(storedSession.nombre, 'Ana Cinéfila')
   assert.equal(Object.hasOwn(storedSession, 'password'), false)
-  assert.deepEqual(Object.keys(storedSession).sort(), ['email', 'id', 'nombre', 'role'])
+  assert.equal(storedSession.avatarPreset, '')
+  assert.ok(storedSession.avatarImage.startsWith('data:image/webp;base64,'))
+  assert.deepEqual(Object.keys(storedSession).sort(), ['avatarImage', 'avatarPreset', 'email', 'id', 'nombre', 'role'])
+  const desktopAccountButton = page.getByRole('button', { name: 'Abrir menú de cuenta de Ana Cinéfila' })
+  await page.locator('.site-header .account-menu__trigger .account-menu__avatar img').waitFor()
+  await desktopAccountButton.click()
+  await page.getByRole('menu').getByText('Ana Cinéfila', { exact: true }).waitFor()
+  await page.getByRole('menuitem', { name: 'Perfil' }).waitFor()
+  await page.getByRole('menuitem', { name: 'Cerrar sesión' }).waitFor()
+  await page.keyboard.press('Escape')
+  assert.equal(await desktopAccountButton.getAttribute('aria-expanded'), 'false')
 
   await page.reload()
   await page.getByRole('heading', { name: 'Ana Cinéfila', level: 1 }).waitFor()
@@ -177,6 +187,14 @@ try {
     const dimensions = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, theme: document.documentElement.dataset.theme, contrast: document.documentElement.dataset.contrast, textSize: document.documentElement.dataset.textSize }))
     assert.deepEqual({ theme: dimensions.theme, contrast: dimensions.contrast, textSize: dimensions.textSize }, { theme: variant.theme, contrast: variant.contrast, textSize: variant.textSize })
     assert.ok(dimensions.scroll <= dimensions.client, `Overflow global a ${variant.width}px: ${dimensions.scroll} > ${dimensions.client}`)
+    if (variant.width === 390) {
+      const mobileAccountButton = page.locator('.mobile-nav .account-menu__trigger')
+      await mobileAccountButton.click()
+      await page.getByRole('menuitem', { name: 'Perfil' }).waitFor()
+      await page.getByRole('menuitem', { name: 'Cerrar sesión' }).waitFor()
+      await page.keyboard.press('Escape')
+      assert.equal(await mobileAccountButton.getAttribute('aria-expanded'), 'false')
+    }
   }
 
   const reducedContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })
@@ -259,7 +277,7 @@ try {
   await guestPage.waitForURL('**/login')
   await guest.close()
   assert.deepEqual(browserErrors, [])
-  console.log(JSON.stringify({ status: 'PASS', database: 'temporary', legacyUser: 'PASS', edit: 'PASS', bio: 'PASS', customPhoto: 'PASS', avatarPresets: 'PASS', genres: 'PASS', maximumFive: 'PASS', save: 'PASS', persistence: 'PASS', protectedFields: 'PASS', sessionWithoutPassword: 'PASS', userIsolation: 'PASS', cancel: 'PASS', deleteConfirmation: 'PASS', deleteCancel: 'PASS', deleteAccount: 'PASS', deleteRelatedData: 'PASS', deleteIsolation: 'PASS', noOrphanListMovies: 'PASS', deleteBackendFailure: 'PASS', realStatistics: 'PASS', visitor: 'PASS', keyboard: 'PASS', themes: 'PASS', text125: 'PASS', reducedMotion: 'PASS', responsive: Object.fromEntries(variants.map(({ width }) => [width, 'PASS'])), overflow: 'PASS' }, null, 2))
+  console.log(JSON.stringify({ status: 'PASS', database: 'temporary', legacyUser: 'PASS', edit: 'PASS', bio: 'PASS', customPhoto: 'PASS', accountMenu: 'PASS', avatarPresets: 'PASS', genres: 'PASS', maximumFive: 'PASS', save: 'PASS', persistence: 'PASS', protectedFields: 'PASS', sessionWithoutPassword: 'PASS', userIsolation: 'PASS', cancel: 'PASS', deleteConfirmation: 'PASS', deleteCancel: 'PASS', deleteAccount: 'PASS', deleteRelatedData: 'PASS', deleteIsolation: 'PASS', noOrphanListMovies: 'PASS', deleteBackendFailure: 'PASS', realStatistics: 'PASS', visitor: 'PASS', keyboard: 'PASS', themes: 'PASS', text125: 'PASS', reducedMotion: 'PASS', responsive: Object.fromEntries(variants.map(({ width }) => [width, 'PASS'])), overflow: 'PASS' }, null, 2))
 } finally {
   await browser?.close().catch(() => {})
   for (const child of processes.reverse()) if (child.exitCode === null) child.kill()
