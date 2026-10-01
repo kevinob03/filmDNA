@@ -386,60 +386,6 @@
   color: var(--color-cyan);
 }
 
-.home-section--personal {
-  background:
-    linear-gradient(90deg, rgba(0, 255, 135, 0.04), rgba(157, 78, 221, 0.07)),
-    var(--color-surface);
-}
-
-.personal-panel {
-  display: grid;
-  align-items: center;
-  gap: var(--space-xl);
-}
-
-.personal-panel h2 {
-  margin-bottom: var(--space-md);
-}
-
-.personal-panel > div > p:not(.eyebrow) {
-  max-width: 42rem;
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-.personal-panel__status {
-  padding: var(--space-xl);
-  border: 1px solid var(--border-purple);
-  border-radius: var(--radius-lg);
-  background: var(--color-status-panel);
-  text-align: center;
-}
-
-.personal-panel__status > span {
-  color: var(--color-violet-soft);
-  font-size: 2rem;
-}
-
-.personal-panel__status p {
-  margin: var(--space-sm) 0 var(--space-xs);
-  color: var(--color-text-primary);
-  font-weight: 600;
-}
-
-.personal-panel__status small {
-  display: block;
-  color: var(--color-text-muted);
-  font-family: var(--font-data);
-  font-size: var(--type-data-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.personal-panel__status .button {
-  margin-top: var(--space-lg);
-}
-
 .dna-section {
   display: grid;
   align-items: center;
@@ -639,7 +585,6 @@
     grid-column: auto;
   }
 
-  .personal-panel,
   .dna-section {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
