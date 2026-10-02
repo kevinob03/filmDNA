@@ -1,14 +1,19 @@
 import { readFile, readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
-const forbiddenNames = ['VITE_GEMINI_API_KEY', 'VITE_DEEPSEEK_API_KEY', 'VITE_GROQ_API_KEY']
+const forbiddenNames = [
+  'VITE_GEMINI_API_KEY',
+  'VITE_DEEPSEEK_API_KEY',
+  'VITE_GROQ_API_KEY',
+  'N8N_RECOMMENDATION_WEBHOOK_SECRET',
+]
 const distDir = resolve('dist/assets')
 const assetNames = await readdir(distDir)
 const assets = (await Promise.all(assetNames.map((name) => readFile(resolve(distDir, name), 'utf8').catch(() => '')))).join('\n')
 const envText = await readFile(resolve('.env'), 'utf8').catch(() => '')
 const configuredSecrets = envText
   .split(/\r?\n/)
-  .filter((line) => /^(?:VITE_)?(?:GEMINI|DEEPSEEK|GROQ)_API_KEY=/.test(line))
+  .filter((line) => /^(?:(?:VITE_)?(?:GEMINI|DEEPSEEK|GROQ)_API_KEY|N8N_RECOMMENDATION_WEBHOOK_SECRET)=/.test(line))
   .map((line) => line.split('=').slice(1).join('=').trim())
   .filter((value) => value.length >= 8)
 
