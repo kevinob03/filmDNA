@@ -68,7 +68,7 @@ function ProfilePage() {
     try {
       const updated = await updateProfileUser(user.id, values)
       setProfileState({ status: 'success', profile: updated, error: '' })
-      syncSessionUser({ nombre: updated.nombre })
+      syncSessionUser({ nombre: updated.nombre, avatarPreset: updated.avatarPreset, avatarImage: updated.avatarImage })
       setEditing(false)
       setMessage({ type: 'success', text: 'Tu perfil se actualizó correctamente.' })
     } catch (error) {

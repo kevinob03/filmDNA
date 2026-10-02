@@ -98,6 +98,8 @@ export function AuthProvider({ children }) {
         ...current,
         nombre: nombre || current.nombre,
         ...(changes?.personalizationCompleted === true ? { personalizationCompleted: true } : {}),
+        ...(typeof changes?.avatarPreset === 'string' ? { avatarPreset: changes.avatarPreset } : {}),
+        ...(typeof changes?.avatarImage === 'string' ? { avatarImage: changes.avatarImage } : {}),
         ...(changes?.discoveryPreferences && typeof changes.discoveryPreferences === 'object'
           ? { discoveryPreferences: changes.discoveryPreferences }
           : {}),
