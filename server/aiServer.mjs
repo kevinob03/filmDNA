@@ -6,6 +6,11 @@ import { movieDNAOperation } from './ai/operations/movieDNA.mjs'
 import { classifyMoviesOperation } from './ai/operations/classifyMovies.mjs'
 import { interpretSearchIntentOperation } from './ai/operations/interpretSearchIntent.mjs'
 import { cinematherapyDraftOperation } from './ai/operations/cinematherapyDraft.mjs'
+import {
+  createRecommendationChatErrorResponse,
+  forwardRecommendationChat,
+  recommendationChatErrorStatus,
+} from './n8n/recommendationChatGateway.mjs'
 
 const PORT = Number(process.env.AI_SERVER_PORT) || 3002
 const MAX_BODY_BYTES = 64 * 1024
@@ -26,10 +31,37 @@ const readJsonBody = async (request) => {
   return JSON.parse(Buffer.concat(chunks).toString('utf8'))
 }
 
-export const createAIServer = () => createServer(async (request, response) => {
+export const createAIServer = ({ recommendationChat = {} } = {}) => createServer(async (request, response) => {
   if (request.method === 'GET' && request.url === '/api/ai/status') {
     const providers = getConfiguredProviders().map(({ provider }) => provider.name)
     sendJson(response, 200, { configured: providers.length > 0, providers })
+    return
+  }
+
+  if (request.method === 'POST' && request.url === '/api/ai/recommendation-chat') {
+    let body
+    try {
+      body = await readJsonBody(request)
+    } catch (error) {
+      const type = error?.message === 'payload-too-large' ? 'payload-too-large' : 'invalid-json'
+      sendJson(response, type === 'payload-too-large' ? 413 : 400, { error: type })
+      return
+    }
+
+    try {
+      const result = await forwardRecommendationChat(body, {
+        ...recommendationChat,
+        clientKey: request.socket.remoteAddress || 'local',
+      })
+      sendJson(response, 200, result)
+    } catch (error) {
+      const type = error?.type || 'unavailable'
+      const status = recommendationChatErrorStatus(type)
+      const payload = error?.requestId
+        ? createRecommendationChatErrorResponse(error.requestId, type)
+        : { error: type }
+      sendJson(response, status, payload)
+    }
     return
   }
 

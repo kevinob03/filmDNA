@@ -30,6 +30,8 @@
     "test:ai-infrastructure": "node tests/server/aiInfrastructure.test.mjs",
     "test:recommendation-ai": "node tests/server/classifyMovies.test.mjs",
     "test:search-intent": "node tests/server/interpretSearchIntent.test.mjs",
+    "test:recommendation-chat-contract": "jest tests/unit/recommendationChatContract.test.js --runInBand",
+    "test:recommendation-chat-gateway": "node tests/server/recommendationChat.test.mjs",
     "test:cinematherapy-ai": "node --test tests/server/cinematherapyDraft.test.mjs",
     "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
     "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs",

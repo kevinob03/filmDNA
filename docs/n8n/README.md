@@ -1,6 +1,6 @@
 # Workflows n8n de FilmDNA
 
-Esta carpeta contiene los dos workflows exportables requeridos para la FASE 10. Ambos trabajan únicamente con el JSON Server local de FilmDNA y no contienen credenciales.
+Esta carpeta contiene tres workflows exportables de FilmDNA. Los archivos no contienen valores de credenciales.
 
 ## Requisitos
 
@@ -48,6 +48,49 @@ Archivo: `workflows/scheduled-backup.json`.
 
 La carpeta `backups/` incluida en el proyecto debe tener permisos de escritura. En Docker se recomienda cambiar el nodo **Guardar respaldo** a una ruta montada como volumen persistente.
 
+## 3. Chatbot de recomendaciones
+
+Archivo: `workflows/recommendation-chatbot.json`.
+
+- **Objetivo:** orquestar una conversacion de descubrimiento cinematografico sin permitir que la IA invente peliculas.
+- **Trigger:** webhook `POST /filmdna/recommendation-chat`.
+- **Entrada:** contrato `recommendation-chat-v1` validado por el servidor FilmDNA.
+- **IA:** se ejecuta visualmente en `AI Agent`, conectado a `Google Gemini Chat Model`.
+- **Herramienta:** `FilmDNA_Filter_Vocabulary` limita al agente a los filtros reales de FilmDNA.
+- **Salida:** `Structured Output Parser` obliga al agente a respetar el contrato JSON.
+- **Resultado:** una accion conversacional y cambios de filtros; nunca una lista creada por el modelo.
+- **Fallback:** si la IA falla o devuelve un contrato invalido, responde con una accion `error` segura.
+
+### Credenciales posteriores a la importacion
+
+El JSON incluye solamente referencias `CONFIGURE_*_AFTER_IMPORT`. n8n solicitara asociar dos credenciales:
+
+1. En **Recibir mensaje**, crear o seleccionar `FilmDNA Recommendation Webhook`.
+   - Header: `X-FilmDNA-Webhook-Secret`.
+   - Valor: el mismo secreto fuerte de `N8N_RECOMMENDATION_WEBHOOK_SECRET` en el `.env` de FilmDNA.
+2. En **Google Gemini Chat Model**, crear o seleccionar una credencial **Google Gemini(PaLM) API** llamada `FilmDNA Gemini n8n`.
+   - API key: una clave Gemini valida.
+   - La clave queda almacenada en el gestor de credenciales de n8n y no en el workflow.
+
+El secreto del webhook debe tener al menos 12 caracteres y no debe usar el prefijo `VITE_`.
+
+Configurar en el `.env` local:
+
+```env
+N8N_RECOMMENDATION_WEBHOOK_URL=http://localhost:5678/webhook/filmdna/recommendation-chat
+N8N_RECOMMENDATION_WEBHOOK_SECRET=<secreto-del-webhook>
+N8N_RECOMMENDATION_TIMEOUT_MS=12000
+```
+
+Antes de activar:
+
+1. Iniciar FilmDNA con `npm run dev`.
+2. Asociar la credencial Header Auth y la credencial Gemini.
+3. Ejecutar el webhook de prueba desde n8n.
+4. Confirmar visualmente la ejecucion de **AI Agent**, **Google Gemini Chat Model**, **FilmDNA_Filter_Vocabulary** y **Structured Output Parser**.
+5. Publicar o activar el workflow.
+6. Usar en FilmDNA la URL de produccion `/webhook/`, no `/webhook-test/`.
+
 ## Validación versionada
 
 Ejecutar:
@@ -56,4 +99,4 @@ Ejecutar:
 npm run test:n8n-workflows
 ```
 
-El script comprueba la estructura de ambos archivos, conexiones, triggers, ausencia de credenciales embebidas, sanitización del respaldo y contratos principales.
+El script comprueba los tres archivos, conexiones, triggers, ausencia de valores secretos, referencias sanitizadas, autenticacion del chatbot, sanitizacion del respaldo y contratos principales.
