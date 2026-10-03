@@ -7,10 +7,10 @@ import { getExperienceRecommendations, getSimilarDNARecommendations } from '../.
 import { getMovieWatchProviders } from '../../../services/tmdbService.js'
 import { interpretSearchIntent } from '../../../services/recommendations/searchIntentService.js'
 import { requiresExpertMode } from '../../../services/recommendations/searchIntentContract.js'
+import { useRecommendationChat } from '../../../context/RecommendationChatContext.jsx'
 import ExperienceForm from '../components/ExperienceForm.jsx'
 import FilterIcon from '../components/FilterIcon.jsx'
 import RecommendationCard from '../components/RecommendationCard.jsx'
-import RecommendationChat from '../components/RecommendationChat.jsx'
 import { findOption, getActiveFilterLabels, INITIAL_SELECTIONS, normalizeOptionValue } from '../recommendationConfig.js'
 import '../recommendations.css'
 
@@ -37,6 +37,8 @@ const describeIntentFilters = (filters) => Object.entries(filters).flatMap(([gro
 })
 
 function RecommendationsPage() {
+  const { pendingAction, updateRecommendationContext } = useRecommendationChat()
+  const handledChatAction = useRef(0)
   const [params, setParams] = useSearchParams()
   const similarTo = params.get('similarTo')
   const hasPersistedSearch = Boolean(similarTo || [...params.keys()].some((key) => key !== 'similarTo'))
@@ -206,6 +208,16 @@ function RecommendationsPage() {
     }
   }
 
+  useEffect(() => {
+    updateRecommendationContext(appliedSelections, state.movies)
+  }, [appliedSelections, state.movies, updateRecommendationContext])
+
+  useEffect(() => {
+    if (!pendingAction || handledChatAction.current === pendingAction.id) return
+    handledChatAction.current = pendingAction.id
+    handleChatAction(pendingAction.response)
+  }, [pendingAction])
+
   return <main id="main-content" className="recommendations-page"><PageContainer>
     <section className="recommendations-hero">
       <p className="recommendations-hero__eyebrow"><span /> Recomendaciones personalizadas</p>
@@ -222,8 +234,6 @@ function RecommendationsPage() {
     {!similarTo && intentState.status === 'adjusted' && <div className="intent-feedback" role="status">Filtros interpretados y ajustados manualmente.</div>}
     {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, ritmo, duración o cómo quieres sentirte.</div>}
     {!similarTo && intentState.status === 'error' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>La interpretación con IA no está disponible temporalmente.</strong> Puedes seguir usando los filtros manuales.</div>}
-
-    {!similarTo && <RecommendationChat filters={appliedSelections} movies={state.movies} onAction={handleChatAction} />}
 
     {!similarTo && !hasSearched && <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />}
 

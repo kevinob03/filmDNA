@@ -4,6 +4,7 @@ import {
   createRecommendationChatSessionId,
   sendRecommendationChatMessage,
 } from '../../../services/recommendations/recommendationChatService.js'
+import '../recommendations.css'
 
 const ERROR_MESSAGES = {
   configuration: 'El chatbot todavía no está configurado en este equipo.',
