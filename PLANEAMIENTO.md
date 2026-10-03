@@ -445,6 +445,7 @@ Completado:
 - Cobertura del chatbot aprobada con 64 pruebas unitarias globales, 19 casos de contrato, 9 casos de gateway y endpoint, validación de workflows, control de secretos, build y auditoría E2E responsive a `390px`, `768px` y `1440px`.
 - Acceso al chatbot convertido en un botón flotante sobre el botón de Tutorial; el panel se despliega bajo demanda, conserva la conversación temporal al cerrarse y admite cierre accesible con botón o tecla Escape.
 - Chatbot disponible desde el layout global de FilmDNA, con conversación conservada entre páginas y navegación automática a Recomendaciones cuando una respuesta crea, refina, reinicia o sustituye resultados.
+- Timeout del gateway del chatbot ajustado a 30 segundos, con máximo controlado de 45 segundos, para absorber latencias variables de Gemini sin convertir respuestas válidas en errores 504 prematuros.
 
 ## 28. Siguiente paso
 

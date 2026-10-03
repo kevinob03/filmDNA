@@ -79,7 +79,7 @@ Configurar en el `.env` local:
 ```env
 N8N_RECOMMENDATION_WEBHOOK_URL=http://localhost:5678/webhook/filmdna/recommendation-chat
 N8N_RECOMMENDATION_WEBHOOK_SECRET=<secreto-del-webhook>
-N8N_RECOMMENDATION_TIMEOUT_MS=12000
+N8N_RECOMMENDATION_TIMEOUT_MS=30000
 ```
 
 Antes de activar:
