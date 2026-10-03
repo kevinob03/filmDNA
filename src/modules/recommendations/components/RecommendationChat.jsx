@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AIServiceError } from '../../../services/aiClient.js'
 import {
   createRecommendationChatSessionId,
@@ -18,7 +18,8 @@ const getErrorMessage = (error) => ERROR_MESSAGES[error instanceof AIServiceErro
 
 function RecommendationChat({ filters, movies, onAction }) {
   const sessionId = useRef(createRecommendationChatSessionId())
-  const [expanded, setExpanded] = useState(true)
+  const inputRef = useRef(null)
+  const [expanded, setExpanded] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState([])
   const [suggestions, setSuggestions] = useState(['Quiero algo divertido', 'Algo corto para hoy', 'Sorpréndeme'])
@@ -62,20 +63,32 @@ function RecommendationChat({ filters, movies, onAction }) {
     send(input)
   }
 
-  return (
-    <section className="recommendation-chat" aria-labelledby="recommendation-chat-title">
-      <header className="recommendation-chat__header">
-        <div>
-          <p className="eyebrow"><span aria-hidden="true" />Copiloto cinematográfico</p>
-          <h2 id="recommendation-chat-title">Habla con FilmDNA</h2>
-          <p>Pide ideas, aclara lo que buscas o ajusta tus resultados conversando.</p>
-        </div>
-        <button type="button" className="recommendation-chat__toggle" aria-expanded={expanded} aria-controls="recommendation-chat-panel" onClick={() => setExpanded((value) => !value)}>
-          {expanded ? 'Ocultar chat' : 'Abrir chat'}
-        </button>
-      </header>
+  useEffect(() => {
+    if (!expanded) return undefined
+    inputRef.current?.focus()
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setExpanded(false)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [expanded])
 
-      {expanded ? <div id="recommendation-chat-panel" className="recommendation-chat__panel">
+  return (
+    <div className="recommendation-chat">
+      <button type="button" className="recommendation-chat__launcher" aria-expanded={expanded} aria-controls="recommendation-chat-panel" onClick={() => setExpanded((value) => !value)}>
+        <span aria-hidden="true">✦</span> Chat FilmDNA
+      </button>
+
+      {expanded ? <section id="recommendation-chat-panel" className="recommendation-chat__panel" role="dialog" aria-modal="false" aria-labelledby="recommendation-chat-title">
+        <header className="recommendation-chat__header">
+          <div>
+            <p className="eyebrow"><span aria-hidden="true" />Copiloto cinematográfico</p>
+            <h2 id="recommendation-chat-title">Habla con FilmDNA</h2>
+            <p>Pide ideas, aclara lo que buscas o ajusta tus resultados conversando.</p>
+          </div>
+          <button type="button" className="recommendation-chat__close" aria-label="Cerrar chat" onClick={() => setExpanded(false)}>×</button>
+        </header>
+
         <div className="recommendation-chat__messages" role="log" aria-live="polite" aria-label="Conversación con FilmDNA">
           {messages.length === 0 ? <div className="recommendation-chat__welcome"><strong>¿Qué te gustaría ver?</strong><p>No necesito datos personales: cuéntame género, duración, compañía o cómo quieres sentirte.</p></div> : null}
           {messages.map((item, index) => <div className={`recommendation-chat__message recommendation-chat__message--${item.role}`} key={`${item.role}-${index}`}><span>{item.role === 'user' ? 'Tú' : 'FilmDNA'}</span><p>{item.text}</p></div>)}
@@ -86,12 +99,12 @@ function RecommendationChat({ filters, movies, onAction }) {
 
         <form className="recommendation-chat__form" onSubmit={submit}>
           <label className="visually-hidden" htmlFor="recommendation-chat-input">Mensaje para FilmDNA</label>
-          <textarea id="recommendation-chat-input" rows="2" maxLength="500" placeholder="Ej.: quiero una película divertida y corta para ver con amigos" value={input} onChange={(event) => setInput(event.target.value)} disabled={status.type === 'loading'} />
+          <textarea ref={inputRef} id="recommendation-chat-input" rows="2" maxLength="500" placeholder="Ej.: quiero una película divertida y corta para ver con amigos" value={input} onChange={(event) => setInput(event.target.value)} disabled={status.type === 'loading'} />
           <button className="button button--primary" type="submit" disabled={!input.trim() || status.type === 'loading'}>{status.type === 'loading' ? 'Enviando…' : 'Enviar'}</button>
         </form>
         <small className="recommendation-chat__privacy">La conversación es temporal y no incluye tu correo, historial emocional ni notas privadas.</small>
-      </div> : null}
-    </section>
+      </section> : null}
+    </div>
   )
 }
 

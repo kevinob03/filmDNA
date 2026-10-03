@@ -88,14 +88,17 @@
 .intent-feedback--success { border-color: rgba(0, 255, 148, 0.3); }
 .intent-feedback--error { border-color: rgba(255, 112, 112, 0.45); }
 
-.recommendation-chat { margin-bottom: 1.5rem; overflow: hidden; border: 1px solid var(--border-purple); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(157, 78, 221, 0.08), rgba(0, 255, 135, 0.035)), var(--color-surface-low); box-shadow: var(--shadow-card); }
-.recommendation-chat__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; }
+.recommendation-chat { position: fixed; z-index: 94; right: 1rem; bottom: 9rem; }
+.recommendation-chat__launcher { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .45rem; padding: .55rem .8rem; border: 1px solid var(--border-green); border-radius: var(--radius-full); background: var(--color-charcoal-elevated); color: var(--color-text-primary); box-shadow: var(--shadow-card); cursor: pointer; font-weight: 700; }
+.recommendation-chat__launcher:hover, .recommendation-chat__launcher[aria-expanded='true'] { border-color: var(--color-primary); color: var(--color-primary); }
+.recommendation-chat__launcher span { display: grid; width: 1.25rem; height: 1.25rem; place-items: center; border-radius: 50%; background: var(--color-primary); color: var(--color-background); }
+.recommendation-chat__panel { position: absolute; right: 0; bottom: 3.5rem; display: grid; width: min(27rem, calc(100vw - 2rem)); max-height: min(39rem, calc(100vh - 13rem)); overflow: hidden; gap: .8rem; padding: 1rem 1.15rem 1.15rem; border: 1px solid var(--border-purple); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(157, 78, 221, 0.08), rgba(0, 255, 135, 0.035)), var(--color-surface-low); box-shadow: var(--shadow-elevated-panel); }
+.recommendation-chat__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .recommendation-chat__header h2 { margin: .3rem 0 .2rem; font-size: 1.2rem; }
 .recommendation-chat__header > div > p:last-child { margin: 0; color: var(--color-text-muted); font-size: .8rem; }
-.recommendation-chat__toggle { flex: 0 0 auto; padding: .55rem .75rem; border: 1px solid var(--border-purple); border-radius: var(--radius-full); background: var(--color-surface-container); color: var(--color-violet-soft); cursor: pointer; font-weight: 700; }
-.recommendation-chat__toggle:hover { border-color: var(--color-primary); color: var(--color-primary); }
-.recommendation-chat__panel { display: grid; gap: .8rem; padding: 1rem 1.15rem 1.15rem; border-top: 1px solid var(--border-glass); }
-.recommendation-chat__messages { display: grid; max-height: 20rem; gap: .65rem; padding-right: .25rem; overflow-y: auto; }
+.recommendation-chat__close { display: grid; width: 2rem; height: 2rem; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--color-surface-container); color: var(--color-text-muted); cursor: pointer; font-size: 1.35rem; line-height: 1; }
+.recommendation-chat__close:hover { color: var(--color-primary); }
+.recommendation-chat__messages { display: grid; min-height: 0; max-height: 20rem; gap: .65rem; padding-right: .25rem; overflow-y: auto; }
 .recommendation-chat__welcome { padding: .85rem; border: 1px dashed var(--border-glass); border-radius: var(--radius-lg); color: var(--color-text-muted); }
 .recommendation-chat__welcome strong { color: var(--color-text-primary); }
 .recommendation-chat__welcome p { margin: .3rem 0 0; }
@@ -341,6 +344,8 @@
 }
 
 @media (min-width: 64rem) {
+  .recommendation-chat { bottom: 4.75rem; }
+  .recommendation-chat__panel { max-height: min(39rem, calc(100vh - 9rem)); }
   .recommendation-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .recommendation-filters__header, .recommendation-filters__footer { padding-inline: 1.4rem; }
 }
@@ -353,8 +358,7 @@
   .natural-search { align-items: stretch; flex-direction: column; }
   .natural-search__content { align-items: flex-start; }
   .natural-search__action { width: 100%; }
-  .recommendation-chat__header { align-items: flex-start; flex-direction: column; }
-  .recommendation-chat__toggle { width: 100%; }
+  .recommendation-chat__panel { padding: .9rem; }
   .recommendation-chat__form { flex-direction: column; }
   .recommendation-chat__form .button { width: 100%; }
   .recommendation-chat__message { width: 94%; }

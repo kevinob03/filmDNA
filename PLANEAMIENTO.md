@@ -443,6 +443,7 @@ Completado:
 - Integración segura con n8n implementada mediante gateway backend, secreto de webhook exclusivo del servidor, contrato versionado, límites de payload, timeout y respuestas de error controladas.
 - Workflow `FilmDNA - Recommendation Chatbot` validado y probado de extremo a extremo con Gemini, herramienta de vocabulario y salida JSON estructurada.
 - Cobertura del chatbot aprobada con 64 pruebas unitarias globales, 19 casos de contrato, 9 casos de gateway y endpoint, validación de workflows, control de secretos, build y auditoría E2E responsive a `390px`, `768px` y `1440px`.
+- Acceso al chatbot convertido en un botón flotante sobre el botón de Tutorial; el panel se despliega bajo demanda, conserva la conversación temporal al cerrarse y admite cierre accesible con botón o tecla Escape.
 
 ## 28. Siguiente paso
 
