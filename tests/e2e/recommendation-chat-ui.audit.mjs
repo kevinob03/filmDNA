@@ -7,6 +7,7 @@ const context = await browser.newContext({ viewport: { width: 1280, height: 900 
 const page = await context.newPage()
 const errors = []
 const requests = []
+const personalKeyHeaders = []
 let responseMode = 'refine'
 
 await page.route('https://fonts.googleapis.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/css', body: '' }))
@@ -14,6 +15,7 @@ await page.route('https://fonts.gstatic.com/**', (route) => route.fulfill({ stat
 await page.route('**/api/ai/recommendation-chat', async (route) => {
   const request = route.request().postDataJSON()
   requests.push(request)
+  personalKeyHeaders.push(route.request().headers()['x-filmdna-gemini-key'] || '')
   if (responseMode === 'failure') return route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'unavailable' }) })
   const response = responseMode === 'reset'
     ? { schemaVersion: 'recommendation-chat-v1', requestId: request.requestId, action: 'reset', reply: 'Empecemos de nuevo.', filtersPatch: {}, clearFilters: [], targetMovieId: null, suggestedReplies: [] }
@@ -33,6 +35,12 @@ assert.ok(launcherBox && tutorialBox && launcherBox.y < tutorialBox.y, 'El botó
 await launcher.click()
 await page.getByRole('heading', { name: 'Habla con FilmDNA' }).waitFor()
 assert.equal(await page.getByText(/no incluye tu correo/i).isVisible(), true)
+const personalKey = 'AIza_e2e_personal_key_1234567890'
+await page.getByRole('button', { name: 'Configurar API key personal' }).click()
+await page.getByRole('textbox', { name: 'API key', exact: true }).fill(personalKey)
+await page.getByLabel(/Guardar hasta cerrar el navegador/).check()
+await page.getByLabel(/No volver a preguntarme/).check()
+await page.getByRole('button', { name: 'Usar esta clave' }).click()
 await page.getByLabel('Mensaje para FilmDNA').fill('Quiero ciencia ficción que me haga pensar')
 await page.getByRole('button', { name: 'Enviar', exact: true }).click()
 await page.waitForURL('**/recomendaciones')
@@ -41,6 +49,9 @@ await page.locator('.active-filters button').filter({ hasText: 'Ciencia ficción
 await page.locator('.active-filters button').filter({ hasText: 'Pensar' }).waitFor({ timeout: 60_000 })
 assert.deepEqual(requests[0].context.filters, {})
 assert.equal(Object.hasOwn(requests[0], 'email'), false)
+assert.equal(Object.hasOwn(requests[0], 'apiKey'), false)
+assert.equal(personalKeyHeaders[0], personalKey)
+assert.equal(await page.evaluate((key) => localStorage.getItem('filmdna_personal_gemini_key_preference_v1')?.includes(key), personalKey), false)
 
 await page.getByRole('button', { name: 'Que sea reciente' }).click()
 await page.getByText('Buscaré ciencia ficción para pensar.').nth(1).waitFor()

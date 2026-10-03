@@ -112,3 +112,26 @@ test('endpoint distingue JSON invalido, payload grande y falta de configuracion'
   assert.equal(result.requestId, validRequest.requestId)
   assert.doesNotMatch(JSON.stringify(result), /secret|webhook|n8n/i)
 })
+
+test('endpoint separa la clave personal del payload y omite n8n', async (context) => {
+  let observed
+  const { server, url } = await startServer({
+    personalGenerate: async (payload, apiKey) => {
+      observed = { payload, apiKey }
+      return validResponse
+    },
+    fetchImpl: async () => { throw new Error('n8n no debe ejecutarse') },
+  })
+  context.after(() => new Promise((resolve) => server.close(resolve)))
+
+  const apiKey = 'AIza_personal_endpoint_key_123456'
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-FilmDNA-Gemini-Key': apiKey },
+    body: JSON.stringify(validRequest),
+  })
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), validResponse)
+  assert.equal(observed.apiKey, apiKey)
+  assert.equal(Object.hasOwn(observed.payload, 'apiKey'), false)
+})

@@ -71,6 +71,8 @@ N8N_RECOMMENDATION_WEBHOOK_SECRET=
 N8N_RECOMMENDATION_TIMEOUT_MS=30000
 ```
 
+El usuario puede configurar opcionalmente una API key personal desde el panel del chatbot. La clave viaja únicamente en el header `X-FilmDNA-Gemini-Key`, no se añade al contrato, historial ni logs de n8n, y activa una llamada directa del backend a `GEMINI_PERSONAL_MODEL`. En el cliente sólo puede mantenerse en memoria o en `sessionStorage` hasta cerrar el navegador; la preferencia de almacenamiento puede recordarse en `localStorage`, pero nunca contiene la clave.
+
 El secreto se envia a n8n mediante `X-FilmDNA-Webhook-Secret` y no debe usar el prefijo `VITE_`. La IA del chatbot se ejecuta directamente en el nodo visual `AI Agent`, conectado a `Google Gemini Chat Model`, una herramienta de vocabulario y un parser estructurado.
 
 ## Siguiente bloque

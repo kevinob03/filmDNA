@@ -4,6 +4,13 @@ import {
   createRecommendationChatSessionId,
   sendRecommendationChatMessage,
 } from '../../../services/recommendations/recommendationChatService.js'
+import {
+  clearPersonalGeminiKey,
+  clearPersonalGeminiKeyPreference,
+  readPersonalGeminiKey,
+  readPersonalGeminiKeyPreference,
+  savePersonalGeminiKey,
+} from '../../../services/recommendations/personalGeminiKeyStorage.js'
 import '../recommendations.css'
 
 const ERROR_MESSAGES = {
@@ -25,6 +32,11 @@ function RecommendationChat({ filters, movies, onAction }) {
   const [messages, setMessages] = useState([])
   const [suggestions, setSuggestions] = useState(['Quiero algo divertido', 'Algo corto para hoy', 'Sorpréndeme'])
   const [status, setStatus] = useState({ type: 'idle', message: '' })
+  const [apiKey, setApiKey] = useState(readPersonalGeminiKey)
+  const [keyDialogOpen, setKeyDialogOpen] = useState(false)
+  const [keyDraft, setKeyDraft] = useState('')
+  const [keyDecision, setKeyDecision] = useState(() => readPersonalGeminiKeyPreference() || { mode: 'memory', dontAsk: false })
+  const [keyError, setKeyError] = useState('')
 
   const send = async (text) => {
     const message = String(text || '').trim()
@@ -42,6 +54,7 @@ function RecommendationChat({ filters, movies, onAction }) {
         filters,
         movies,
         turn: history.length,
+        apiKey,
       })
       if (response.action === 'reset') {
         sessionId.current = createRecommendationChatSessionId()
@@ -64,15 +77,42 @@ function RecommendationChat({ filters, movies, onAction }) {
     send(input)
   }
 
+  const saveKey = (event) => {
+    event.preventDefault()
+    try {
+      const key = savePersonalGeminiKey(keyDraft, keyDecision)
+      setApiKey(key)
+      setKeyDraft('')
+      setKeyError('')
+      setKeyDialogOpen(false)
+    } catch {
+      setKeyError('Introduce una API key válida de Gemini (mínimo 20 caracteres).')
+    }
+  }
+
+  const removeKey = () => {
+    clearPersonalGeminiKey()
+    setApiKey('')
+    setKeyDraft('')
+    setKeyError('')
+  }
+
+  const forgetDecision = () => {
+    clearPersonalGeminiKeyPreference()
+    setKeyDecision({ mode: 'memory', dontAsk: false })
+  }
+
   useEffect(() => {
     if (!expanded) return undefined
     inputRef.current?.focus()
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setExpanded(false)
+      if (event.key !== 'Escape') return
+      if (keyDialogOpen) setKeyDialogOpen(false)
+      else setExpanded(false)
     }
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
-  }, [expanded])
+  }, [expanded, keyDialogOpen])
 
   return (
     <div className="recommendation-chat">
@@ -87,7 +127,10 @@ function RecommendationChat({ filters, movies, onAction }) {
             <h2 id="recommendation-chat-title">Habla con FilmDNA</h2>
             <p>Pide ideas, aclara lo que buscas o ajusta tus resultados conversando.</p>
           </div>
-          <button type="button" className="recommendation-chat__close" aria-label="Cerrar chat" onClick={() => setExpanded(false)}>×</button>
+          <div className="recommendation-chat__header-actions">
+            <button type="button" className="recommendation-chat__key-button" aria-label="Configurar API key personal" onClick={() => setKeyDialogOpen(true)}>{apiKey ? 'API personal activa' : 'Configurar API'}</button>
+            <button type="button" className="recommendation-chat__close" aria-label="Cerrar chat" onClick={() => setExpanded(false)}>×</button>
+          </div>
         </header>
 
         <div className="recommendation-chat__messages" role="log" aria-live="polite" aria-label="Conversación con FilmDNA">
@@ -104,6 +147,24 @@ function RecommendationChat({ filters, movies, onAction }) {
           <button className="button button--primary" type="submit" disabled={!input.trim() || status.type === 'loading'}>{status.type === 'loading' ? 'Enviando…' : 'Enviar'}</button>
         </form>
         <small className="recommendation-chat__privacy">La conversación es temporal y no incluye tu correo, historial emocional ni notas privadas.</small>
+        {keyDialogOpen ? <div className="recommendation-chat__key-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setKeyDialogOpen(false) }}>
+          <form className="recommendation-chat__key-dialog" role="dialog" aria-modal="true" aria-labelledby="personal-key-title" onSubmit={saveKey}>
+            <header><div><h3 id="personal-key-title">API key personal de Gemini</h3><p>Se envía al servidor en un encabezado separado y nunca se añade al chat ni a n8n.</p></div><button type="button" aria-label="Cerrar configuración de API" onClick={() => setKeyDialogOpen(false)}>×</button></header>
+            <label>API key<input type="password" autoComplete="off" value={keyDraft} onChange={(event) => { setKeyDraft(event.target.value); setKeyError('') }} placeholder={apiKey ? 'Hay una clave configurada' : 'Pega tu clave de Google AI Studio'} /></label>
+            <fieldset><legend>¿Quieres guardarla?</legend>
+              <label><input type="radio" name="key-storage" value="memory" checked={keyDecision.mode === 'memory'} onChange={() => setKeyDecision((current) => ({ ...current, mode: 'memory' }))} /> No guardar; usar hasta recargar la página</label>
+              <label><input type="radio" name="key-storage" value="session" checked={keyDecision.mode === 'session'} onChange={() => setKeyDecision((current) => ({ ...current, mode: 'session' }))} /> Guardar hasta cerrar el navegador</label>
+            </fieldset>
+            <label className="recommendation-chat__key-check"><input type="checkbox" checked={keyDecision.dontAsk} onChange={(event) => setKeyDecision((current) => ({ ...current, dontAsk: event.target.checked }))} /> No volver a preguntarme esta decisión</label>
+            {keyError ? <p className="recommendation-chat__key-error" role="alert">{keyError}</p> : null}
+            <p className="recommendation-chat__key-warning">Por seguridad, FilmDNA no guarda la clave permanentemente en tu perfil ni en <code>db.json</code>.</p>
+            <div className="recommendation-chat__key-actions">
+              {apiKey ? <button type="button" className="button" onClick={removeKey}>Eliminar clave</button> : null}
+              {readPersonalGeminiKeyPreference() ? <button type="button" className="button" onClick={forgetDecision}>Olvidar decisión</button> : null}
+              <button type="submit" className="button button--primary" disabled={!keyDraft.trim()}>Usar esta clave</button>
+            </div>
+          </form>
+        </div> : null}
       </section> : null}
     </div>
   )
