@@ -438,6 +438,12 @@ Completado:
 
 **Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, pendiente únicamente de auditoría global.
 
+- Chatbot contextual de recomendaciones implementado dentro de Recomendaciones, con historial temporal, sugerencias rápidas, reinicio de conversación y aviso de privacidad.
+- El chatbot puede iniciar o afinar búsquedas mediante filtros permitidos, explicar candidatos visibles y solicitar aclaraciones sin inventar películas.
+- Integración segura con n8n implementada mediante gateway backend, secreto de webhook exclusivo del servidor, contrato versionado, límites de payload, timeout y respuestas de error controladas.
+- Workflow `FilmDNA - Recommendation Chatbot` validado y probado de extremo a extremo con Gemini, herramienta de vocabulario y salida JSON estructurada.
+- Cobertura del chatbot aprobada con 64 pruebas unitarias globales, 19 casos de contrato, 9 casos de gateway y endpoint, validación de workflows, control de secretos, build y auditoría E2E responsive a `390px`, `768px` y `1440px`.
+
 ## 28. Siguiente paso
 
 Ejecutar la auditoría global final de regresión, accesibilidad y responsive para cerrar la FASE 11.
