@@ -11,6 +11,7 @@ import {
   forwardRecommendationChat,
   recommendationChatErrorStatus,
 } from './n8n/recommendationChatGateway.mjs'
+import { generatePersonalRecommendationChat } from './ai/operations/recommendationChat.mjs'
 
 const PORT = Number(process.env.AI_SERVER_PORT) || 3002
 const MAX_BODY_BYTES = 64 * 1024
@@ -49,13 +50,16 @@ export const createAIServer = ({ recommendationChat = {} } = {}) => createServer
     }
 
     try {
-      const result = await forwardRecommendationChat(body, {
-        ...recommendationChat,
-        clientKey: request.socket.remoteAddress || 'local',
-      })
+      const personalApiKey = request.headers['x-filmdna-gemini-key']
+      const result = personalApiKey
+        ? await (recommendationChat.personalGenerate || generatePersonalRecommendationChat)(body, personalApiKey)
+        : await forwardRecommendationChat(body, {
+          ...recommendationChat,
+          clientKey: request.socket.remoteAddress || 'local',
+        })
       sendJson(response, 200, result)
     } catch (error) {
-      const type = error?.type || 'unavailable'
+      const type = error?.type || (error?.code === 'invalid-recommendation-chat-contract' ? 'invalid-request' : 'unavailable')
       const status = recommendationChatErrorStatus(type)
       const payload = error?.requestId
         ? createRecommendationChatErrorResponse(error.requestId, type)

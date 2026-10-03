@@ -52,9 +52,9 @@ export const requestSearchIntent = async (query) => request('/interpret-search',
   body: JSON.stringify({ query, budgetMs: INTERACTIVE_BUDGET_MS }),
 })
 
-export const requestRecommendationChat = async (payload) => request('/recommendation-chat', {
+export const requestRecommendationChat = async (payload, apiKey = '') => request('/recommendation-chat', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 'Content-Type': 'application/json', ...(apiKey ? { 'X-FilmDNA-Gemini-Key': apiKey } : {}) },
   body: JSON.stringify(payload),
 })
 
