@@ -68,7 +68,7 @@ Variables exclusivas del servidor:
 ```env
 N8N_RECOMMENDATION_WEBHOOK_URL=http://localhost:5678/webhook/filmdna/recommendation-chat
 N8N_RECOMMENDATION_WEBHOOK_SECRET=
-N8N_RECOMMENDATION_TIMEOUT_MS=12000
+N8N_RECOMMENDATION_TIMEOUT_MS=30000
 ```
 
 El secreto se envia a n8n mediante `X-FilmDNA-Webhook-Secret` y no debe usar el prefijo `VITE_`. La IA del chatbot se ejecuta directamente en el nodo visual `AI Agent`, conectado a `Google Gemini Chat Model`, una herramienta de vocabulario y un parser estructurado.

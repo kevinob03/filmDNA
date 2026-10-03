@@ -5,9 +5,9 @@ import {
   validateRecommendationChatResponse,
 } from '../../src/services/recommendations/recommendationChatContract.js'
 
-const DEFAULT_TIMEOUT_MS = 12_000
+const DEFAULT_TIMEOUT_MS = 30_000
 const MIN_TIMEOUT_MS = 1_000
-const MAX_TIMEOUT_MS = 15_000
+const MAX_TIMEOUT_MS = 45_000
 const MAX_RESPONSE_BYTES = 64 * 1024
 const RATE_LIMIT = 12
 const RATE_WINDOW_MS = 60_000
