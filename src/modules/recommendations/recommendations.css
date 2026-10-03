@@ -88,6 +88,35 @@
 .intent-feedback--success { border-color: rgba(0, 255, 148, 0.3); }
 .intent-feedback--error { border-color: rgba(255, 112, 112, 0.45); }
 
+.recommendation-chat { margin-bottom: 1.5rem; overflow: hidden; border: 1px solid var(--border-purple); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(157, 78, 221, 0.08), rgba(0, 255, 135, 0.035)), var(--color-surface-low); box-shadow: var(--shadow-card); }
+.recommendation-chat__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; }
+.recommendation-chat__header h2 { margin: .3rem 0 .2rem; font-size: 1.2rem; }
+.recommendation-chat__header > div > p:last-child { margin: 0; color: var(--color-text-muted); font-size: .8rem; }
+.recommendation-chat__toggle { flex: 0 0 auto; padding: .55rem .75rem; border: 1px solid var(--border-purple); border-radius: var(--radius-full); background: var(--color-surface-container); color: var(--color-violet-soft); cursor: pointer; font-weight: 700; }
+.recommendation-chat__toggle:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.recommendation-chat__panel { display: grid; gap: .8rem; padding: 1rem 1.15rem 1.15rem; border-top: 1px solid var(--border-glass); }
+.recommendation-chat__messages { display: grid; max-height: 20rem; gap: .65rem; padding-right: .25rem; overflow-y: auto; }
+.recommendation-chat__welcome { padding: .85rem; border: 1px dashed var(--border-glass); border-radius: var(--radius-lg); color: var(--color-text-muted); }
+.recommendation-chat__welcome strong { color: var(--color-text-primary); }
+.recommendation-chat__welcome p { margin: .3rem 0 0; }
+.recommendation-chat__message { width: min(88%, 38rem); padding: .7rem .8rem; border-radius: var(--radius-lg); }
+.recommendation-chat__message > span { display: block; margin-bottom: .2rem; font-family: var(--font-data); font-size: var(--type-data-micro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.recommendation-chat__message p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.recommendation-chat__message--user { justify-self: end; background: var(--color-primary); color: var(--color-background); }
+.recommendation-chat__message--assistant { justify-self: start; border: 1px solid var(--border-purple); background: var(--color-surface-container); color: var(--color-text-primary); }
+.recommendation-chat__message--assistant > span { color: var(--color-violet-soft); }
+.recommendation-chat__status { margin: 0; padding: .65rem .75rem; border-radius: var(--radius-base); background: var(--color-surface-container); color: var(--color-text-muted); }
+.recommendation-chat__status--error { border: 1px solid rgba(255, 112, 112, .5); color: var(--color-error, #ff7474); }
+.recommendation-chat__suggestions { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .15rem; }
+.recommendation-chat__suggestions button { flex: 0 0 auto; padding: .42rem .65rem; border: 1px solid var(--border-glass); border-radius: var(--radius-full); background: var(--color-surface-container); color: var(--color-text-muted); cursor: pointer; }
+.recommendation-chat__suggestions button:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.recommendation-chat__suggestions button:disabled { cursor: wait; opacity: .6; }
+.recommendation-chat__form { display: flex; align-items: stretch; gap: .65rem; }
+.recommendation-chat__form textarea { min-width: 0; flex: 1 1 auto; resize: vertical; padding: .75rem .85rem; border: 1px solid var(--border-glass); border-radius: var(--radius-lg); background: var(--color-surface-container); color: var(--color-text-primary); font: inherit; }
+.recommendation-chat__form textarea:focus { border-color: var(--color-primary); outline: 2px solid rgba(0, 255, 135, .16); }
+.recommendation-chat__form .button { align-self: stretch; }
+.recommendation-chat__privacy { color: var(--color-text-muted); font-size: .67rem; }
+
 .recommendation-filters {
   overflow: hidden;
   border: 1px solid var(--border-glass);
@@ -324,6 +353,11 @@
   .natural-search { align-items: stretch; flex-direction: column; }
   .natural-search__content { align-items: flex-start; }
   .natural-search__action { width: 100%; }
+  .recommendation-chat__header { align-items: flex-start; flex-direction: column; }
+  .recommendation-chat__toggle { width: 100%; }
+  .recommendation-chat__form { flex-direction: column; }
+  .recommendation-chat__form .button { width: 100%; }
+  .recommendation-chat__message { width: 94%; }
   .recommendation-filters__header { align-items: flex-start; flex-direction: column; }
   .recommendation-filters__header-actions { width: 100%; justify-content: space-between; }
   .recommendation-filters__footer { flex-wrap: wrap; }

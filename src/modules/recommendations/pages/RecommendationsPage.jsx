@@ -10,6 +10,7 @@ import { requiresExpertMode } from '../../../services/recommendations/searchInte
 import ExperienceForm from '../components/ExperienceForm.jsx'
 import FilterIcon from '../components/FilterIcon.jsx'
 import RecommendationCard from '../components/RecommendationCard.jsx'
+import RecommendationChat from '../components/RecommendationChat.jsx'
 import { findOption, getActiveFilterLabels, INITIAL_SELECTIONS, normalizeOptionValue } from '../recommendationConfig.js'
 import '../recommendations.css'
 
@@ -172,6 +173,39 @@ function RecommendationsPage() {
 
   const dismiss = (movieId) => setState((current) => ({ ...current, movies: current.movies.filter((movie) => movie.id !== movieId) }))
 
+  const handleChatAction = (response) => {
+    if (response.action === 'new-search' || response.action === 'refine') {
+      const base = response.action === 'new-search'
+        ? { ...INITIAL_SELECTIONS, genres: [], providers: [] }
+        : { ...appliedSelections, genres: [...appliedSelections.genres], providers: [...appliedSelections.providers] }
+      response.clearFilters.forEach((key) => { base[key] = Array.isArray(INITIAL_SELECTIONS[key]) ? [] : INITIAL_SELECTIONS[key] })
+      const next = { ...base, ...response.filtersPatch }
+      setSelections(next)
+      setAppliedSelections(next)
+      setMode(requiresExpertMode(response.filtersPatch) ? 'expert' : mode)
+      setParams(toParams(next))
+      setHasSearched(true)
+      setFiltersOpen(false)
+      setIntentState({ status: 'adjusted', labels: [], unmappedTerms: [] })
+      load(null, next)
+      return
+    }
+    if (response.action === 'replace-one' && response.targetMovieId) {
+      dismiss(response.targetMovieId)
+      return
+    }
+    if (response.action === 'reset') {
+      const next = { ...INITIAL_SELECTIONS, genres: [], providers: [] }
+      setSelections(next)
+      setAppliedSelections(next)
+      setParams({})
+      setHasSearched(false)
+      setFiltersOpen(false)
+      setIntentState({ status: 'idle', labels: [], unmappedTerms: [] })
+      setState({ status: 'idle', movies: [] })
+    }
+  }
+
   return <main id="main-content" className="recommendations-page"><PageContainer>
     <section className="recommendations-hero">
       <p className="recommendations-hero__eyebrow"><span /> Recomendaciones personalizadas</p>
@@ -188,6 +222,8 @@ function RecommendationsPage() {
     {!similarTo && intentState.status === 'adjusted' && <div className="intent-feedback" role="status">Filtros interpretados y ajustados manualmente.</div>}
     {!similarTo && intentState.status === 'uninterpretable' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>No pude convertir esa búsqueda en filtros de FilmDNA.</strong> Prueba describiendo género, ritmo, duración o cómo quieres sentirte.</div>}
     {!similarTo && intentState.status === 'error' && <div className="intent-feedback intent-feedback--error" role="alert"><strong>La interpretación con IA no está disponible temporalmente.</strong> Puedes seguir usando los filtros manuales.</div>}
+
+    {!similarTo && <RecommendationChat filters={appliedSelections} movies={state.movies} onAction={handleChatAction} />}
 
     {!similarTo && !hasSearched && <ExperienceForm selections={selections} providers={providers} mode={mode} onModeChange={setMode} onChange={changeSelection} onSubmit={submit} onClear={clear} />}
 

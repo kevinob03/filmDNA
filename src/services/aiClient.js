@@ -52,6 +52,12 @@ export const requestSearchIntent = async (query) => request('/interpret-search',
   body: JSON.stringify({ query, budgetMs: INTERACTIVE_BUDGET_MS }),
 })
 
+export const requestRecommendationChat = async (payload) => request('/recommendation-chat', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload),
+})
+
 export const requestCinematherapyDraft = async (input) => request('/cinematherapy-draft', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
