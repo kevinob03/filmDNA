@@ -24,7 +24,7 @@ await page.route('**/api/ai/classify-movies', (route) => route.fulfill({ status:
 page.on('pageerror', (error) => errors.push(error.message))
 page.on('console', (message) => { if (message.type() === 'error' && !message.text().includes('503')) errors.push(message.text()) })
 
-await page.goto(`${baseURL}/recomendaciones`, { waitUntil: 'domcontentloaded' })
+await page.goto(`${baseURL}/`, { waitUntil: 'domcontentloaded' })
 assert.equal(await page.getByRole('heading', { name: 'Habla con FilmDNA' }).count(), 0)
 const launcher = page.getByRole('button', { name: 'Chat FilmDNA' })
 const tutorial = page.getByRole('button', { name: /tutorial/i })
@@ -35,6 +35,7 @@ await page.getByRole('heading', { name: 'Habla con FilmDNA' }).waitFor()
 assert.equal(await page.getByText(/no incluye tu correo/i).isVisible(), true)
 await page.getByLabel('Mensaje para FilmDNA').fill('Quiero ciencia ficción que me haga pensar')
 await page.getByRole('button', { name: 'Enviar', exact: true }).click()
+await page.waitForURL('**/recomendaciones')
 await page.getByText('Buscaré ciencia ficción para pensar.').waitFor()
 await page.locator('.active-filters button').filter({ hasText: 'Ciencia ficción' }).waitFor({ timeout: 60_000 })
 await page.locator('.active-filters button').filter({ hasText: 'Pensar' }).waitFor({ timeout: 60_000 })
@@ -67,6 +68,11 @@ for (const width of [390, 768, 1440]) {
   assert.ok(dimensions.scroll <= dimensions.client, `Overflow del chatbot a ${width}px`)
 }
 
+for (const path of ['/', '/explorar', '/recomendaciones', '/biblioteca', '/diario', '/perfil', '/ayuda', '/login']) {
+  await page.goto(`${baseURL}${path}`, { waitUntil: 'domcontentloaded' })
+  await page.getByRole('button', { name: 'Chat FilmDNA' }).waitFor()
+}
+
 assert.deepEqual(errors, [])
 await browser.close()
-console.log(JSON.stringify({ status: 'PASS', contract: 'PASS', filters: 'PASS', history: 'PASS', errors: 'PASS', reset: 'PASS', privacy: 'PASS', responsive: { 390: 'PASS', 768: 'PASS', 1440: 'PASS' } }, null, 2))
+console.log(JSON.stringify({ status: 'PASS', globalAccess: 'PASS', contract: 'PASS', filters: 'PASS', history: 'PASS', errors: 'PASS', reset: 'PASS', privacy: 'PASS', responsive: { 390: 'PASS', 768: 'PASS', 1440: 'PASS' } }, null, 2))
