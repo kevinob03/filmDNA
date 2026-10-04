@@ -70,3 +70,9 @@ export const requestCinematherapyDraft = async (input) => request('/cinematherap
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ input, budgetMs: CINEMATHERAPY_BUDGET_MS }),
 })
+
+export const requestAdminProjection = async (input) => request('/admin-projection', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ input, budgetMs: CINEMATHERAPY_BUDGET_MS }),
+})
