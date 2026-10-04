@@ -1,4 +1,4 @@
-import { APP_ROLE_VALUES } from '../shared/auth/roles.js'
+import { APP_ROLE_VALUES } from '../constants/roles.js'
 
 const DEFAULT_API_URL = 'http://localhost:3001'
 const configuredApiUrl = import.meta.env?.VITE_API_URL?.trim()

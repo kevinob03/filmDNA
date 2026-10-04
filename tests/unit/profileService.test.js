@@ -1,4 +1,4 @@
-import { normalizeProfileFields, toProfileUser } from '../../src/modules/profile/profileModel.js'
+import { normalizeProfileFields, toProfileUser } from '../../src/models/profileModel.js'
 
 describe('profileService', () => {
   test('normaliza únicamente los campos editables permitidos', () => {

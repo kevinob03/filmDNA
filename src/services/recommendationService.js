@@ -5,7 +5,7 @@ import {
   ERA_OPTIONS,
   OPTION_GROUPS,
   POPULARITY_OPTIONS,
-} from '../modules/recommendations/recommendationConfig.js'
+} from '../config/recommendationConfig.js'
 import { buildMovieDNA } from './recommendations/movieDNA.js'
 import { calculateCompatibility } from './recommendations/compatibilityService.js'
 import { mergeMovieDNAEvidence } from './recommendations/mergeMovieDNAEvidence.js'

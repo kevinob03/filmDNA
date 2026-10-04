@@ -36,7 +36,8 @@
     "test:cinematherapy-ai": "node --test tests/server/cinematherapyDraft.test.mjs",
     "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
     "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs",
-    "test:n8n-workflows": "node scripts/validate-n8n-workflows.mjs"
+    "test:n8n-workflows": "node scripts/validate-n8n-workflows.mjs",
+    "test:structure": "node scripts/validate-react-structure.mjs"
   },
   "dependencies": {
     "react": "^19.1.1",

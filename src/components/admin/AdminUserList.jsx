@@ -1,0 +1,7 @@
+import { getRoleLabel } from '../../constants/roles.js'
+
+function AdminUserList({ currentUserId, users, onDelete, onEdit }) {
+  if (!users.length) return <div className="admin-state"><h3>No hay usuarios</h3><p>Crea la primera cuenta desde el formulario.</p></div>
+  return <div className="admin-users" role="list">{users.map((user) => { const current = String(user.id) === String(currentUserId); return <article className="admin-user-card" key={user.id} role="listitem"><div className="admin-user-card__identity"><span aria-hidden="true">{user.nombre.slice(0, 1).toUpperCase()}</span><div><h3>{user.nombre}</h3><p>{user.email}</p></div></div><div className="admin-user-card__meta"><span className={`role-chip role-chip--${user.role}`}>{getRoleLabel(user.role)}</span>{current && <span>Sesión actual</span>}</div><div className="admin-actions"><button className="button button--secondary" type="button" onClick={() => onEdit(user)} disabled={current}>Editar</button><button className="admin-danger" type="button" onClick={() => onDelete(user)} disabled={current}>Eliminar</button></div>{current && <p className="admin-protection">Tu cuenta no puede editarse, degradarse ni eliminarse desde este panel.</p>}</article> })}</div>
+}
+export default AdminUserList

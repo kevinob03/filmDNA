@@ -1,4 +1,4 @@
-import { normalizeProfileFields, toProfileUser } from '../modules/profile/profileModel.js'
+import { normalizeProfileFields, toProfileUser } from '../models/profileModel.js'
 
 const DEFAULT_API_URL = 'http://localhost:3001'
 const configuredApiUrl = import.meta.env?.VITE_API_URL?.trim()

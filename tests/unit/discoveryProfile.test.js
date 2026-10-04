@@ -1,4 +1,4 @@
-import { buildDiscoveryProfile, rankPersonalizedMovies } from '../../src/modules/explore/discoveryProfile.js'
+import { buildDiscoveryProfile, rankPersonalizedMovies } from '../../src/models/discoveryProfile.js'
 
 describe('perfil de descubrimiento', () => {
   test('combina géneros explícitos con emoción y compañía sin duplicados', () => {

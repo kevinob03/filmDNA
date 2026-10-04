@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { buildMovieDNA } from '../../src/services/recommendations/movieDNA.js'
 import { calculateCompatibility } from '../../src/services/recommendations/compatibilityService.js'
-import { INITIAL_SELECTIONS, OPTION_GROUPS } from '../../src/modules/recommendations/recommendationConfig.js'
+import { INITIAL_SELECTIONS, OPTION_GROUPS } from '../../src/config/recommendationConfig.js'
 
 const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:5173'
 const outputDir = 'test-results/recommendations-audit'

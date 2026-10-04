@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { loginUser, registerUser, saveUserPersonalization } from '../services/authService.js'
-import { APP_ROLE_VALUES } from '../shared/auth/roles.js'
+import { APP_ROLE_VALUES } from '../constants/roles.js'
 
 export const AUTH_STATUS = Object.freeze({
   CHECKING: 'checking',

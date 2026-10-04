@@ -4,7 +4,7 @@ import {
   hasHighEmotionalIntensity,
   needsEmotionalSafetySupport,
   normalizeEmotionalRecord,
-} from '../../src/modules/cinematherapy/emotionalRecordModel.js'
+} from '../../src/models/emotionalRecordModel.js'
 
 describe('emotionalRecordModel', () => {
   test('normaliza un registro estructurado y elimina espacios exteriores', () => {

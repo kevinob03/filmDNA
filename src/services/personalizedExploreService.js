@@ -1,4 +1,4 @@
-import { buildDiscoveryProfile, rankPersonalizedMovies } from '../modules/explore/discoveryProfile.js'
+import { buildDiscoveryProfile, rankPersonalizedMovies } from '../models/discoveryProfile.js'
 import { discoverMovies } from './tmdbService.js'
 
 export const getPersonalizedExploreMovies = async (preferences, page = 1) => {
