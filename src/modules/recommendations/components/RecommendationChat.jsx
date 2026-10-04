@@ -5,13 +5,19 @@ import {
   sendRecommendationChatMessage,
 } from '../../../services/recommendations/recommendationChatService.js'
 import {
-  clearPersonalGeminiKey,
-  clearPersonalGeminiKeyPreference,
-  readPersonalGeminiKey,
-  readPersonalGeminiKeyPreference,
-  savePersonalGeminiKey,
-} from '../../../services/recommendations/personalGeminiKeyStorage.js'
+  clearPersonalAIConfig,
+  clearPersonalAIPreference,
+  readPersonalAIConfig,
+  readPersonalAIPreference,
+  savePersonalAIConfig,
+} from '../../../services/recommendations/personalAIConfigStorage.js'
 import '../recommendations.css'
+
+const PERSONAL_AI_PROVIDERS = {
+  gemini: { label: 'Google Gemini', model: 'gemini-2.5-flash-lite', placeholder: 'Clave de Google AI Studio' },
+  groq: { label: 'Groq', model: 'openai/gpt-oss-20b', placeholder: 'Clave de Groq Console' },
+  deepseek: { label: 'DeepSeek', model: 'deepseek-chat', placeholder: 'Clave de DeepSeek Platform' },
+}
 
 const ERROR_MESSAGES = {
   configuration: 'El chatbot todavía no está configurado en este equipo.',
@@ -32,10 +38,13 @@ function RecommendationChat({ filters, movies, onAction }) {
   const [messages, setMessages] = useState([])
   const [suggestions, setSuggestions] = useState(['Quiero algo divertido', 'Algo corto para hoy', 'Sorpréndeme'])
   const [status, setStatus] = useState({ type: 'idle', message: '' })
-  const [apiKey, setApiKey] = useState(readPersonalGeminiKey)
+  const storedPreference = useRef(readPersonalAIPreference())
+  const [personalAI, setPersonalAI] = useState(readPersonalAIConfig)
   const [keyDialogOpen, setKeyDialogOpen] = useState(false)
   const [keyDraft, setKeyDraft] = useState('')
-  const [keyDecision, setKeyDecision] = useState(() => readPersonalGeminiKeyPreference() || { mode: 'memory', dontAsk: false })
+  const [providerDraft, setProviderDraft] = useState(() => storedPreference.current?.provider || 'gemini')
+  const [modelDraft, setModelDraft] = useState(() => storedPreference.current?.model || PERSONAL_AI_PROVIDERS.gemini.model)
+  const [keyDecision, setKeyDecision] = useState(() => storedPreference.current || { mode: 'memory', dontAsk: false })
   const [keyError, setKeyError] = useState('')
 
   const send = async (text) => {
@@ -54,7 +63,7 @@ function RecommendationChat({ filters, movies, onAction }) {
         filters,
         movies,
         turn: history.length,
-        apiKey,
+        personalAI,
       })
       if (response.action === 'reset') {
         sessionId.current = createRecommendationChatSessionId()
@@ -80,25 +89,25 @@ function RecommendationChat({ filters, movies, onAction }) {
   const saveKey = (event) => {
     event.preventDefault()
     try {
-      const key = savePersonalGeminiKey(keyDraft, keyDecision)
-      setApiKey(key)
+      const config = savePersonalAIConfig({ provider: providerDraft, apiKey: keyDraft, model: modelDraft }, keyDecision)
+      setPersonalAI(config)
       setKeyDraft('')
       setKeyError('')
       setKeyDialogOpen(false)
     } catch {
-      setKeyError('Introduce una API key válida de Gemini (mínimo 20 caracteres).')
+      setKeyError('Revisa el proveedor, el modelo y la API key (mínimo 16 caracteres, sin espacios).')
     }
   }
 
   const removeKey = () => {
-    clearPersonalGeminiKey()
-    setApiKey('')
+    clearPersonalAIConfig()
+    setPersonalAI(null)
     setKeyDraft('')
     setKeyError('')
   }
 
   const forgetDecision = () => {
-    clearPersonalGeminiKeyPreference()
+    clearPersonalAIPreference()
     setKeyDecision({ mode: 'memory', dontAsk: false })
   }
 
@@ -128,7 +137,7 @@ function RecommendationChat({ filters, movies, onAction }) {
             <p>Pide ideas, aclara lo que buscas o ajusta tus resultados conversando.</p>
           </div>
           <div className="recommendation-chat__header-actions">
-            <button type="button" className="recommendation-chat__key-button" aria-label="Configurar API key personal" onClick={() => setKeyDialogOpen(true)}>{apiKey ? 'API personal activa' : 'Configurar API'}</button>
+            <button type="button" className="recommendation-chat__key-button" aria-label="Configurar proveedor de IA personal" onClick={() => setKeyDialogOpen(true)}>{personalAI ? `${PERSONAL_AI_PROVIDERS[personalAI.provider].label} activo` : 'Configurar IA'}</button>
             <button type="button" className="recommendation-chat__close" aria-label="Cerrar chat" onClick={() => setExpanded(false)}>×</button>
           </div>
         </header>
@@ -149,18 +158,20 @@ function RecommendationChat({ filters, movies, onAction }) {
         <small className="recommendation-chat__privacy">La conversación es temporal y no incluye tu correo, historial emocional ni notas privadas.</small>
         {keyDialogOpen ? <div className="recommendation-chat__key-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setKeyDialogOpen(false) }}>
           <form className="recommendation-chat__key-dialog" role="dialog" aria-modal="true" aria-labelledby="personal-key-title" onSubmit={saveKey}>
-            <header><div><h3 id="personal-key-title">API key personal de Gemini</h3><p>Se envía al servidor en un encabezado separado y nunca se añade al chat ni a n8n.</p></div><button type="button" aria-label="Cerrar configuración de API" onClick={() => setKeyDialogOpen(false)}>×</button></header>
-            <label>API key<input type="password" autoComplete="off" value={keyDraft} onChange={(event) => { setKeyDraft(event.target.value); setKeyError('') }} placeholder={apiKey ? 'Hay una clave configurada' : 'Pega tu clave de Google AI Studio'} /></label>
+            <header><div><h3 id="personal-key-title">Proveedor de IA personal</h3><p>Elige un servicio compatible. La clave viaja en encabezados separados y nunca se añade al chat ni a n8n.</p></div><button type="button" aria-label="Cerrar configuración de API" onClick={() => setKeyDialogOpen(false)}>×</button></header>
+            <label>Proveedor<select value={providerDraft} onChange={(event) => { const provider = event.target.value; setProviderDraft(provider); setModelDraft(PERSONAL_AI_PROVIDERS[provider].model); setKeyError('') }}>{Object.entries(PERSONAL_AI_PROVIDERS).map(([value, option]) => <option value={value} key={value}>{option.label}</option>)}</select></label>
+            <label>Modelo<input type="text" autoComplete="off" value={modelDraft} onChange={(event) => { setModelDraft(event.target.value); setKeyError('') }} placeholder={PERSONAL_AI_PROVIDERS[providerDraft].model} /></label>
+            <label>API key<input type="password" autoComplete="off" value={keyDraft} onChange={(event) => { setKeyDraft(event.target.value); setKeyError('') }} placeholder={personalAI ? 'Hay una clave configurada' : PERSONAL_AI_PROVIDERS[providerDraft].placeholder} /></label>
             <fieldset><legend>¿Quieres guardarla?</legend>
               <label><input type="radio" name="key-storage" value="memory" checked={keyDecision.mode === 'memory'} onChange={() => setKeyDecision((current) => ({ ...current, mode: 'memory' }))} /> No guardar; usar hasta recargar la página</label>
               <label><input type="radio" name="key-storage" value="session" checked={keyDecision.mode === 'session'} onChange={() => setKeyDecision((current) => ({ ...current, mode: 'session' }))} /> Guardar hasta cerrar el navegador</label>
             </fieldset>
             <label className="recommendation-chat__key-check"><input type="checkbox" checked={keyDecision.dontAsk} onChange={(event) => setKeyDecision((current) => ({ ...current, dontAsk: event.target.checked }))} /> No volver a preguntarme esta decisión</label>
             {keyError ? <p className="recommendation-chat__key-error" role="alert">{keyError}</p> : null}
-            <p className="recommendation-chat__key-warning">Por seguridad, FilmDNA no guarda la clave permanentemente en tu perfil ni en <code>db.json</code>.</p>
+            <p className="recommendation-chat__key-warning">Compatible con Gemini, Groq y DeepSeek. Por seguridad, FilmDNA no guarda la clave permanentemente en tu perfil ni en <code>db.json</code>.</p>
             <div className="recommendation-chat__key-actions">
-              {apiKey ? <button type="button" className="button" onClick={removeKey}>Eliminar clave</button> : null}
-              {readPersonalGeminiKeyPreference() ? <button type="button" className="button" onClick={forgetDecision}>Olvidar decisión</button> : null}
+              {personalAI ? <button type="button" className="button" onClick={removeKey}>Eliminar clave</button> : null}
+              {readPersonalAIPreference() ? <button type="button" className="button" onClick={forgetDecision}>Olvidar decisión</button> : null}
               <button type="submit" className="button button--primary" disabled={!keyDraft.trim()}>Usar esta clave</button>
             </div>
           </form>

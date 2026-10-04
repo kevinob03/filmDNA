@@ -1,12 +1,18 @@
 import { AIProviderError } from '../errors.mjs'
-import { geminiProvider } from '../providers.mjs'
+import { deepseekProvider, geminiProvider, groqProvider } from '../providers.mjs'
 import {
   validateRecommendationChatExchange,
   validateRecommendationChatRequest,
 } from '../../../src/services/recommendations/recommendationChatContract.js'
 import { SEARCH_FILTER_VOCABULARY } from '../../../src/services/recommendations/searchIntentContract.js'
 
-const PERSONAL_KEY_PATTERN = /^[A-Za-z0-9_-]{20,200}$/
+const PERSONAL_KEY_PATTERN = /^[\x21-\x7E]{16,512}$/
+const PERSONAL_MODEL_PATTERN = /^[A-Za-z0-9._:/-]{1,120}$/
+const PERSONAL_PROVIDERS = Object.freeze({
+  gemini: { provider: geminiProvider, defaultModel: 'gemini-2.5-flash-lite' },
+  groq: { provider: groqProvider, defaultModel: 'openai/gpt-oss-20b' },
+  deepseek: { provider: deepseekProvider, defaultModel: 'deepseek-chat' },
+})
 const FILTER_NAMES = [...Object.keys(SEARCH_FILTER_VOCABULARY), 'minRating']
 const filterProperties = Object.fromEntries(Object.entries(SEARCH_FILTER_VOCABULARY).map(([key, values]) => [key, key === 'genres'
   ? { type: 'array', minItems: 1, items: { type: 'string', enum: values } }
@@ -45,22 +51,34 @@ REGLAS INMUTABLES:
 VOCABULARIO DE FILTROS:
 ${JSON.stringify({ ...SEARCH_FILTER_VOCABULARY, minRating: '0.5 a 9.0 en incrementos de 0.5' })}
 
+FORMATO JSON REQUERIDO:
+${JSON.stringify(recommendationChatJsonSchema)}
+
 CHAT_DATA:
 ${JSON.stringify(request)}`
 
-export const validatePersonalGeminiKey = (value) => {
+export const validatePersonalAIKey = (value) => {
   const key = typeof value === 'string' ? value.trim() : ''
   if (!PERSONAL_KEY_PATTERN.test(key)) throw new AIProviderError('configuration')
   return key
 }
 
-export const generatePersonalRecommendationChat = async (payload, apiKey, {
-  model = process.env.GEMINI_PERSONAL_MODEL?.trim() || 'gemini-2.5-flash-lite',
+export const validatePersonalAIConfig = ({ provider, apiKey, model } = {}) => {
+  const providerName = typeof provider === 'string' ? provider.trim().toLowerCase() : ''
+  const selected = PERSONAL_PROVIDERS[providerName]
+  if (!selected) throw new AIProviderError('configuration')
+  const selectedModel = typeof model === 'string' && model.trim() ? model.trim() : selected.defaultModel
+  if (!PERSONAL_MODEL_PATTERN.test(selectedModel)) throw new AIProviderError('configuration')
+  return { provider: providerName, apiKey: validatePersonalAIKey(apiKey), model: selectedModel }
+}
+
+export const generatePersonalRecommendationChat = async (payload, credentials, {
   timeoutMs = 30_000,
-  provider = geminiProvider,
+  provider: providerOverride,
 } = {}) => {
   const request = validateRecommendationChatRequest(payload)
-  const key = validatePersonalGeminiKey(apiKey)
+  const config = validatePersonalAIConfig(credentials)
+  const provider = providerOverride || PERSONAL_PROVIDERS[config.provider].provider
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), Math.min(45_000, Math.max(1_000, timeoutMs)))
   try {
@@ -69,7 +87,7 @@ export const generatePersonalRecommendationChat = async (payload, apiKey, {
       prompt: buildPrompt(request),
       schema: recommendationChatJsonSchema,
       signal: controller.signal,
-    }, { apiKey: key, model })
+    }, { apiKey: config.apiKey, model: config.model })
     const normalized = { ...generated, targetMovieId: generated?.targetMovieId === 0 ? null : generated?.targetMovieId }
     return validateRecommendationChatExchange(request, normalized).response
   } catch (error) {
@@ -80,3 +98,7 @@ export const generatePersonalRecommendationChat = async (payload, apiKey, {
     clearTimeout(timer)
   }
 }
+
+export const PERSONAL_AI_PROVIDERS = Object.freeze(Object.fromEntries(
+  Object.entries(PERSONAL_PROVIDERS).map(([name, value]) => [name, value.defaultModel]),
+))

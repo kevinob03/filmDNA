@@ -50,9 +50,13 @@ export const createAIServer = ({ recommendationChat = {} } = {}) => createServer
     }
 
     try {
-      const personalApiKey = request.headers['x-filmdna-gemini-key']
+      const personalApiKey = request.headers['x-filmdna-ai-key']
       const result = personalApiKey
-        ? await (recommendationChat.personalGenerate || generatePersonalRecommendationChat)(body, personalApiKey)
+        ? await (recommendationChat.personalGenerate || generatePersonalRecommendationChat)(body, {
+          provider: request.headers['x-filmdna-ai-provider'],
+          apiKey: personalApiKey,
+          model: request.headers['x-filmdna-ai-model'],
+        })
         : await forwardRecommendationChat(body, {
           ...recommendationChat,
           clientKey: request.socket.remoteAddress || 'local',
