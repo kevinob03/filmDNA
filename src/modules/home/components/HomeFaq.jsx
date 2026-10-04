@@ -5,7 +5,7 @@ import { FAQ_ITEMS } from '../../help/faqContent.js'
 import '../../help/help.css'
 
 function HomeFaq() {
-  return <section id="preguntas-frecuentes" className="home-section home-section--faq" aria-labelledby="home-faq-title">
+  return <section id="preguntas-frecuentes" className="home-section home-section--faq" data-tour="faq" aria-labelledby="home-faq-title">
     <PageContainer>
       <div className="home-faq__header">
         <div>

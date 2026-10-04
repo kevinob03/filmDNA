@@ -74,7 +74,7 @@ function CinematherapyConsentPanel({ userId }) {
   const showForm = state.status === 'success' && (!state.assignment || updating)
 
   return (
-    <section className="profile-panel cinematherapy-consent" aria-labelledby="cinematherapy-consent-title">
+    <section id="cinematerapia" className="profile-panel cinematherapy-consent" aria-labelledby="cinematherapy-consent-title">
       <header className="profile-section-heading">
         <p className="eyebrow"><span aria-hidden="true" />Privacidad y acompañamiento</p>
         <h2 id="cinematherapy-consent-title">Cinematerapia con supervisión</h2>

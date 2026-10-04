@@ -125,7 +125,7 @@ function RecommendationChat({ filters, movies, onAction }) {
 
   return (
     <div className="recommendation-chat">
-      <button type="button" className="recommendation-chat__launcher" aria-expanded={expanded} aria-controls="recommendation-chat-panel" onClick={() => setExpanded((value) => !value)}>
+      <button type="button" className="recommendation-chat__launcher" data-tour="recommendation-chat" aria-expanded={expanded} aria-controls="recommendation-chat-panel" onClick={() => setExpanded((value) => !value)}>
         <span aria-hidden="true">✦</span> Chat FilmDNA
       </button>
 
