@@ -369,7 +369,7 @@
   .profile-skeleton span { animation: none; }
   .avatar-option, .genre-option, .profile-quick__card { transition: none; }
 }
-.cinematherapy-consent__form,.cinematherapy-consent__active{display:grid;gap:var(--space-md)}
+.cinematherapy-consent{scroll-margin-top:6rem}.cinematherapy-consent__form,.cinematherapy-consent__active{display:grid;gap:var(--space-md)}
 .cinematherapy-consent select{width:100%;padding:.8rem;border:1px solid var(--border-glass);border-radius:var(--radius-md);background:var(--color-surface-lowest);color:var(--color-text-primary)}
 .cinematherapy-consent select:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
 .cinematherapy-consent__check{display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-md);border:1px solid var(--border-glass);border-radius:var(--radius-md);background:var(--color-surface-lowest);cursor:pointer}

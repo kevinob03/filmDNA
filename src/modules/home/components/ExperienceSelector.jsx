@@ -15,7 +15,7 @@ function ExperienceSelector() {
   const findMovies = () => navigate(`/recomendaciones?${new URLSearchParams(selections)}`)
 
   return (
-    <section id="experiencia" className="home-section home-section--experience" aria-labelledby="experience-title">
+    <section id="experiencia" className="home-section home-section--experience" data-tour="quick-experience" aria-labelledby="experience-title">
       <PageContainer>
         <SectionHeader
           eyebrow="Tu experiencia"

@@ -9,6 +9,7 @@ function AccessibilityButton({ mobile = false }) {
   return (
     <button
       className={mobile ? 'mobile-nav__item accessibility-trigger accessibility-trigger--mobile' : 'accessibility-trigger'}
+      data-tour="accessibility"
       type="button"
       aria-expanded={isPanelOpen}
       aria-controls="accessibility-panel"

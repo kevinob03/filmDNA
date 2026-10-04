@@ -6,7 +6,7 @@ import './tour-guide.css'
 export function TourButton() {
   const { completed, start } = useTour()
   const label = completed ? 'Repetir tutorial de FilmDNA' : 'Iniciar tutorial de FilmDNA'
-  return <button className="tour-trigger" type="button" onClick={start} aria-label={label}>
+  return <button className="tour-trigger" data-tour="trigger" type="button" onClick={start} aria-label={label}>
     <span aria-hidden="true">?</span> {completed ? 'Repetir tutorial' : 'Tutorial'}
   </button>
 }
@@ -16,7 +16,17 @@ export function TourGuide() {
   const navigate = useNavigate()
   const location = useLocation()
   const dialogRef = useRef(null)
+  const wasActive = useRef(active)
   const [rect, setRect] = useState(null)
+
+  const findVisibleTarget = (selector) => {
+    if (!selector) return null
+    return [...document.querySelectorAll(selector)].find((element) => {
+      const bounds = element.getBoundingClientRect()
+      const style = window.getComputedStyle(element)
+      return bounds.width > 0 && bounds.height > 0 && style.visibility !== 'hidden' && style.display !== 'none'
+    }) ?? null
+  }
 
   useEffect(() => {
     if (!active) return undefined
@@ -28,7 +38,7 @@ export function TourGuide() {
     let attempts = 0
     let timer
     const locate = () => {
-      const target = step.selector ? document.querySelector(step.selector) : null
+      const target = findVisibleTarget(step.selector)
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' })
         window.requestAnimationFrame(() => setRect(target.getBoundingClientRect()))
@@ -39,13 +49,18 @@ export function TourGuide() {
     }
     locate()
     const refresh = () => {
-      const target = step.selector ? document.querySelector(step.selector) : null
+      const target = findVisibleTarget(step.selector)
       setRect(target?.getBoundingClientRect() ?? null)
     }
     window.addEventListener('resize', refresh)
     window.addEventListener('scroll', refresh, true)
     return () => { window.clearTimeout(timer); window.removeEventListener('resize', refresh); window.removeEventListener('scroll', refresh, true) }
   }, [active, location.pathname, navigate, step])
+
+  useEffect(() => {
+    if (wasActive.current && !active) window.requestAnimationFrame(() => document.querySelector('[data-tour="trigger"]')?.focus())
+    wasActive.current = active
+  }, [active])
 
   useEffect(() => {
     if (!active) return undefined
@@ -66,17 +81,23 @@ export function TourGuide() {
 
   if (!active) return null
   const last = stepIndex === total - 1
-  const spotlight = rect ? {
-    top: Math.max(8, rect.top - 8), left: Math.max(8, rect.left - 8),
-    width: Math.min(window.innerWidth - 16, rect.width + 16), height: rect.height + 16,
-  } : null
+  const spotlight = rect ? (() => {
+    const top = Math.max(8, rect.top - 8)
+    const left = Math.max(8, rect.left - 8)
+    return {
+      top,
+      left,
+      width: Math.max(0, Math.min(window.innerWidth - left - 8, rect.width + 16)),
+      height: Math.max(0, Math.min(window.innerHeight - top - 8, rect.height + 16)),
+    }
+  })() : null
 
   return <div className={`tour-layer${spotlight ? ' tour-layer--spotlight' : ''}`} role="presentation">
     {spotlight && <div className="tour-spotlight" style={spotlight} aria-hidden="true" />}
-    <section className="tour-dialog" role="dialog" aria-modal="true" aria-labelledby="tour-title" tabIndex="-1" ref={dialogRef}>
+    <section className="tour-dialog" role="dialog" aria-modal="true" aria-labelledby="tour-title" aria-describedby="tour-description" tabIndex="-1" ref={dialogRef}>
       <div className="tour-dialog__progress"><span>Paso {stepIndex + 1} de {total}</span><button type="button" onClick={skip}>Omitir</button></div>
       <h2 id="tour-title">{step.title}</h2>
-      <p>{step.description}</p>
+      <p id="tour-description">{step.description}</p>
       <div className="tour-dialog__actions">
         <button className="button button--secondary" type="button" onClick={previous} disabled={stepIndex === 0}>Anterior</button>
         <button className="button button--primary" type="button" onClick={last ? finish : next}>{last ? 'Finalizar' : 'Siguiente'}</button>

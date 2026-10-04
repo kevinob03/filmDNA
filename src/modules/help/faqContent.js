@@ -6,4 +6,5 @@ export const FAQ_ITEMS = Object.freeze([
   ['¿De dónde provienen los datos de las películas?', 'Los títulos, imágenes, puntuaciones y disponibilidad proceden principalmente de TMDB. La disponibilidad de streaming puede variar según la región.'],
   ['¿Qué datos guarda FilmDNA?', 'En esta versión académica se guardan localmente la sesión y, mediante JSON Server, los datos de perfil, biblioteca, diario y Movie DNA. No debes utilizar contraseñas reales.'],
   ['¿La búsqueda con IA siempre está disponible?', 'Depende de la configuración local de los proveedores. Si no está disponible, puedes seguir utilizando todos los filtros manuales.'],
+  ['¿Qué es el acompañamiento profesional?', 'Es una función voluntaria de cinematerapia supervisada. Un usuario puede asignar un psicólogo y conceder o revocar permisos específicos. FilmDNA no diagnostica ni sustituye atención profesional o servicios de emergencia.'],
 ])

@@ -225,7 +225,7 @@ function RecommendationsPage() {
       <p>{similarTo ? 'Historias conectadas por una experiencia cinematográfica parecida.' : 'Cuéntanos qué te apetece y encontraremos películas que encajen contigo. Sin complicaciones.'}</p>
     </section>
 
-    {!similarTo && <form className="natural-search" aria-labelledby="natural-search-title" aria-busy={intentState.status === 'loading'} onSubmit={searchNaturally}>
+    {!similarTo && <form className="natural-search" data-tour="recommendations-search" aria-labelledby="natural-search-title" aria-busy={intentState.status === 'loading'} onSubmit={searchNaturally}>
       <div className="natural-search__content"><FilterIcon name="magic" size={24} /><div><label id="natural-search-title" htmlFor="natural-query">Describe lo que buscas con tus propias palabras</label><input id="natural-query" placeholder="Ej.: una comedia ligera para ver con amigos" value={naturalQuery} onChange={(event) => setNaturalQuery(event.target.value)} disabled={intentState.status === 'loading'} /><small>FilmDNA convertirá tu descripción en filtros que podrás revisar y ajustar.</small></div></div>
       <button className="button natural-search__action" type="submit" disabled={!naturalQuery.trim() || intentState.status === 'loading'}>{intentState.status === 'loading' ? 'Interpretando…' : 'Buscar con IA'}</button>
     </form>}

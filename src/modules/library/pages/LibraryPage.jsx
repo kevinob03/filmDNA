@@ -115,7 +115,7 @@ function LibraryPage() {
   return (
     <main id="main-content" className="library-page">
       <PageContainer>
-        <header className="library-page__header">
+        <header className="library-page__header" data-tour="personal-space">
           <div><p className="eyebrow"><span aria-hidden="true" />Espacio personal</p><h1>Mi biblioteca</h1><p>Organiza lo que amas, lo que quieres ver y tus colecciones personales.</p></div>
           <Link className="button button--primary" to="/explorar">Explorar películas</Link>
         </header>

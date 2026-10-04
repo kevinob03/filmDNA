@@ -81,7 +81,7 @@ function ExplorePage() {
           <p>{hasDiscoveryProfile ? 'Descubre una selección que parte de tus gustos y evoluciona con tu perfil.' : 'Busca por título o descubre películas populares con información actual de TMDB.'}</p>
         </header>
 
-        <form className="movie-search" role="search" onSubmit={submitSearch}>
+        <form className="movie-search" data-tour="explore-search" role="search" onSubmit={submitSearch}>
           <label htmlFor="movie-search">Buscar películas</label>
           <div className="movie-search__control">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>

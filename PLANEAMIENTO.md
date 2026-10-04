@@ -417,9 +417,9 @@ Completado:
 - Resumen reutilizable de preguntas frecuentes integrado al final del Home; `/ayuda` conserva la colección completa desde una única fuente de contenido.
 - Auditoría E2E del Home añadida para `375px`, `768px` y `1280px`, enlaces funcionales, acordeones y ausencia de contenido obsoleto.
 - Inicio simplificado: eliminado el bloque redundante "Encuentra una película para hoy" y conservado el selector interactivo "¿Qué quieres sentir hoy?" como único acceso contextual a Recomendaciones.
-- Tour Guide global implementado con seis pasos sobre Inicio, Explorar, Recomendaciones, Accesibilidad y FAQ.
-- Tutorial accesible con navegación automática entre rutas, foco visual, controles anterior/siguiente, cierre con Escape y persistencia local de finalización.
-- Botón global para iniciar o repetir el tutorial y auditoría E2E aprobada en escritorio y móvil a `375px`.
+- Tour Guide v2 global implementado con ocho pasos públicos y pasos privados condicionales según sesión y rol. Distingue el selector puntual de Inicio del quiz que personaliza Explorar, explica coincidencia y confianza, chatbot global, Accesibilidad, FAQ, espacio personal y panel profesional cuando corresponde.
+- Tutorial accesible con navegación automática entre rutas, selectores estables `data-tour`, detección del control visible en desktop/móvil, foco visual acotado al viewport, controles anterior/siguiente, cierre con Escape, retorno del foco al disparador y persistencia versionada de finalización.
+- Botón global para iniciar o repetir el tutorial y auditoría E2E completa aprobada en escritorio y móvil a `375px`.
 - Porcentaje de coincidencia unificado en escala `1–100%` con ponderación de género, duración, época, puntuación, idioma, país, plataforma y preferencias de experiencia.
 - Cobertura y confianza visibles por tarjeta mediante criterios comprobados; los datos desconocidos se informan y no se convierten artificialmente en `0%`.
 - Orden de compatibilidad, fórmula combinada y fallback de IA validados con pruebas unitarias y auditorías E2E sobre seis combinaciones reales.
@@ -447,6 +447,9 @@ Completado:
 - Chatbot disponible desde el layout global de FilmDNA, con conversación conservada entre páginas y navegación automática a Recomendaciones cuando una respuesta crea, refina, reinicia o sustituye resultados.
 - Timeout del gateway del chatbot ajustado a 30 segundos, con máximo controlado de 45 segundos, para absorber latencias variables de Gemini sin convertir respuestas válidas en errores 504 prematuros.
 - Configuración opcional de proveedor de IA personal añadida al chatbot mediante un modal enmascarado: admite Google Gemini, Groq y DeepSeek, permite escoger el modelo, usar la clave sólo en memoria o conservarla hasta cerrar el navegador, y eliminar la configuración o preferencia. La clave viaja en un header separado al backend, omite n8n y nunca se incorpora al chat, `localStorage`, `db.json`, Git o Trello; sólo proveedor, modelo y decisión pueden recordarse sin secretos.
+- Inicio incorpora una sección visible de acompañamiento profesional antes del FAQ, con límites clínicos y de privacidad explícitos y CTA contextual: información pública para visitantes, gestión de consentimiento para usuarios e ingreso directo al panel para psicólogos.
+- FAQ ampliada para explicar la cinematerapia supervisada; el acceso a consentimiento mediante ancla espera contenido asíncrono y respeta el encabezado fijo.
+- Cobertura del bloque aprobada con 71 pruebas unitarias, build, auditoría completa del Tour Guide v2 y auditoría responsive del Inicio a `375px`, `768px` y `1280px` con los tres estados de CTA.
 
 ## 28. Siguiente paso
 

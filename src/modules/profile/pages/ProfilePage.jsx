@@ -95,7 +95,7 @@ function ProfilePage() {
               <section className="profile-panel profile-preferences" aria-labelledby="favorite-genres-title">
                 <header className="profile-section-heading"><p className="eyebrow"><span aria-hidden="true" />Tu selección</p><h2 id="favorite-genres-title">Géneros favoritos</h2><p>Una firma personal en tu perfil; no altera el recomendador.</p></header>
                 {favoriteGenreLabels.length ? <ul>{favoriteGenreLabels.map((label) => <li key={label}>{label}</li>)}</ul> : <p className="profile-preferences__empty">Todavía no elegiste géneros favoritos. Puedes añadir hasta cinco al editar tu perfil.</p>}
-                <div className="profile-discovery-quiz">
+                <div className="profile-discovery-quiz" data-tour="discovery-profile">
                   <div><h3>Tu selección de descubrimiento</h3><p>Vuelve a responder el quiz para actualizar el contenido que aparece en Explorar.</p></div>
                   <Link className="button button--secondary" to="/personalizacion">Retomar quiz</Link>
                 </div>

@@ -44,7 +44,7 @@ function PsychologistDashboardPage() {
   return (
     <main id="main-content" className="psychologist-page">
       <PageContainer>
-        <header className="psychologist-page__header">
+        <header className="psychologist-page__header" data-tour="psychologist-dashboard">
           <p className="eyebrow"><span aria-hidden="true" />Cinematerapia supervisada</p>
           <h1>Panel del psicólogo</h1>
           <p>Hola, {user.nombre}. Solo puedes ver usuarios que te eligieron y mantienen un consentimiento activo.</p>

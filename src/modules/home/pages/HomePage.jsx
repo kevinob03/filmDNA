@@ -4,6 +4,7 @@ import MovieDNAPreview from '../components/MovieDNAPreview.jsx'
 import TrendingMovies from '../components/TrendingMovies.jsx'
 import PlatformOverview from '../components/PlatformOverview.jsx'
 import HomeFaq from '../components/HomeFaq.jsx'
+import ProfessionalSupport from '../components/ProfessionalSupport.jsx'
 import { useScrollReveal } from '../useScrollReveal.js'
 import '../home.css'
 
@@ -17,6 +18,7 @@ function HomePage() {
       <TrendingMovies />
       <MovieDNAPreview />
       <PlatformOverview />
+      <ProfessionalSupport />
       <HomeFaq />
     </main>
   )
