@@ -60,6 +60,6 @@ export const buildRecommendationChatRequest = ({ sessionId, message, history, fi
 
 export const sendRecommendationChatMessage = async (input) => {
   const request = buildRecommendationChatRequest(input)
-  const response = await requestRecommendationChat(request, input.apiKey)
+  const response = await requestRecommendationChat(request, input.personalAI)
   return validateRecommendationChatExchange(request, response).response
 }

@@ -116,8 +116,8 @@ test('endpoint distingue JSON invalido, payload grande y falta de configuracion'
 test('endpoint separa la clave personal del payload y omite n8n', async (context) => {
   let observed
   const { server, url } = await startServer({
-    personalGenerate: async (payload, apiKey) => {
-      observed = { payload, apiKey }
+    personalGenerate: async (payload, credentials) => {
+      observed = { payload, credentials }
       return validResponse
     },
     fetchImpl: async () => { throw new Error('n8n no debe ejecutarse') },
@@ -127,11 +127,11 @@ test('endpoint separa la clave personal del payload y omite n8n', async (context
   const apiKey = 'AIza_personal_endpoint_key_123456'
   const response = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-FilmDNA-Gemini-Key': apiKey },
+    headers: { 'Content-Type': 'application/json', 'X-FilmDNA-AI-Provider': 'groq', 'X-FilmDNA-AI-Key': apiKey, 'X-FilmDNA-AI-Model': 'openai/gpt-oss-20b' },
     body: JSON.stringify(validRequest),
   })
   assert.equal(response.status, 200)
   assert.deepEqual(await response.json(), validResponse)
-  assert.equal(observed.apiKey, apiKey)
+  assert.deepEqual(observed.credentials, { provider: 'groq', apiKey, model: 'openai/gpt-oss-20b' })
   assert.equal(Object.hasOwn(observed.payload, 'apiKey'), false)
 })
