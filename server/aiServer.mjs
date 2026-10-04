@@ -6,6 +6,7 @@ import { movieDNAOperation } from './ai/operations/movieDNA.mjs'
 import { classifyMoviesOperation } from './ai/operations/classifyMovies.mjs'
 import { interpretSearchIntentOperation } from './ai/operations/interpretSearchIntent.mjs'
 import { cinematherapyDraftOperation } from './ai/operations/cinematherapyDraft.mjs'
+import { adminProjectionOperation } from './ai/operations/adminProjection.mjs'
 import {
   createRecommendationChatErrorResponse,
   forwardRecommendationChat,
@@ -117,6 +118,19 @@ export const createAIServer = ({ recommendationChat = {} } = {}) => createServer
       const body = await readJsonBody(request)
       const draft = await runAIOperation(cinematherapyDraftOperation, body?.input, { budgetMs: body?.budgetMs })
       sendJson(response, 200, draft)
+    } catch (error) {
+      const type = toPublicAIError(error)
+      const status = type === 'configuration' ? 503 : type === 'rate-limited' ? 429 : type === 'timeout' ? 504 : type === 'invalid-schema' ? 422 : 502
+      sendJson(response, status, { error: type })
+    }
+    return
+  }
+
+  if (request.method === 'POST' && request.url === '/api/ai/admin-projection') {
+    try {
+      const body = await readJsonBody(request)
+      const projection = await runAIOperation(adminProjectionOperation, body?.input, { budgetMs: body?.budgetMs })
+      sendJson(response, 200, projection)
     } catch (error) {
       const type = toPublicAIError(error)
       const status = type === 'configuration' ? 503 : type === 'rate-limited' ? 429 : type === 'timeout' ? 504 : type === 'invalid-schema' ? 422 : 502

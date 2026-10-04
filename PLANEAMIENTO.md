@@ -364,6 +364,8 @@ Completado:
 - React Router DOM configurado con rutas mínimas de inicio y página no encontrada.
 - Arquitectura modular inicial de `src/` preparada.
 - Arquitectura React final reorganizada en capas verificables: `components → pages → routes → App.jsx → main.jsx → index.html`; se eliminaron las carpetas heredadas `modules` y `shared`, y `npm run test:structure` impide dependencias ascendentes o saltos entre capas.
+- Dashboard administrativo ampliado con métricas de uso, distribución de roles, actividad mensual, adopción de funciones, distribución de calificaciones y proyección de tres meses. La línea base es matemática y la proyección opcional de IA utiliza únicamente agregados sin datos personales, valida meses/rangos y muestra confianza y limitaciones.
+- Cobertura del dashboard aprobada con 75 pruebas Jest, 4 pruebas del contrato/endpoint de proyección, infraestructura IA 7/7, build de 181 módulos, control de secretos y auditoría E2E administrativa con cuatro gráficos, acceso por rol y responsive a `390px`, `768px` y `1280px`.
 - Estilos globales, tipografías y design tokens de FilmDNA configurados.
 - Asset oficial del logo preparado para uso en runtime.
 - Home temporal de verificación implementada.

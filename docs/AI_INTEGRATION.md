@@ -56,6 +56,18 @@ Una nueva interpretación válida reemplaza los filtros anteriores. Después, el
 
 `interpretSearchIntent` convierte texto en filtros. `classifyMovies` clasifica metadata de películas únicamente para completar evidencia `unknown`. Comparten orquestador, proveedores, deadline y manejo de errores, pero tienen prompts, schemas, contratos y responsabilidades independientes.
 
+### Proyección administrativa
+
+`POST /api/ai/admin-projection` genera una interpretación y proyección orientativa de los registros mensuales del Diario para los siguientes tres meses.
+
+- El frontend calcula primero una línea base matemática verificable.
+- La IA recibe únicamente conteos agregados, adopción porcentual y series mensuales.
+- No se envían identificadores, nombres, correos, contraseñas, reseñas ni notas privadas.
+- La salida `admin-projection-v1` exige tendencia, confianza, tres meses predefinidos e insights acotados.
+- Los meses y rangos numéricos se validan en el servidor para impedir periodos inventados o cifras desproporcionadas.
+- Si la IA no está configurada, alcanza su límite o falla, el dashboard conserva todos los gráficos reales y la línea base matemática.
+- La interfaz identifica la proyección como estimación y no permite decisiones automáticas a partir de ella.
+
 ## Desarrollo local
 
 El arranque normal levanta Vite y el backend IA en un solo proceso coordinador:
