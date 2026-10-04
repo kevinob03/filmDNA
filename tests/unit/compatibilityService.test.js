@@ -1,5 +1,5 @@
 import { calculateCompatibility } from '../../src/services/recommendations/compatibilityService.js'
-import { OPTION_GROUPS } from '../../src/modules/recommendations/recommendationConfig.js'
+import { OPTION_GROUPS } from '../../src/config/recommendationConfig.js'
 
 const objective = (overrides = {}) => ({
   genres: [{ id: 35, name: 'Comedia' }], runtime: 100, releaseDate: '2024-01-01',

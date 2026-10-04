@@ -1,4 +1,4 @@
-import { APP_ROLES, APP_ROLE_VALUES, getRoleLabel } from '../../src/shared/auth/roles.js'
+import { APP_ROLES, APP_ROLE_VALUES, getRoleLabel } from '../../src/constants/roles.js'
 
 describe('roles de FilmDNA', () => {
   test('incluye los tres roles autorizados', () => {

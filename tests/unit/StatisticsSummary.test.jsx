@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import StatisticsSummary from '../../src/modules/statistics/components/StatisticsSummary.jsx'
+import StatisticsSummary from '../../src/components/statistics/StatisticsSummary.jsx'
 
 const renderSummary = (changes = {}) => render(<StatisticsSummary summary={{ watchedCount: 4, averageRating: 8.5, favoriteCount: 2, ...changes }} />)
 

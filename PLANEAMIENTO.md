@@ -28,34 +28,34 @@ Desarrollar una aplicación web modular, responsive y accesible que permita expl
 
 No añadir tecnologías importantes ni dependencias sin autorización. El anteproyecto menciona OMDb como posible complemento, pero el contexto oficial posterior selecciona TMDB como API cinematográfica. OMDb no forma parte del stack confirmado.
 
-## 4. Arquitectura prevista
+## 4. Arquitectura vigente
 
 ```text
 src/
-├── modules/
-│   ├── home/
-│   ├── explore/
-│   ├── movies/
-│   ├── recommendations/
-│   ├── diary/
-│   ├── lists/
-│   ├── statistics/
-│   ├── profile/
-│   ├── auth/
-│   └── admin/
-├── shared/
-│   ├── components/
-│   ├── hooks/
-│   └── utils/
+├── components/         # Piezas reutilizables agrupadas por funcionalidad
+├── pages/              # Pantallas que componen los components
+├── routes/             # Navegación que compone las pages
 ├── services/
-├── routes/
 ├── context/
+├── config/
+├── constants/
+├── data/
+├── hooks/
+├── models/
 ├── styles/
+├── utils/
 ├── App.jsx
 └── main.jsx
+index.html
 ```
 
-React será el cliente. React Router DOM centralizará la navegación. Las llamadas HTTP locales y externas se concentrarán en `services/`. JSON Server simulará el backend de los datos propios. Se debe mantener esta separación sin sobreingeniería.
+La composición de la interfaz sigue estrictamente esta cadena:
+
+```text
+components → pages → routes → App.jsx → main.jsx → index.html
+```
+
+`App.jsx` importa únicamente las rutas. `main.jsx` monta `App` y `index.html` carga únicamente el punto de entrada `main.jsx`. React Router DOM centraliza la navegación y las páginas raíz/de acceso alojan el layout, los providers y las protecciones por sesión o rol. Las llamadas HTTP locales y externas permanecen concentradas en `services/`. La regla se valida con `npm run test:structure`.
 
 ## 5. Módulos
 
@@ -363,6 +363,7 @@ Completado:
 - React y Vite inicializados en la raíz del repositorio.
 - React Router DOM configurado con rutas mínimas de inicio y página no encontrada.
 - Arquitectura modular inicial de `src/` preparada.
+- Arquitectura React final reorganizada en capas verificables: `components → pages → routes → App.jsx → main.jsx → index.html`; se eliminaron las carpetas heredadas `modules` y `shared`, y `npm run test:structure` impide dependencias ascendentes o saltos entre capas.
 - Estilos globales, tipografías y design tokens de FilmDNA configurados.
 - Asset oficial del logo preparado para uso en runtime.
 - Home temporal de verificación implementada.

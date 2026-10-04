@@ -6,7 +6,7 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
   collectCoverageFrom: [
-    'src/modules/statistics/statisticsCalculations.js',
-    'src/modules/statistics/components/StatisticsSummary.jsx',
+    'src/utils/statisticsCalculations.js',
+    'src/components/statistics/StatisticsSummary.jsx',
   ],
 }

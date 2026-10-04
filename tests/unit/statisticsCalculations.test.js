@@ -3,7 +3,7 @@ import {
   calculateAverageRating,
   groupEntriesByMonth,
   summarizeStatistics,
-} from '../../src/modules/statistics/statisticsCalculations.js'
+} from '../../src/utils/statisticsCalculations.js'
 
 describe('calculateAverageRating', () => {
   test('calcula el promedio de varias calificaciones personales', () => {

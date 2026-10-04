@@ -2,6 +2,22 @@
 
 FilmDNA es una plataforma de descubrimiento cinematográfico construida con React. Combina datos reales de TMDB con módulos propios que se incorporan de forma progresiva.
 
+## Estructura React
+
+La interfaz respeta una dirección de composición única y verificable:
+
+```text
+src/components → src/pages → src/routes → src/App.jsx → src/main.jsx → index.html
+```
+
+- `components/` contiene las piezas reutilizables y de presentación.
+- `pages/` compone esas piezas para formar cada pantalla; también contiene la página raíz y las páginas de control de acceso.
+- `routes/` importa páginas y define toda la navegación.
+- `App.jsx` importa únicamente la capa de rutas.
+- `main.jsx` monta `App` en el elemento `#root` de `index.html`.
+
+La regla puede comprobarse automáticamente con `npm run test:structure`.
+
 ## Desarrollo local
 
 1. Instala las dependencias con `npm install`.

@@ -1,4 +1,4 @@
-import { normalizeEmotionalRecord } from '../modules/cinematherapy/emotionalRecordModel.js'
+import { normalizeEmotionalRecord } from '../models/emotionalRecordModel.js'
 
 const DEFAULT_API_URL = 'http://localhost:3001'
 const configuredApiUrl = import.meta.env?.VITE_API_URL?.trim()

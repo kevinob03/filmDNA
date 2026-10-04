@@ -1,50 +1,56 @@
 import { Route, Routes } from 'react-router-dom'
-import AdminPage from '../modules/admin/pages/AdminPage.jsx'
-import LoginPage from '../modules/auth/pages/LoginPage.jsx'
-import LibraryPage from '../modules/library/pages/LibraryPage.jsx'
-import RegisterPage from '../modules/auth/pages/RegisterPage.jsx'
-import HomePage from '../modules/home/pages/HomePage.jsx'
-import ExplorePage from '../modules/explore/pages/ExplorePage.jsx'
-import MovieDetailPage from '../modules/movies/pages/MovieDetailPage.jsx'
-import ProfilePage from '../modules/profile/pages/ProfilePage.jsx'
-import RecommendationsPage from '../modules/recommendations/pages/RecommendationsPage.jsx'
-import NotFoundPage from '../modules/errors/pages/NotFoundPage.jsx'
-import { GuestRoute, PrivateRoute, RoleRoute } from './RouteGuards.jsx'
-import UnauthorizedPage from '../modules/errors/pages/UnauthorizedPage.jsx'
-import DiaryPage from '../modules/diary/pages/DiaryPage.jsx'
-import StatisticsPage from '../modules/statistics/pages/StatisticsPage.jsx'
-import FaqPage from '../modules/help/pages/FaqPage.jsx'
-import PersonalizationPage from '../modules/personalization/pages/PersonalizationPage.jsx'
-import PsychologistDashboardPage from '../modules/psychologist/pages/PsychologistDashboardPage.jsx'
+import AdminPage from '../pages/admin/AdminPage.jsx'
+import LoginPage from '../pages/auth/LoginPage.jsx'
+import RegisterPage from '../pages/auth/RegisterPage.jsx'
+import DiaryPage from '../pages/diary/DiaryPage.jsx'
+import NotFoundPage from '../pages/errors/NotFoundPage.jsx'
+import UnauthorizedPage from '../pages/errors/UnauthorizedPage.jsx'
+import ExplorePage from '../pages/explore/ExplorePage.jsx'
+import FaqPage from '../pages/help/FaqPage.jsx'
+import HomePage from '../pages/home/HomePage.jsx'
+import LibraryPage from '../pages/library/LibraryPage.jsx'
+import MovieDetailPage from '../pages/movies/MovieDetailPage.jsx'
+import PersonalizationPage from '../pages/personalization/PersonalizationPage.jsx'
+import ProfilePage from '../pages/profile/ProfilePage.jsx'
+import PsychologistDashboardPage from '../pages/psychologist/PsychologistDashboardPage.jsx'
+import RecommendationsPage from '../pages/recommendations/RecommendationsPage.jsx'
+import RootPage from '../pages/root/RootPage.jsx'
+import { GuestPage, PrivatePage, RolePage } from '../pages/routing/RouteAccessPages.jsx'
+import StatisticsPage from '../pages/statistics/StatisticsPage.jsx'
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path={'/recomendaciones'} element={<RecommendationsPage />} />
-      <Route path="/" element={<HomePage />} />
-      <Route path="/explorar" element={<ExplorePage />} />
-      <Route path="/pelicula/:id" element={<MovieDetailPage />} />
-      <Route path="/ayuda" element={<FaqPage />} />
-      <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
-      <Route path="/registro" element={<GuestRoute><RegisterPage /></GuestRoute>} />
-      <Route path="/perfil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
-      <Route path="/personalizacion" element={<PrivateRoute><PersonalizationPage /></PrivateRoute>} />
-      <Route path="/biblioteca" element={<PrivateRoute><LibraryPage /></PrivateRoute>} />
-      <Route path="/diario" element={<PrivateRoute><DiaryPage /></PrivateRoute>} />
-      <Route path="/estadisticas" element={<PrivateRoute><StatisticsPage /></PrivateRoute>} />
-      <Route
-        path="/psicologo"
-        element={<RoleRoute allowedRoles={['psychologist']}><PsychologistDashboardPage /></RoleRoute>}
-      />
-      <Route
-        path="/admin"
-        element={<RoleRoute allowedRoles={['admin']}><AdminPage /></RoleRoute>}
-      />
-      <Route
-        path="/acceso-denegado"
-        element={<PrivateRoute><UnauthorizedPage /></PrivateRoute>}
-      />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route element={<RootPage />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/explorar" element={<ExplorePage />} />
+        <Route path="/recomendaciones" element={<RecommendationsPage />} />
+        <Route path="/pelicula/:id" element={<MovieDetailPage />} />
+        <Route path="/ayuda" element={<FaqPage />} />
+
+        <Route element={<GuestPage />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registro" element={<RegisterPage />} />
+        </Route>
+
+        <Route element={<PrivatePage />}>
+          <Route path="/perfil" element={<ProfilePage />} />
+          <Route path="/personalizacion" element={<PersonalizationPage />} />
+          <Route path="/biblioteca" element={<LibraryPage />} />
+          <Route path="/diario" element={<DiaryPage />} />
+          <Route path="/estadisticas" element={<StatisticsPage />} />
+          <Route path="/acceso-denegado" element={<UnauthorizedPage />} />
+
+          <Route element={<RolePage allowedRoles={['psychologist']} />}>
+            <Route path="/psicologo" element={<PsychologistDashboardPage />} />
+          </Route>
+          <Route element={<RolePage allowedRoles={['admin']} />}>
+            <Route path="/admin" element={<AdminPage />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
     </Routes>
   )
 }

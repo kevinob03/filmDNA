@@ -9,7 +9,7 @@ import {
   PACE_OPTIONS,
   POPULARITY_OPTIONS,
   REGION_OPTIONS,
-} from '../../modules/recommendations/recommendationConfig.js'
+} from '../../config/recommendationConfig.js'
 
 export const SEARCH_INTENT_SCHEMA_VERSION = 'recommendation-search-intent-v1'
 
