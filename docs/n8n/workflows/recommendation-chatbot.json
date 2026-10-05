@@ -88,23 +88,23 @@
     },
     {
       "parameters": {
-        "modelName": "models/gemini-3-flash-preview",
+        "model": "deepseek-flash",
         "options": {
-          "maxOutputTokens": 1200,
+          "maxTokens": 1200,
           "temperature": 0.2,
-          "topK": 20,
-          "topP": 0.8
+          "timeout": 60000,
+          "maxRetries": 3
         }
       },
       "id": "2854f5b6-2ab8-44ca-be65-aae42f5210c5",
-      "name": "Google Gemini Chat Model",
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1.1,
+      "name": "DeepSeek Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+      "typeVersion": 1,
       "position": [-220, 180],
       "credentials": {
-        "googlePalmApi": {
-          "id": "CONFIGURE_GEMINI_AFTER_IMPORT",
-          "name": "FilmDNA Gemini n8n"
+        "deepSeekApi": {
+          "id": "CONFIGURE_DEEPSEEK_AFTER_IMPORT",
+          "name": "FilmDNA DeepSeek n8n"
         }
       }
     },
@@ -167,7 +167,7 @@
         [{ "node": "Responder solicitud invalida", "type": "main", "index": 0 }]
       ]
     },
-    "Google Gemini Chat Model": {
+    "DeepSeek Chat Model": {
       "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]]
     },
     "FilmDNA_Filter_Vocabulary": {

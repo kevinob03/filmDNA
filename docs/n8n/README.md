@@ -55,7 +55,7 @@ Archivo: `workflows/recommendation-chatbot.json`.
 - **Objetivo:** orquestar una conversacion de descubrimiento cinematografico sin permitir que la IA invente peliculas.
 - **Trigger:** webhook `POST /filmdna/recommendation-chat`.
 - **Entrada:** contrato `recommendation-chat-v1` validado por el servidor FilmDNA.
-- **IA:** se ejecuta visualmente en `AI Agent`, conectado a `Google Gemini Chat Model`.
+- **IA:** se ejecuta visualmente en `AI Agent`, conectado a `DeepSeek Chat Model`.
 - **Herramienta:** `FilmDNA_Filter_Vocabulary` limita al agente a los filtros reales de FilmDNA.
 - **Salida:** `Structured Output Parser` obliga al agente a respetar el contrato JSON.
 - **Resultado:** una accion conversacional y cambios de filtros; nunca una lista creada por el modelo.
@@ -68,8 +68,9 @@ El JSON incluye solamente referencias `CONFIGURE_*_AFTER_IMPORT`. n8n solicitara
 1. En **Recibir mensaje**, crear o seleccionar `FilmDNA Recommendation Webhook`.
    - Header: `X-FilmDNA-Webhook-Secret`.
    - Valor: el mismo secreto fuerte de `N8N_RECOMMENDATION_WEBHOOK_SECRET` en el `.env` de FilmDNA.
-2. En **Google Gemini Chat Model**, crear o seleccionar una credencial **Google Gemini(PaLM) API** llamada `FilmDNA Gemini n8n`.
-   - API key: una clave Gemini valida.
+2. En **DeepSeek Chat Model**, crear o seleccionar una credencial **DeepSeek** llamada `FilmDNA DeepSeek n8n`.
+   - API key: una clave DeepSeek valida con saldo.
+   - Modelo: `deepseek-flash`, seleccionado desde la lista que carga n8n para la cuenta.
    - La clave queda almacenada en el gestor de credenciales de n8n y no en el workflow.
 
 El secreto del webhook debe tener al menos 12 caracteres y no debe usar el prefijo `VITE_`.
@@ -85,9 +86,9 @@ N8N_RECOMMENDATION_TIMEOUT_MS=30000
 Antes de activar:
 
 1. Iniciar FilmDNA con `npm run dev`.
-2. Asociar la credencial Header Auth y la credencial Gemini.
+2. Asociar la credencial Header Auth y la credencial DeepSeek.
 3. Ejecutar el webhook de prueba desde n8n.
-4. Confirmar visualmente la ejecucion de **AI Agent**, **Google Gemini Chat Model**, **FilmDNA_Filter_Vocabulary** y **Structured Output Parser**.
+4. Confirmar visualmente la ejecucion de **AI Agent**, **DeepSeek Chat Model**, **FilmDNA_Filter_Vocabulary** y **Structured Output Parser**.
 5. Publicar o activar el workflow.
 6. Usar en FilmDNA la URL de produccion `/webhook/`, no `/webhook-test/`.
 

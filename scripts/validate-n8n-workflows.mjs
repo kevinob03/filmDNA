@@ -31,7 +31,7 @@ for (const relativePath of workflowFiles) {
       assert(
         reference
           && entries.length === 1
-          && ['httpHeaderAuth', 'googlePalmApi'].includes(credentialType)
+          && ['httpHeaderAuth', 'deepSeekApi'].includes(credentialType)
           && Object.keys(reference).every((key) => ['id', 'name'].includes(key))
           && String(reference.id).startsWith('CONFIGURE_')
           && String(reference.name).startsWith('FilmDNA '),
@@ -79,7 +79,7 @@ const chatbot = JSON.parse(await readFile(resolve(workflowFiles[2]), 'utf8'))
 const chatbotText = JSON.stringify(chatbot)
 const chatbotWebhook = chatbot.nodes.find((node) => node.type === 'n8n-nodes-base.webhook')
 const chatbotAgent = chatbot.nodes.find((node) => node.type === '@n8n/n8n-nodes-langchain.agent')
-const chatbotModel = chatbot.nodes.find((node) => node.type === '@n8n/n8n-nodes-langchain.lmChatGoogleGemini')
+const chatbotModel = chatbot.nodes.find((node) => node.type === '@n8n/n8n-nodes-langchain.lmChatDeepSeek')
 const chatbotTool = chatbot.nodes.find((node) => node.type === '@n8n/n8n-nodes-langchain.toolCode')
 const chatbotParser = chatbot.nodes.find((node) => node.type === '@n8n/n8n-nodes-langchain.outputParserStructured')
 assert(chatbotWebhook?.parameters?.path === 'filmdna/recommendation-chat', 'recommendation-chatbot: ruta Webhook invalida')
@@ -89,13 +89,16 @@ assert(chatbot.nodes.filter((node) => node.type === 'n8n-nodes-base.respondToWeb
 assert(chatbotAgent?.name === 'AI Agent' && chatbotAgent.typeVersion >= 3, 'recommendation-chatbot: falta AI Agent actual')
 assert(chatbotAgent?.parameters?.hasOutputParser === true, 'recommendation-chatbot: AI Agent sin salida estructurada')
 assert(chatbotAgent?.onError === 'continueRegularOutput', 'recommendation-chatbot: AI Agent sin fallback seguro')
-assert(chatbotModel?.credentials?.googlePalmApi?.id === 'CONFIGURE_GEMINI_AFTER_IMPORT', 'recommendation-chatbot: Gemini sin credencial sanitizada')
-assert(Number(chatbotModel?.parameters?.options?.temperature) <= 0.3, 'recommendation-chatbot: temperatura Gemini demasiado alta')
+assert(chatbotModel?.credentials?.deepSeekApi?.id === 'CONFIGURE_DEEPSEEK_AFTER_IMPORT', 'recommendation-chatbot: DeepSeek sin credencial sanitizada')
+assert(chatbotModel?.parameters?.model === 'deepseek-flash', 'recommendation-chatbot: modelo DeepSeek inesperado')
+assert(Number(chatbotModel?.parameters?.options?.temperature) <= 0.3, 'recommendation-chatbot: temperatura DeepSeek demasiado alta')
+assert(Number(chatbotModel?.parameters?.options?.maxRetries) >= 3, 'recommendation-chatbot: DeepSeek sin reintentos suficientes')
+assert(Number(chatbotModel?.parameters?.options?.timeout) >= 30_000, 'recommendation-chatbot: timeout DeepSeek demasiado corto')
 assert(chatbotTool?.name === 'FilmDNA_Filter_Vocabulary', 'recommendation-chatbot: falta herramienta de vocabulario')
 assert(chatbotTool?.parameters?.specifyInputSchema === true, 'recommendation-chatbot: herramienta sin schema')
 assert(chatbotParser?.parameters?.schemaType === 'manual', 'recommendation-chatbot: parser sin JSON Schema')
 for (const [source, connectionType] of [
-  ['Google Gemini Chat Model', 'ai_languageModel'],
+  ['DeepSeek Chat Model', 'ai_languageModel'],
   ['FilmDNA_Filter_Vocabulary', 'ai_tool'],
   ['Structured Output Parser', 'ai_outputParser'],
 ]) {
