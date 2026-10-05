@@ -7,6 +7,7 @@
     "dev": "node scripts/dev.mjs",
     "dev:vite": "vite",
     "server": "node scripts/startJsonServer.mjs",
+    "server:demo": "node scripts/startJsonServer.mjs --demo",
     "server:ai": "node --use-system-ca --env-file-if-exists=.env server/aiServer.mjs",
     "build": "vite build",
     "preview": "vite preview",
@@ -39,6 +40,7 @@
     "test:e2e:recommendations:search": "node tests/e2e/recommendations-search.audit.mjs",
     "test:security:ai-bundle": "node scripts/check-ai-secrets.mjs",
     "test:n8n-workflows": "node scripts/validate-n8n-workflows.mjs",
+    "test:demo-db": "node --test tests/server/demoDatabase.test.mjs",
     "test:structure": "node scripts/validate-react-structure.mjs"
   },
   "dependencies": {

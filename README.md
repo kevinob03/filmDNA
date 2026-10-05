@@ -36,6 +36,14 @@ La regla puede comprobarse automáticamente con `npm run test:structure`.
 
 La aplicación usa `VITE_API_URL=http://localhost:3001` como URL predeterminada para JSON Server.
 
+### Base normal y base de demostracion
+
+- `npm run server` conserva y utiliza `db.json`.
+- `npm run server:demo` regenera y utiliza `db.demo.json` con actividad sintetica reciente para los graficos y proyecciones de Admin.
+- Para cambiar de modo, detiene JSON Server con `Ctrl + C`, inicia el otro comando y recarga FilmDNA.
+
+Cuenta del modo demo: `admin.demo@filmdna.test` / `Demo123!`. `db.demo.json` es local, regenerable y esta ignorado por Git.
+
 ## Cuentas demo locales
 
 Estas cuentas existen únicamente en `db.json` para comprobar roles durante el desarrollo académico:
