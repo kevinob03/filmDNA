@@ -1,4 +1,8 @@
 const confidenceLabels = { low: 'Baja', medium: 'Media', high: 'Alta' }
+const confidenceValues = { low: 34, medium: 67, high: 100 }
+const trendLabels = { growing: 'Crecimiento', stable: 'Estable', declining: 'Descenso', 'insufficient-data': 'Datos insuficientes' }
+const trendSymbols = { growing: '↗', stable: '→', declining: '↘', 'insufficient-data': '—' }
+const signedNumberFormatter = new Intl.NumberFormat('es-CR', { signDisplay: 'always', maximumFractionDigits: 0 })
 
 export function EngagementMetrics({ totals }) {
   const metrics = [
@@ -91,9 +95,15 @@ export function RatingDistributionChart({ distribution }) {
   )
 }
 
-export function AIProjectionPanel({ result, status, error, onGenerate }) {
+export function AIProjectionPanel({ result, status, error, onGenerate, baselineForecast = [] }) {
   const projection = result?.result
-  const trendLabels = { growing: 'Crecimiento', stable: 'Estable', declining: 'Descenso', 'insufficient-data': 'Datos insuficientes' }
+  const forecast = projection?.forecast ?? []
+  const maximum = Math.max(1, ...forecast.map(({ count }, index) => Math.max(count, baselineForecast[index]?.count ?? 0)))
+  const chartSummary = forecast.map(({ month, count }, index) => {
+    const baseline = baselineForecast[index]
+    return `${baseline?.label ?? month}: IA ${count}, línea base ${baseline?.count ?? 0}`
+  }).join(', ')
+
   return (
     <section className="admin-panel admin-panel--wide admin-ai-projection" aria-labelledby="ai-projection-title">
       <header className="admin-section-heading admin-section-heading--split">
@@ -104,7 +114,33 @@ export function AIProjectionPanel({ result, status, error, onGenerate }) {
       {status === 'loading' && <div className="admin-ai-state" aria-live="polite">Comparando tendencia, adopción y actividad reciente…</div>}
       {error && <div className="admin-ai-state admin-ai-state--error" role="alert">{error}</div>}
       {projection && <div className="admin-ai-result" aria-live="polite">
-        <div className="admin-ai-result__summary"><div><span>Tendencia estimada</span><strong>{trendLabels[projection.trend]}</strong></div><div><span>Confianza</span><strong>{confidenceLabels[projection.confidence]}</strong></div><div><span>Proveedor</span><strong>{result.provider}</strong></div></div>
+        <div className="admin-ai-result__summary">
+          <div><span>Tendencia estimada</span><strong><i className={`admin-trend admin-trend--${projection.trend}`} aria-hidden="true">{trendSymbols[projection.trend]}</i>{trendLabels[projection.trend]}</strong></div>
+          <div><span>Confianza</span><strong>{confidenceLabels[projection.confidence]}</strong><i className="admin-confidence-meter" aria-hidden="true"><span style={{ width: `${confidenceValues[projection.confidence]}%` }} /></i></div>
+          <div><span>Proveedor</span><strong>{result.provider}</strong></div>
+        </div>
+        <section className="admin-ai-forecast" aria-labelledby="ai-forecast-title">
+          <header className="admin-ai-forecast__header">
+            <div><h3 id="ai-forecast-title">Próximos 3 meses</h3><p>Entradas estimadas en el Diario</p></div>
+            <div className="admin-ai-forecast__legend" aria-hidden="true"><span><i />IA</span><span><i className="is-baseline" />Línea base</span></div>
+          </header>
+          <div className="admin-ai-forecast__plot" role="img" aria-label={`Comparación de proyección IA con línea base. ${chartSummary}`}>
+            {forecast.map(({ month, count }, index) => {
+              const baseline = baselineForecast[index]?.count ?? 0
+              const label = baselineForecast[index]?.label ?? month
+              const delta = count - baseline
+              return <div className="admin-ai-forecast__month" key={month}>
+                <div className="admin-ai-forecast__bars" aria-hidden="true">
+                  <span className="admin-ai-forecast__bar admin-ai-forecast__bar--baseline" style={{ height: `${Math.max(baseline ? 10 : 2, baseline / maximum * 100)}%` }} />
+                  <span className="admin-ai-forecast__bar" style={{ height: `${Math.max(count ? 10 : 2, count / maximum * 100)}%` }} />
+                </div>
+                <strong>{count}</strong>
+                <span>{label}</span>
+                <small className={delta > 0 ? 'is-positive' : delta < 0 ? 'is-negative' : ''}>{signedNumberFormatter.format(delta)} vs. base</small>
+              </div>
+            })}
+          </div>
+        </section>
         <p>{projection.summary}</p>
         <div className="admin-ai-insights">{projection.insights.map(({ title, detail }) => <article key={title}><h3>{title}</h3><p>{detail}</p></article>)}</div>
         <p className="admin-chart-note">Proyección orientativa generada con {result.model}. Debe interpretarse junto con los datos reales; no toma decisiones automáticas.</p>

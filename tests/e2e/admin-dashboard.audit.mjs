@@ -106,6 +106,9 @@ try {
 
   await page.getByRole('button', { name: 'Generar proyección IA' }).click()
   await page.getByText(aiResponse.result.summary).waitFor()
+  const visualProjection = page.getByRole('img', { name: /Comparación de proyección IA con línea base/ })
+  await visualProjection.waitFor()
+  assert.match(await visualProjection.getAttribute('aria-label'), /IA 2, línea base/)
   assert.equal(projectionPayload.input.monthlyActivity.length, 6)
   assert.equal(projectionPayload.input.baselineForecast.length, 3)
   assert.doesNotMatch(JSON.stringify(projectionPayload), /Admin Uno|admin@filmdna|user-1|privada/)

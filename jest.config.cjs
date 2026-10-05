@@ -12,6 +12,7 @@ module.exports = {
     'src/utils/statisticsCalculations.js',
     'src/components/statistics/StatisticsSummary.jsx',
     'src/components/admin/AdminUserForm.jsx',
+    'src/components/admin/AdminAnalyticsCharts.jsx',
     'src/components/shared/AccountMenu.jsx',
     'src/components/recommendations/RecommendationChat.jsx',
   ],
