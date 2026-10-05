@@ -92,7 +92,7 @@
 .recommendation-chat__launcher { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .45rem; padding: .55rem .8rem; border: 1px solid var(--border-green); border-radius: var(--radius-full); background: var(--color-charcoal-elevated); color: var(--color-text-primary); box-shadow: var(--shadow-card); cursor: pointer; font-weight: 700; }
 .recommendation-chat__launcher:hover, .recommendation-chat__launcher[aria-expanded='true'] { border-color: var(--color-primary); color: var(--color-primary); }
 .recommendation-chat__launcher span { display: grid; width: 1.25rem; height: 1.25rem; place-items: center; border-radius: 50%; background: var(--color-primary); color: var(--color-background); }
-.recommendation-chat__panel { position: absolute; right: 0; bottom: 3.5rem; display: grid; width: min(27rem, calc(100vw - 2rem)); max-height: min(39rem, calc(100vh - 13rem)); overflow: hidden; gap: .8rem; padding: 1rem 1.15rem 1.15rem; border: 1px solid var(--border-purple); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(157, 78, 221, 0.08), rgba(0, 255, 135, 0.035)), var(--color-surface-low); box-shadow: var(--shadow-elevated-panel); }
+.recommendation-chat__panel { position: absolute; right: 0; bottom: 3.5rem; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto auto; width: min(27rem, calc(100vw - 2rem)); max-height: min(39rem, calc(100dvh - 13rem)); overflow: hidden; gap: .8rem; padding: 1rem 1.15rem 1.15rem; border: 1px solid var(--border-purple); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(157, 78, 221, 0.08), rgba(0, 255, 135, 0.035)), var(--color-surface-low); box-shadow: var(--shadow-elevated-panel); }
 .recommendation-chat__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .recommendation-chat__header-actions { display: flex; flex: 0 0 auto; align-items: center; gap: .4rem; }
 .recommendation-chat__key-button { padding: .4rem .55rem; border: 1px solid var(--border-glass); border-radius: var(--radius-full); background: var(--color-surface-container); color: var(--color-text-muted); cursor: pointer; font-size: .67rem; }
@@ -361,9 +361,13 @@
 
 @media (min-width: 64rem) {
   .recommendation-chat { bottom: 4.75rem; }
-  .recommendation-chat__panel { max-height: min(39rem, calc(100vh - 9rem)); }
+  .recommendation-chat__panel { max-height: min(39rem, calc(100dvh - 9rem)); }
   .recommendation-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .recommendation-filters__header, .recommendation-filters__footer { padding-inline: 1.4rem; }
+}
+
+@media (min-width: 64rem) and (max-height: 52rem) {
+  .recommendation-chat__panel { max-height: min(32rem, calc(100dvh - 14rem)); }
 }
 
 @media (min-width: 76rem) {

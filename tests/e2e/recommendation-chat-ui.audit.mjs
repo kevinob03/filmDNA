@@ -75,13 +75,26 @@ await page.getByRole('button', { name: 'Enviar', exact: true }).click()
 await page.getByText('Empecemos de nuevo.').waitFor()
 assert.equal(await page.locator('.active-filters').count(), 0)
 
-for (const width of [390, 768, 1440]) {
-  await page.setViewportSize({ width, height: 900 })
+const responsiveViewports = [
+  { width: 390, height: 900 },
+  { width: 768, height: 900 },
+  { width: 1123, height: 642 },
+  { width: 1440, height: 900 },
+]
+
+for (const { width, height } of responsiveViewports) {
+  await page.setViewportSize({ width, height })
   await page.reload({ waitUntil: 'domcontentloaded' })
   await page.getByRole('button', { name: 'Chat FilmDNA' }).click()
   await page.getByRole('heading', { name: 'Habla con FilmDNA' }).waitFor()
   const dimensions = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }))
   assert.ok(dimensions.scroll <= dimensions.client, `Overflow del chatbot a ${width}px`)
+  const [panelBox, headerBox] = await Promise.all([
+    page.locator('.recommendation-chat__panel').boundingBox(),
+    page.locator('.site-header').boundingBox(),
+  ])
+  assert.ok(panelBox && panelBox.y >= 0 && panelBox.y + panelBox.height <= height, `Overflow vertical del chatbot a ${width}x${height}px`)
+  if (width >= 1024) assert.ok(headerBox && panelBox.y >= headerBox.y + headerBox.height, `El chatbot queda oculto por el encabezado a ${width}x${height}px`)
 }
 
 for (const path of ['/', '/explorar', '/recomendaciones', '/biblioteca', '/diario', '/perfil', '/ayuda', '/login']) {
@@ -91,4 +104,4 @@ for (const path of ['/', '/explorar', '/recomendaciones', '/biblioteca', '/diari
 
 assert.deepEqual(errors, [])
 await browser.close()
-console.log(JSON.stringify({ status: 'PASS', globalAccess: 'PASS', contract: 'PASS', filters: 'PASS', history: 'PASS', errors: 'PASS', reset: 'PASS', privacy: 'PASS', responsive: { 390: 'PASS', 768: 'PASS', 1440: 'PASS' } }, null, 2))
+console.log(JSON.stringify({ status: 'PASS', globalAccess: 'PASS', contract: 'PASS', filters: 'PASS', history: 'PASS', errors: 'PASS', reset: 'PASS', privacy: 'PASS', responsive: { 390: 'PASS', 768: 'PASS', '1123x642': 'PASS', 1440: 'PASS' } }, null, 2))
