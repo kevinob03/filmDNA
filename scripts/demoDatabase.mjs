@@ -58,13 +58,29 @@ const demoListMovies = () => Array.from({ length: 24 }, (_, index) => ({
   tmdbId: MOVIE_IDS[index % MOVIE_IDS.length],
 }))
 
+const demoMovieDNA = () => [{
+  id: 'demo-dna-550',
+  tmdbId: 550,
+  alegria: 24,
+  emocion: 78,
+  complejidad: 82,
+  intensidad: 86,
+  fantasia: 18,
+  ritmo: 72,
+  explicacion: 'Perfil sintético para demostrar las seis dimensiones de Movie DNA sin consultar proveedores externos.',
+  source: 'demo',
+  provider: 'fixture',
+  model: 'synthetic-v1',
+  generatedAt: '2026-10-01T00:00:00.000Z',
+}]
+
 export const buildDemoDatabase = (referenceDate = new Date()) => ({
   usuarios: demoUsers(),
   diario: demoDiary(referenceDate),
   favoritos: demoFavorites(),
   listas: demoLists(),
   listaPeliculas: demoListMovies(),
-  movieDNA: [],
+  movieDNA: demoMovieDNA(),
   configuracionDNA: [],
   asignacionesPsicologicas: [],
   auditoriaCinematerapia: [],

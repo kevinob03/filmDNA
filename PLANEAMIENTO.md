@@ -439,7 +439,7 @@ Completado:
 - Las reseñas públicas identifican al autor mediante el nombre actual de su perfil, con un texto genérico seguro si la cuenta ya no existe o no tiene nombre.
 - Auditoría E2E del Diario ampliada para cubrir visibilidad, privacidad heredada, aislamiento entre usuarios, publicación en detalle y responsive entre `375px` y `1440px`.
 
-**Fase actual:** FASE 11 - Jest, accesibilidad y responsive final, pendiente únicamente de auditoría global.
+**Fase actual:** FASE 11 completada - auditoría global de regresión, accesibilidad y responsive aprobada.
 
 - Chatbot contextual de recomendaciones implementado dentro de Recomendaciones, con historial temporal, sugerencias rápidas, reinicio de conversación y aviso de privacidad.
 - El chatbot puede iniciar o afinar búsquedas mediante filtros permitidos, explicar candidatos visibles y solicitar aclaraciones sin inventar películas.
@@ -454,10 +454,11 @@ Completado:
 - Inicio incorpora una sección visible de acompañamiento profesional antes del FAQ, con límites clínicos y de privacidad explícitos y CTA contextual: información pública para visitantes, gestión de consentimiento para usuarios e ingreso directo al panel para psicólogos.
 - FAQ ampliada para explicar la cinematerapia supervisada; el acceso a consentimiento mediante ancla espera contenido asíncrono y respeta el encabezado fijo.
 - Cobertura del bloque aprobada con 71 pruebas unitarias, build, auditoría completa del Tour Guide v2 y auditoría responsive del Inicio a `375px`, `768px` y `1280px` con los tres estados de CTA.
+- Auditoría global final aprobada con 86 pruebas Jest, validaciones de estructura, IA, n8n, seguridad y build; E2E de Inicio, Tour, quiz, Perfil, Biblioteca, Diario, Estadísticas, Recomendaciones, búsqueda/IA, chatbot, Movie DNA, Administración, roles de Psicología y flujos de cinematerapia. Todas las verificaciones responsive y de accesibilidad auditadas pasaron. La base demo incorpora un perfil Movie DNA sintético para que la auditoría sea reproducible sin depender de `db.json` local.
 
 ## 28. Siguiente paso
 
-Ejecutar la auditoría global final de regresión, accesibilidad y responsive para cerrar la FASE 11.
+Preparar la demostración final con `npm run server:demo`, `npm run dev` y los workflows n8n publicados, verificando las credenciales locales sin incorporarlas a Git.
 
 ## 29. Decisiones pendientes y contradicciones registradas
 
