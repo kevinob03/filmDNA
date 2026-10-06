@@ -15,10 +15,18 @@ test('genera datos demo sinteticos, relacionados y suficientes para Admin', () =
   assert.equal(database.favoritos.length, 20)
   assert.equal(database.listas.length, 8)
   assert.equal(database.listaPeliculas.length, 24)
+  assert.equal(database.movieDNA.length, 1)
   assert.ok(database.usuarios.every(({ id, email }) => id.startsWith('demo-') && email.endsWith('@filmdna.test')))
   assert.ok(database.diario.every(({ usuarioId }) => userIds.has(usuarioId)))
   assert.ok(database.favoritos.every(({ usuarioId }) => userIds.has(usuarioId)))
   assert.ok(database.listaPeliculas.every(({ listaId }) => listIds.has(listaId)))
+})
+
+test('incluye un perfil Movie DNA válido para las auditorías visuales', () => {
+  const profile = buildDemoDatabase(referenceDate).movieDNA[0]
+  assert.equal(profile.tmdbId, 550)
+  assert.ok(['alegria', 'emocion', 'complejidad', 'intensidad', 'fantasia', 'ritmo'].every((key) => Number.isFinite(profile[key]) && profile[key] >= 0 && profile[key] <= 100))
+  assert.ok(profile.explicacion)
 })
 
 test('produce seis meses activos, tendencia visible y confianza alta', () => {
