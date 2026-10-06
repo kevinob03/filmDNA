@@ -40,6 +40,8 @@ test('normaliza únicamente métricas agregadas válidas', () => {
 
 test('el prompt declara límites de privacidad e incertidumbre', () => {
   const prompt = buildAdminProjectionPrompt(input)
+  assert.match(prompt, /espanol natural todos los campos textuales/i)
+  assert.match(prompt, /summary, rationale, title y detail/i)
   assert.match(prompt, /no contienen nombres, correos ni notas personales/i)
   assert.match(prompt, /no presentes la proyección como certeza/i)
 })

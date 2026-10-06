@@ -11,3 +11,4 @@ coverage/
 Thumbs.db
 *.log
 backups/*.json
+db.demo.json

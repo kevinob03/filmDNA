@@ -2,12 +2,21 @@ import { spawn } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { buildDemoDatabase, DEMO_ADMIN_CREDENTIALS } from './demoDatabase.mjs'
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const databasePath = path.join(projectRoot, 'db.json')
+const demoMode = process.argv.includes('--demo')
+const databasePath = path.join(projectRoot, demoMode ? 'db.demo.json' : 'db.json')
 const jsonServerEntry = path.join(projectRoot, 'node_modules', 'json-server', 'lib', 'bin.js')
 const requiredCollections = ['asignacionesPsicologicas', 'auditoriaCinematerapia', 'registrosEmocionales', 'propuestasCinematerapia']
 
+if (demoMode) {
+  await writeFile(databasePath, JSON.stringify(buildDemoDatabase(), null, 2) + '\n', 'utf8')
+  console.info('[FilmDNA server] Modo demo: db.demo.json regenerado con datos sinteticos recientes.')
+  console.info(`[FilmDNA server] Acceso Admin demo: ${DEMO_ADMIN_CREDENTIALS.email} / ${DEMO_ADMIN_CREDENTIALS.password}`)
+}
+
+if (!demoMode) {
 const rawDatabase = await readFile(databasePath, 'utf8')
 const database = JSON.parse(rawDatabase)
 let updated = false
@@ -24,6 +33,7 @@ for (const collection of requiredCollections) {
 if (updated) {
   await writeFile(databasePath, JSON.stringify(database, null, 2) + '\n', 'utf8')
   console.info('[FilmDNA server] Esquema de cinematerapia preparado sin modificar datos existentes.')
+}
 }
 
 const port = process.env.FILMDNA_JSON_SERVER_PORT || '3001'

@@ -145,7 +145,7 @@ function AdminPage() {
             <ActivityProjectionChart analytics={analytics} aiProjection={projectionResult?.result} />
             <FeatureAdoptionChart adoption={analytics.adoption} totalUsers={analytics.totals.users} />
             <RatingDistributionChart distribution={analytics.ratingDistribution} />
-            <AIProjectionPanel result={projectionResult} status={projectionStatus} error={projectionError} onGenerate={generateProjection} />
+            <AIProjectionPanel result={projectionResult} status={projectionStatus} error={projectionError} onGenerate={generateProjection} baselineForecast={analytics.baselineForecast} />
           </div>
           <div className="admin-management">
             <AdminUserForm editingUser={editingUser} isSaving={busy} onCancel={() => setEditingUser(null)} onSubmit={saveUser} />

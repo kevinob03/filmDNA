@@ -93,6 +93,10 @@ REGLAS INMUTABLES:
 MÉTRICAS AGREGADAS:
 ${JSON.stringify(input)}
 
+INSTRUCCION DE IDIOMA: Escribe en espanol natural todos los campos textuales: summary, rationale, title y detail. Conserva en ingles solamente los valores enumerados exigidos por el schema.
+
+INSTRUCCION DE IDIOMA: Escribe en espanol natural todos los campos textuales: summary, rationale, title y detail. Conserva en ingles solamente los valores enumerados exigidos por el schema.
+
 SCHEMA VERSION: ${ADMIN_PROJECTION_SCHEMA_VERSION}`
 
 export const validateAdminProjectionResponse = (response, input) => {
